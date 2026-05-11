@@ -1,0 +1,30 @@
+[
+  {
+    "titulo": "Modelo operativo de soporte",
+    "tipo": "Guía operativa",
+    "url": "./docs/modelo-operativo.md",
+    "descripcion": "Define productos, fuentes, relaciones producto-fuente, ambientes, fases de soporte y límites operativos del equipo.",
+    "estado": "Base"
+  },
+  {
+    "titulo": "Catálogo de monitoreo y observabilidad",
+    "tipo": "Guía operativa",
+    "url": "./docs/estandar-monitoreo.md",
+    "descripcion": "Explica cómo usar Grafana como fuente oficial de monitoreo en tiempo real y cómo mantener el catálogo documental de observabilidad.",
+    "estado": "Base"
+  },
+  {
+    "titulo": "Traspaso a soporte",
+    "tipo": "Checklist",
+    "url": "./docs/traspaso-soporte.md",
+    "descripcion": "Lista antecedentes requeridos para recibir productos, fuentes o relaciones en operación de soporte.",
+    "estado": "Base"
+  },
+  {
+    "titulo": "Guía de mantención del portal",
+    "tipo": "Manual repositorio",
+    "url": "./docs/guia-mantencion-portal.md",
+    "descripcion": "Explica cómo actualizar JSON, Markdown y templates sin introducir información sensible.",
+    "estado": "Base"
+  }
+]

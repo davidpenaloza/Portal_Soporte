@@ -1,0 +1,33 @@
+{
+  "producto": "Nombre del producto o fuente",
+  "ambiente": "PRD | UAT | STAGE | DEV | Transversal",
+  "ambientesDisponibles": ["PRD", "UAT", "STAGE", "DEV"],
+  "ambienteSoportado": "PRD",
+  "estadoSoporte": "Follow | En toma de control | Soporte activo | Soporte parcial | Pendiente de traspaso | Sin soporte formal | Retirado",
+  "faseSoporte": "Follow | En toma de control | Soporte activo | Soporte parcial | Pendiente de traspaso | Sin soporte formal | Retirado",
+  "nivelSoporte": "Documental | N1 | N1/N2 | Sin soporte formal",
+  "dashboardPrincipal": "Grafana · Entidad · Nombre del dashboard",
+  "objetivoDashboard": "Qué permite interpretar este dashboard y cuándo debe revisarse",
+  "componentesMonitoreados": [
+    "Producto, fuente o componente cubierto 1",
+    "Producto, fuente o componente cubierto 2"
+  ],
+  "revisarPrimero": [
+    "Panel, señal o validación inicial",
+    "Segundo punto de revisión antes de escalar"
+  ],
+  "frecuenciaEsperada": "Frecuencia documental de revisión, no estado vivo",
+  "criterios": {
+    "ok": "Condición interpretativa esperada para orientar diagnóstico",
+    "warn": "Condición que requiere seguimiento o validación adicional",
+    "alert": "Condición que requiere aplicar runbook o escalar"
+  },
+  "runbookAsociado": "id-runbook-relacionado",
+  "responsable": "Equipo o rol responsable",
+  "linkGrafana": "https://grafana.example.com/d/referencia-generica",
+  "observaciones": "Notas operativas sin secretos ni métricas copiadas manualmente",
+  "fuentesAsociadas": ["fte-identificador"],
+  "productosConsumidores": ["prod-identificador"],
+  "ultimaRevision": "YYYY-MM-DD",
+  "tags": ["tag1", "tag2"]
+}
