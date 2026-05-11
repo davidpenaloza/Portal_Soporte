@@ -1,0 +1,7 @@
+{
+  "titulo": "Nombre del documento",
+  "tipo": "Guía | Estándar | Checklist | Arquitectura | Minuta",
+  "url": "docs/nombre-documento.md",
+  "descripcion": "Resumen del contenido y uso del documento",
+  "estado": "Base | En construcción | Validado"
+}
