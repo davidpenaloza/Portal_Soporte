@@ -66,6 +66,7 @@ Valores esperados: `Follow`, `En toma de control`, `Soporte activo`, `Soporte pa
 ├── docs/
 │   ├── estandar-monitoreo.md
 │   ├── guia-mantencion-portal.md
+│   ├── nuevo-modelo-monitoreo.md
 │   ├── modelo-operativo.md
 │   ├── necesidades-dolores-portal-soporte.md
 │   └── traspaso-soporte.md
@@ -165,10 +166,11 @@ Cuando falla una fuente:
 
 ## Cómo actualizar monitoreo operativo
 
-1. Abrir `data/monitoreo.json`.
-2. Usar `templates/monitoreo.template.json` como referencia.
-3. Documentar dónde mirar en Grafana, qué componente cubre, qué revisar primero, criterios OK/WARN/ALERT, runbook y responsable.
-4. No copiar estados en tiempo real, últimas ejecuciones, errores vivos ni métricas dinámicas al portal.
+1. Revisar `docs/nuevo-modelo-monitoreo.md` para clasificar el síntoma en las capas de infraestructura, ingestas, procesamiento, aplicación, dominio o gestión.
+2. Abrir `data/monitoreo.json`.
+3. Usar `templates/monitoreo.template.json` como referencia.
+4. Documentar dónde mirar en Grafana, qué componente cubre, qué revisar primero, criterios OK/WARN/ALERT, runbook y responsable.
+5. No copiar estados en tiempo real, últimas ejecuciones, errores vivos ni métricas dinámicas al portal.
 
 ## Cómo agregar runbooks
 

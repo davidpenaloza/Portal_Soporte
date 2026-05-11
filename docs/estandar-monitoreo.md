@@ -10,6 +10,10 @@ Describir cómo el equipo de soporte debe usar los dashboards de Grafana y otras
 - **El portal es la fuente de conocimiento operativo:** explica dónde mirar, qué significa cada dashboard, qué revisar primero y qué runbook aplicar.
 - No registrar manualmente estados actuales, últimas ejecuciones ni errores vivos dentro del portal.
 
+## Relación con el nuevo modelo de monitoreo
+
+El catálogo de monitoreo se interpreta usando el [nuevo modelo de monitoreo por capas](./nuevo-modelo-monitoreo.md). Cada entrada de `data/monitoreo.json` debe indicar qué producto, fuente o componente se revisa, mientras que el modelo por capas define el orden de diagnóstico: infraestructura, ingestas, procesamiento, aplicación, dominio y gestión.
+
 ## Información mínima por dashboard
 
 Cada entrada del catálogo de monitoreo debe mantener:

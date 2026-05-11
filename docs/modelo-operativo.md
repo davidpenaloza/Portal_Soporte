@@ -34,3 +34,7 @@ El portal no asigna al equipo responsabilidades de definición funcional del dat
 - Revisión periódica de productos y fuentes con soporte activo.
 - Revisión semanal de productos en Follow o toma de control.
 - Revisión mensual de relaciones producto-fuente, responsables, runbooks y dashboards documentados.
+
+## Integración con el nuevo modelo de monitoreo
+
+El modelo operativo usa el [nuevo modelo de monitoreo por capas](./nuevo-modelo-monitoreo.md) como guía de diagnóstico preventivo y reactivo. Las capas de infraestructura, ingestas, procesamiento, aplicación, dominio y gestión están versionadas en `data/modelo-operativo.json` y se muestran en la sección **Modelo operativo de soporte** del portal.

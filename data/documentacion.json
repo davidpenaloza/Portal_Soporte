@@ -14,6 +14,13 @@
     "estado": "Base"
   },
   {
+    "titulo": "Nuevo modelo de monitoreo por capas",
+    "tipo": "Guía operativa",
+    "url": "./docs/nuevo-modelo-monitoreo.md",
+    "descripcion": "Documenta las seis capas del modelo de monitoreo, el checklist mínimo para dashboards estándar y el criterio de uso operativo antes de resolver o escalar.",
+    "estado": "Base"
+  },
+  {
     "titulo": "Traspaso a soporte",
     "tipo": "Checklist",
     "url": "./docs/traspaso-soporte.md",

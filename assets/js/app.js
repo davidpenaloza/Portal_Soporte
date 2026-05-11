@@ -189,6 +189,7 @@ function renderStatusPanel() {
 
 function renderModelo() {
   const principios = appState.data.modelo?.principios || [];
+  const capasMonitoreo = appState.data.modelo?.monitoreo || [];
   $("#modeloGrid").innerHTML = principios.length
     ? principios.map((item) => `
       <article class="card searchable-item">
@@ -198,6 +199,17 @@ function renderModelo() {
       </article>
     `).join("")
     : renderEmptyCard("Agrega principios del modelo operativo en data/modelo-operativo.json.");
+
+  $("#modeloMonitoreoGrid").innerHTML = capasMonitoreo.length
+    ? capasMonitoreo.map((item) => `
+      <article class="card searchable-item">
+        <span class="tag">Capa de monitoreo</span>
+        <h3>${escapeHtml(item.capa)}</h3>
+        <p>${escapeHtml(item.descripcion)}</p>
+        ${renderTags(item.herramientas)}
+      </article>
+    `).join("")
+    : renderEmptyCard("Agrega capas del modelo de monitoreo en data/modelo-operativo.json.");
 }
 
 function renderProductos() {

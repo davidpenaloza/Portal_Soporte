@@ -3,44 +3,95 @@
     {
       "nombre": "Producto digital",
       "descripcion": "Solución, aplicación, dashboard, backend, frontend o producto analítico que el equipo soporta con alcance operativo documentado.",
-      "artefactos": ["Inventario de producto", "Runbook principal", "Dashboard principal"]
+      "artefactos": [
+        "Inventario de producto",
+        "Runbook principal",
+        "Dashboard principal"
+      ]
     },
     {
       "nombre": "Fuente soportada",
       "descripcion": "Origen de datos, sistema, API, archivo, PI System, SharePoint, storage, base de datos, proveedor o componente que alimenta productos y puede requerir soporte propio.",
-      "artefactos": ["Inventario de fuente", "Dashboard de fuente", "Runbook de fuente"]
+      "artefactos": [
+        "Inventario de fuente",
+        "Dashboard de fuente",
+        "Runbook de fuente"
+      ]
     },
     {
       "nombre": "Relación producto-fuente",
       "descripcion": "Dependencia muchos-a-muchos que permite entender qué productos usan una fuente, dónde se detecta una falla y cómo escalar.",
-      "artefactos": ["Mapa producto-fuente", "Impacto si falla", "Evidencia mínima"]
+      "artefactos": [
+        "Mapa producto-fuente",
+        "Impacto si falla",
+        "Evidencia mínima"
+      ]
     },
     {
       "nombre": "Ambiente y fase de soporte",
       "descripcion": "PRD, UAT, STAGE y DEV son ambientes técnicos; Follow y toma de control son fases o estados de soporte, no ambientes.",
-      "artefactos": ["Ambiente soportado", "Fase de soporte", "Nivel de soporte"]
+      "artefactos": [
+        "Ambiente soportado",
+        "Fase de soporte",
+        "Nivel de soporte"
+      ]
     }
   ],
   "monitoreo": [
     {
-      "capa": "Producto",
-      "descripcion": "Dashboard o señal que permite revisar comportamiento operativo del producto soportado.",
-      "herramientas": ["Grafana", "Logs del producto", "Runbook por producto"]
+      "capa": "Infraestructura",
+      "descripcion": "Estado de recursos Azure, disponibilidad, consumo, errores de plataforma, límites y permisos.",
+      "herramientas": [
+        "Azure Monitor",
+        "Grafana",
+        "Log Analytics Workspace"
+      ]
     },
     {
-      "capa": "Fuente",
-      "descripcion": "Dashboard o señal para revisar disponibilidad de la fuente consumida por productos.",
-      "herramientas": ["Grafana", "Logs de integración", "Runbook por fuente"]
+      "capa": "Ingestas",
+      "descripcion": "Ejecución esperada versus real, archivos recibidos, latencia, frecuencia, fallas y reprocesos.",
+      "herramientas": [
+        "Grafana",
+        "ADF / orquestadores",
+        "Logs de integración"
+      ]
     },
     {
-      "capa": "Relación producto-fuente",
-      "descripcion": "Vista documental para entender impacto, síntoma visible, validación inicial y escalamiento.",
-      "herramientas": ["Mapa producto-fuente", "Matriz de escalamiento", "Evidencia mínima"]
+      "capa": "Procesamiento",
+      "descripcion": "ADF, Databricks, Container Apps Jobs, microservicios, tiempos de ejecución y errores técnicos.",
+      "herramientas": [
+        "Azure Data Factory",
+        "Databricks",
+        "Container Apps Jobs",
+        "KQL"
+      ]
     },
     {
-      "capa": "Ambiente técnico",
-      "descripcion": "Identificación de PRD, UAT, STAGE o DEV antes de diagnosticar o escalar.",
-      "herramientas": ["Inventario", "Ticket", "Dashboard asociado"]
+      "capa": "Aplicación",
+      "descripcion": "APIs, backend, frontend, disponibilidad, tiempos de respuesta, trazas y errores visibles para usuarios.",
+      "herramientas": [
+        "Application Insights",
+        "Grafana",
+        "Logs de aplicación"
+      ]
+    },
+    {
+      "capa": "Dominio",
+      "descripcion": "KPIs, reglas de negocio, datos esperados, consistencia, freshness y completitud funcional.",
+      "herramientas": [
+        "Dashboards funcionales",
+        "Validaciones de datos",
+        "Runbooks por producto"
+      ]
+    },
+    {
+      "capa": "Gestión",
+      "descripcion": "Indicadores de soporte, incidentes, cumplimiento, tiempos de atención, brechas y mejora continua.",
+      "herramientas": [
+        "ITSM",
+        "Tablero de control operativo",
+        "Matriz de escalamiento"
+      ]
     }
   ],
   "incidentes": [
