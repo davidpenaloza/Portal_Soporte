@@ -47,11 +47,17 @@ Valores esperados: `Follow`, `En toma de control`, `Soporte activo`, `Soporte pa
 ```text
 .
 ├── index.html
+├── documento.html
 ├── assets/
 │   ├── css/
+│   │   ├── markdown.css
 │   │   └── styles.css
-│   └── js/
-│       └── app.js
+│   ├── js/
+│   │   ├── app.js
+│   │   └── markdown-viewer.js
+│   └── vendor/
+│       ├── marked.min.js
+│       └── purify.min.js
 ├── data/
 │   ├── capacitaciones.json
 │   ├── documentacion.json
@@ -59,6 +65,7 @@ Valores esperados: `Follow`, `En toma de control`, `Soporte activo`, `Soporte pa
 │   ├── fuentes.json
 │   ├── links-interes.json
 │   ├── modelo-operativo.json
+│   ├── modelos-monitoreo.json
 │   ├── monitoreo.json
 │   ├── producto-fuente.json
 │   ├── productos.json
@@ -67,6 +74,10 @@ Valores esperados: `Follow`, `En toma de control`, `Soporte activo`, `Soporte pa
 │   ├── estandar-monitoreo.md
 │   ├── guia-mantencion-portal.md
 │   ├── nuevo-modelo-monitoreo.md
+│   ├── modelo-monitoreo/
+│   │   ├── README.md
+│   │   ├── catalogo-funciones.md
+│   │   └── troubleshooting.md
 │   ├── modelo-operativo.md
 │   ├── necesidades-dolores-portal-soporte.md
 │   └── traspaso-soporte.md
@@ -103,9 +114,41 @@ Para ejecutar una validación básica de estructura, rutas relativas, JSON, pale
 python3 scripts/validate-static-portal.py
 ```
 
+## Visor interno de documentación Markdown
+
+El portal incluye `documento.html`, una página estática para mostrar archivos Markdown con estilos consistentes con la identidad visual AMSA. En vez de enlazar directamente a un archivo `.md`, usar el visor con el parámetro `doc`:
+
+```text
+./documento.html?doc=docs/modelo-monitoreo/README.md
+./documento.html?doc=docs/modelo-monitoreo/catalogo-funciones.md
+./documento.html?doc=docs/modelo-monitoreo/troubleshooting.md
+```
+
+El visor:
+
+- Solo permite rutas dentro de `docs/`.
+- Bloquea segmentos inseguros como `../` y rutas absolutas.
+- Carga el Markdown con `fetch()`, por lo que funciona en GitHub Pages o en cualquier servidor estático.
+- Convierte Markdown a HTML usando utilidades locales en `assets/vendor/marked.min.js`.
+- Sanitiza el HTML antes de insertarlo usando `assets/vendor/purify.min.js`.
+- Genera automáticamente una tabla de contenidos con encabezados `h2` y `h3`.
+- Mantiene un botón para abrir el Markdown original cuando sea necesario.
+
+Las utilidades locales en `assets/vendor/` implementan la funcionalidad necesaria para este portal y evitan depender de CDN externos, `localhost`, SharePoint o backend.
+
+### Cómo agregar nuevos documentos Markdown
+
+1. Crear el archivo dentro de `docs/`, preferentemente en una subcarpeta temática como `docs/modelo-monitoreo/`.
+2. Registrar el documento en `data/documentacion.json` usando `markdownUrl` y `viewerUrl`.
+3. Si pertenece al modelo de monitoreo, registrarlo también en `data/modelos-monitoreo.json` con `titulo`, `archivo`, `descripcion`, `tipo`, `markdownUrl` y `viewerUrl`.
+4. Enlazar siempre la experiencia principal con `viewerUrl`, por ejemplo `./documento.html?doc=docs/modelo-monitoreo/nuevo-documento.md`.
+5. Reservar `markdownUrl` solo como respaldo para abrir el archivo crudo.
+
+No se recomienda enlazar directamente a `.md` cuando se busca una experiencia visual profesional, porque el navegador muestra el archivo crudo fuera del diseño, navegación y estilos del portal.
+
 ## Compatibilidad con GitHub Pages
 
-El portal mantiene rutas relativas como `./assets/css/styles.css`, `./assets/js/app.js` y `./data/productos.json`. No usa rutas absolutas que comiencen con `/`, no depende de `localhost`, no depende de SharePoint y no requiere backend.
+El portal mantiene rutas relativas como `./assets/css/styles.css`, `./assets/js/app.js`, `./documento.html?doc=docs/modelo-monitoreo/README.md` y `./data/productos.json`. No usa rutas absolutas que comiencen con `/`, no depende de `localhost`, no depende de SharePoint y no requiere backend.
 
 ## Paleta visual AMSA
 
@@ -121,7 +164,7 @@ El portal usa la paleta corporativa indicada para AMSA, declarada como variables
 
 ## Documento de necesidades y dolores
 
-El documento `docs/necesidades-dolores-portal-soporte.md` ordena las hipótesis iniciales sobre necesidades, dolores operativos, perfiles a entrevistar, preguntas sugeridas y criterios de éxito del portal. Este documento es un insumo para entrevistas futuras y debe actualizarse con hallazgos reales del levantamiento.
+El documento `./documento.html?doc=docs/necesidades-dolores-portal-soporte.md` ordena las hipótesis iniciales sobre necesidades, dolores operativos, perfiles a entrevistar, preguntas sugeridas y criterios de éxito del portal. Este documento es un insumo para entrevistas futuras y debe actualizarse con hallazgos reales del levantamiento.
 
 ## Cómo agregar un producto
 
@@ -166,8 +209,8 @@ Cuando falla una fuente:
 
 ## Cómo actualizar monitoreo operativo
 
-1. Revisar `docs/nuevo-modelo-monitoreo.md` para clasificar el síntoma en las capas de infraestructura, ingestas, procesamiento, aplicación, dominio o gestión.
-2. Abrir `data/monitoreo.json`.
+1. Revisar `./documento.html?doc=docs/modelo-monitoreo/README.md` o `./documento.html?doc=docs/nuevo-modelo-monitoreo.md` para clasificar el síntoma en las capas de infraestructura, ingestas, procesamiento, aplicación, dominio o gestión.
+2. Abrir `data/monitoreo.json` y, si corresponde, `data/modelos-monitoreo.json`.
 3. Usar `templates/monitoreo.template.json` como referencia.
 4. Documentar dónde mirar en Grafana, qué componente cubre, qué revisar primero, criterios OK/WARN/ALERT, runbook y responsable.
 5. No copiar estados en tiempo real, últimas ejecuciones, errores vivos ni métricas dinámicas al portal.

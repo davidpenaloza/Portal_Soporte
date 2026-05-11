@@ -18,6 +18,7 @@ JSON_FILES = [
     "data/runbooks.json",
     "data/modelo-operativo.json",
     "data/monitoreo.json",
+    "data/modelos-monitoreo.json",
     "data/capacitaciones.json",
     "templates/producto.template.json",
     "templates/fuente.template.json",
@@ -38,6 +39,7 @@ REQUIRED_DATA_SOURCES = [
     "./data/runbooks.json",
     "./data/modelo-operativo.json",
     "./data/monitoreo.json",
+    "./data/modelos-monitoreo.json",
     "./data/capacitaciones.json",
 ]
 
@@ -55,6 +57,7 @@ REQUIRED_RELATION_FIELDS = [
     "productoId", "fuenteId", "faena", "ambiente", "tipoDependencia", "criticidadRelacion", "fuenteObligatoria", "componenteAfectado", "impactoSiFalla", "sintomaVisible", "dashboardDondeSeDetecta", "validacionInicial", "runbookAsociado", "escalamiento", "evidenciaMinima", "observaciones",
 ]
 REQUIRED_MONITORING_FIELDS = ["producto", "dashboardPrincipal", "objetivoDashboard", "componentesMonitoreados", "revisarPrimero", "frecuenciaEsperada", "criterios", "runbookAsociado", "responsable", "linkGrafana", "observaciones"]
+REQUIRED_MONITORING_MODEL_FIELDS = ["titulo", "archivo", "descripcion", "tipo", "markdownUrl", "viewerUrl"]
 REQUIRED_ESCALATION_FIELDS = ["tipoEntidad", "productoId", "fuenteId", "ambiente", "faena", "tipoProblema", "sintomaVisible", "diagnosticoInicial", "evidenciaMinima", "equipoEscalamiento", "canal", "cuandoEscalar", "cuandoNoEscalarTodavia", "urgencia", "horarioAplicable", "observaciones"]
 
 PROHIBITED_TERMS = ["local" + "Storage", "content" + "editable", "modo " + "edición", "data " + "governance"]
@@ -112,12 +115,14 @@ def main() -> None:
     sources = load_json("data/fuentes.json")
     relations = load_json("data/producto-fuente.json")
     monitoring = load_json("data/monitoreo.json")
+    monitoring_models = load_json("data/modelos-monitoreo.json")
     escalations = load_json("data/escalamientos.json")
 
     validate_fields(products, REQUIRED_PRODUCT_FIELDS, "data/productos.json")
     validate_fields(sources, REQUIRED_SOURCE_FIELDS, "data/fuentes.json")
     validate_fields(relations, REQUIRED_RELATION_FIELDS, "data/producto-fuente.json")
     validate_fields(monitoring, REQUIRED_MONITORING_FIELDS, "data/monitoreo.json")
+    validate_fields(monitoring_models, REQUIRED_MONITORING_MODEL_FIELDS, "data/modelos-monitoreo.json")
     validate_fields(escalations, REQUIRED_ESCALATION_FIELDS, "data/escalamientos.json")
 
     product_ids = {item["id"] for item in products}
@@ -143,6 +148,17 @@ def main() -> None:
     for entry in monitoring:
         criteria = entry.get("criterios", {})
         assert_true(all(key in criteria for key in ["ok", "warn", "alert"]), "Cada criterio debe incluir ok, warn y alert")
+
+    for entry in monitoring_models:
+        assert_true(entry["markdownUrl"].startswith("./docs/") and entry["markdownUrl"].endswith(".md"), f"markdownUrl inválida en modelo de monitoreo: {entry['markdownUrl']}")
+        assert_true(entry["viewerUrl"].startswith("./documento.html?doc=docs/") and entry["viewerUrl"].endswith(".md"), f"viewerUrl inválida en modelo de monitoreo: {entry['viewerUrl']}")
+        assert_true("../" not in entry["viewerUrl"], f"viewerUrl insegura en modelo de monitoreo: {entry['viewerUrl']}")
+
+    Parser().feed(read("documento.html"))
+    read("assets/js/markdown-viewer.js")
+    read("assets/css/markdown.css")
+    read("assets/vendor/marked.min.js")
+    read("assets/vendor/purify.min.js")
 
     combined_text = "\n".join([html, app_js, read("README.md"), read("docs/modelo-operativo.md"), read("docs/guia-mantencion-portal.md")])
     for term in PROHIBITED_TERMS:
