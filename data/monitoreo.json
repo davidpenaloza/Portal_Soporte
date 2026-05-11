@@ -1,0 +1,53 @@
+[
+  {
+    "producto": "ADA Operacional",
+    "dashboardPrincipal": "Grafana · ADA · Salud operacional",
+    "objetivoDashboard": "Orientar la revisión de ingestas, procesamiento y disponibilidad de datos del producto antes de aplicar un runbook o escalar.",
+    "componentesMonitoreados": ["Ingesta de datos", "Pipelines de procesamiento", "Servicios de consulta", "Validaciones de frescura"],
+    "revisarPrimero": ["Panel de frescura de datos", "Ventana esperada de actualización", "Errores agrupados por componente", "Alertas activas asociadas al producto"],
+    "frecuenciaEsperada": "Revisión diaria en operación normal y revisión inmediata ante alerta o ticket asociado.",
+    "criterios": {
+      "ok": "Datos dentro de la ventana esperada, sin alertas activas relevantes y ejecuciones recientes completas.",
+      "warn": "Latencia cercana al umbral, reprocesos recientes o alertas intermitentes sin impacto confirmado.",
+      "alert": "Datos fuera de ventana crítica, fallas persistentes o impacto funcional reportado por usuarios."
+    },
+    "runbookAsociado": "runbook-ada-ingesta",
+    "responsable": "Soporte DAA + Desarrollo",
+    "linkGrafana": "https://grafana.example.com/d/ada-operacional",
+    "observaciones": "El portal documenta cómo interpretar el dashboard; el estado en tiempo real debe validarse directamente en Grafana."
+  },
+  {
+    "producto": "SIRO Potencia",
+    "dashboardPrincipal": "Grafana · SIRO Potencia · Disponibilidad y latencia",
+    "objetivoDashboard": "Guiar el análisis de latencia, disponibilidad de señales y continuidad de procesamiento para eventos reportados.",
+    "componentesMonitoreados": ["Señales de potencia", "Jobs de procesamiento", "Disponibilidad de APIs", "Frescura por origen"],
+    "revisarPrimero": ["Panel de latencia por fuente", "Ejecuciones fallidas recientes", "Tendencia de errores técnicos", "Comparación con frecuencia esperada"],
+    "frecuenciaEsperada": "Revisión en horario hábil y ante alertas de atraso, indisponibilidad o inconsistencia funcional.",
+    "criterios": {
+      "ok": "Señales disponibles dentro del rango esperado y sin errores persistentes en procesamiento.",
+      "warn": "Atrasos acotados, errores recuperados automáticamente o diferencias que requieren seguimiento.",
+      "alert": "Indisponibilidad, atraso fuera de tolerancia o falla repetida que afecta consulta funcional."
+    },
+    "runbookAsociado": "runbook-siro-latencia",
+    "responsable": "Soporte DAA",
+    "linkGrafana": "https://grafana.example.com/d/siro-potencia",
+    "observaciones": "Usar el dashboard para orientar el diagnóstico, no para registrar estados manuales en el portal."
+  },
+  {
+    "producto": "Mineral Tracking",
+    "dashboardPrincipal": "Grafana · Mineral Tracking · Trazabilidad y calidad de datos",
+    "objetivoDashboard": "Facilitar la revisión de frescura, completitud y consistencia de datos asociados a trazabilidad operacional.",
+    "componentesMonitoreados": ["Tablas de trazabilidad", "Procesos de consolidación", "Validaciones de calidad", "Indicadores de completitud"],
+    "revisarPrimero": ["Frescura por dominio", "Brechas de completitud", "Errores de consolidación", "Diferencias reportadas por usuarios"],
+    "frecuenciaEsperada": "Revisión semanal preventiva y revisión prioritaria ante reportes de diferencias o alertas de calidad.",
+    "criterios": {
+      "ok": "Datos completos y frescos según ventana acordada, sin diferencias relevantes reportadas.",
+      "warn": "Brechas menores de completitud, diferencias aisladas o validaciones pendientes de confirmación funcional.",
+      "alert": "Inconsistencia relevante, falta de datos críticos o impacto confirmado en análisis operacional."
+    },
+    "runbookAsociado": "runbook-mineral-tracking-calidad-datos",
+    "responsable": "Soporte DAA + Arquitectura de datos",
+    "linkGrafana": "https://grafana.example.com/d/mineral-tracking",
+    "observaciones": "Validar diferencias con la contraparte funcional antes de cerrar incidentes de calidad de datos."
+  }
+]

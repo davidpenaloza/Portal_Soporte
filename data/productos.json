@@ -1,0 +1,35 @@
+[
+  {
+    "nombre": "ADA Operacional",
+    "criticidad": "Crítica",
+    "duenoFuncional": "Gerencia usuaria definida por producto",
+    "responsableTecnico": "Soporte DAA + Desarrollo",
+    "horario": "Horario hábil con coordinación de guardia pasiva ante contingencias",
+    "dashboard": "Dashboard ejecutivo de salud operacional",
+    "runbook": "runbook-ada-ingesta",
+    "estadoDocumentacion": "Base",
+    "descripcion": "Producto analítico para seguimiento operacional y apoyo a decisiones tácticas."
+  },
+  {
+    "nombre": "SIRO Potencia",
+    "criticidad": "Alta",
+    "duenoFuncional": "Operación mina / planificación",
+    "responsableTecnico": "Soporte DAA",
+    "horario": "Horario hábil",
+    "dashboard": "Panel de disponibilidad y datos recientes",
+    "runbook": "runbook-siro-latencia",
+    "estadoDocumentacion": "En construcción",
+    "descripcion": "Solución de monitoreo y explotación de variables de potencia para análisis operacional."
+  },
+  {
+    "nombre": "Mineral Tracking",
+    "criticidad": "Media / Alta",
+    "duenoFuncional": "Cadena de valor mina-planta",
+    "responsableTecnico": "Soporte DAA + Arquitectura de datos",
+    "horario": "Horario hábil",
+    "dashboard": "Panel de trazabilidad y frescura de datos",
+    "runbook": "runbook-mineral-tracking-calidad-datos",
+    "estadoDocumentacion": "Pendiente de completar",
+    "descripcion": "Seguimiento analítico de trazabilidad de mineral y consistencia entre fuentes."
+  }
+]
