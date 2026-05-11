@@ -1,6 +1,6 @@
 # Portal de Soporte AMSA
 
-Portal web estático para centralizar información operativa del equipo de **Soporte Data & Analítica Avanzada**. El sitio está diseñado para consultar productos soportados, modelo operativo, runbooks, escalamientos, documentación, links de interés y capacitaciones desde archivos versionados en el repositorio.
+Portal web estático para centralizar información operativa del equipo de **Soporte Data & Analítica Avanzada**. El sitio está diseñado para consultar productos soportados, modelo operativo, catálogo de monitoreo, runbooks, escalamientos, documentación, links de interés y capacitaciones desde archivos versionados en el repositorio.
 
 ## Objetivo del portal
 
@@ -8,6 +8,7 @@ Entregar un punto único de consulta, mantenible y publicable como sitio estáti
 
 - Consultar el inventario de productos soportados.
 - Revisar el modelo operativo de soporte.
+- Consultar el catálogo de monitoreo y observabilidad como complemento de Grafana.
 - Acceder a runbooks y criterios de escalamiento.
 - Mantener documentación y links de interés ordenados.
 - Facilitar onboarding y capacitaciones internas.
@@ -33,6 +34,7 @@ Versión inicial refactorizada como proyecto web estático. El portal ya separa 
 │   ├── escalamientos.json
 │   ├── links-interes.json
 │   ├── modelo-operativo.json
+│   ├── monitoreo.json
 │   ├── productos.json
 │   └── runbooks.json
 ├── docs/
@@ -67,9 +69,24 @@ http://localhost:8080
 También se puede usar cualquier servidor estático equivalente, por ejemplo extensiones de editor, `npx serve` o un hosting estático corporativo.
 
 
+
+## Relación con Grafana
+
+Grafana es la fuente oficial para monitoreo en tiempo real, estados actuales, últimas ejecuciones, errores recientes y métricas operacionales dinámicas. El portal no debe reemplazar ni duplicar esos datos.
+
+El portal cumple un rol complementario como fuente de conocimiento operativo:
+
+- Indica qué dashboard revisar por producto.
+- Explica el objetivo de cada dashboard y sus componentes monitoreados.
+- Documenta qué revisar primero ante alertas o tickets.
+- Mantiene criterios interpretativos OK / WARN / ALERT como guía, no como estado vivo.
+- Vincula runbooks, responsables y rutas de escalamiento.
+
+No se deben agregar al portal capturas, métricas copiadas manualmente, estados actuales ni valores que queden obsoletos frente a Grafana.
+
 ## Consideraciones para SharePoint
 
-El portal está preparado para publicarse desde una biblioteca de documentos de SharePoint siempre que se mantenga la estructura de carpetas junto a `index.html`. Las referencias de ejecución usan rutas relativas al archivo `index.html`, por ejemplo `./assets/css/styles.css`, `./assets/js/app.js` y `./data/productos.json`.
+El portal está preparado para publicarse desde GitHub Pages o desde una biblioteca de documentos de SharePoint siempre que se mantenga la estructura de carpetas junto a `index.html`. Las referencias de ejecución usan rutas relativas al archivo `index.html`, por ejemplo `./assets/css/styles.css`, `./assets/js/app.js` y `./data/productos.json`.
 
 Para evitar errores de carga:
 
@@ -83,7 +100,7 @@ Para evitar errores de carga:
 1. Abrir `data/productos.json`.
 2. Copiar la estructura de `templates/producto.template.json`.
 3. Agregar un nuevo objeto al arreglo JSON.
-4. Completar campos como nombre, criticidad, dueño funcional, responsable técnico, horario, dashboard, runbook, estado documental y descripción.
+4. Completar campos como nombre, criticidad, dueño funcional, responsable técnico, horario, referencia al dashboard principal, runbook, estado documental y descripción.
 5. Validar que el JSON siga siendo válido.
 
 Ejemplo de campos obligatorios:
@@ -97,6 +114,15 @@ Ejemplo de campos obligatorios:
 - `runbook`
 - `estadoDocumentacion`
 - `descripcion`
+
+
+## Cómo actualizar el catálogo de monitoreo
+
+1. Abrir `data/monitoreo.json`.
+2. Agregar una entrada por producto o dashboard relevante.
+3. Completar dashboard principal, objetivo, componentes monitoreados, qué revisar primero, frecuencia esperada, criterios OK / WARN / ALERT, runbook asociado, responsable, link a Grafana y observaciones.
+4. Usar links a Grafana sin tokens, credenciales, parámetros sensibles ni rutas internas innecesarias.
+5. Recordar que los criterios son guías interpretativas; el estado real se valida en Grafana.
 
 ## Cómo agregar runbooks
 
@@ -142,7 +168,7 @@ Ejemplo de campos obligatorios:
 - Validar sintaxis JSON antes de publicar.
 - No incluir secretos, tokens, credenciales, cadenas de conexión ni datos productivos sensibles.
 - Preferir roles, equipos y descripciones operativas por sobre datos personales.
-- Mantener actualizados responsables, criticidades, horarios, dashboards y rutas de escalamiento.
+- Mantener actualizados responsables, criticidades, horarios, referencias a dashboards, catálogo de monitoreo y rutas de escalamiento.
 - Revisar runbooks después de incidentes relevantes o cambios de arquitectura.
 - Usar Markdown en `docs/` para guías extensas y JSON en `data/` para contenido estructurado.
 - Revisar el portal en móvil y escritorio antes de publicar cambios relevantes.

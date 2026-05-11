@@ -1,30 +1,38 @@
-# Estándar de monitoreo
+# Catálogo de monitoreo y observabilidad
 
 ## Objetivo
 
-Establecer un marco mínimo de observabilidad para productos soportados por Data & Analítica Avanzada.
+Describir cómo el equipo de soporte debe usar los dashboards de Grafana y otras fuentes de observabilidad como mapa de diagnóstico. Este documento no reemplaza Grafana ni debe duplicar estados dinámicos de productos.
 
-## Capas mínimas
+## Principio operativo
 
-1. **Infraestructura:** disponibilidad, capacidad, permisos, errores de plataforma y límites.
-2. **Ingestas:** recepción esperada, latencia, frecuencia, archivos o eventos faltantes.
-3. **Procesamiento:** pipelines, jobs, notebooks, contenedores, duración y errores.
-4. **Aplicación:** APIs, frontend, backend, trazas y tiempos de respuesta.
-5. **Dominio:** frescura, completitud, consistencia y reglas funcionales.
-6. **Gestión:** tickets, tiempos de atención, incidentes repetidos y brechas de documentación.
+- **Grafana es la fuente oficial para monitoreo en tiempo real.**
+- **El portal es la fuente de conocimiento operativo:** explica dónde mirar, qué significa cada dashboard, qué revisar primero y qué runbook aplicar.
+- No registrar manualmente estados actuales, últimas ejecuciones ni errores vivos dentro del portal.
 
-## Indicadores recomendados
+## Información mínima por dashboard
 
-- Estado general del producto: OK, WARN o ALERT.
-- Última ejecución correcta.
-- Latencia frente a frecuencia esperada.
-- Errores recientes por componente.
-- Validaciones de completitud y frescura.
-- Incidentes abiertos y repetidos.
+Cada entrada del catálogo de monitoreo debe mantener:
+
+- Producto asociado.
+- Dashboard principal o panel de referencia.
+- Objetivo del dashboard.
+- Componentes monitoreados.
+- Qué revisar primero ante una alerta o ticket.
+- Frecuencia esperada de revisión.
+- Criterios interpretativos OK / WARN / ALERT.
+- Runbook asociado.
+- Responsable del seguimiento.
+- Link a Grafana.
+- Observaciones operativas.
+
+## Criterios interpretativos
+
+Los criterios OK / WARN / ALERT son guías documentales para orientar el diagnóstico. La validación del estado real debe hacerse directamente en Grafana, logs, herramientas cloud o sistemas oficiales de gestión.
 
 ## Buenas prácticas
 
-- Evitar dashboards con rutas sensibles, secretos o identificadores productivos innecesarios.
-- Documentar consultas críticas en repositorio.
-- Definir umbrales con responsables funcionales y técnicos.
-- Revisar alertas ruidosas y ajustar umbrales con evidencia.
+- Mantener links a dashboards sin tokens, credenciales ni parámetros sensibles.
+- Documentar el significado de paneles y alertas, no copiar métricas en vivo.
+- Revisar el catálogo cuando cambien dashboards, alertas, productos o runbooks.
+- Asociar cada alerta recurrente a un runbook o ruta de escalamiento.

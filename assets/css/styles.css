@@ -201,6 +201,11 @@ section.hidden-by-search { display: none; }
 .tag { color: var(--amsa-blue); background: var(--amsa-blue-3); }
 .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .status-panel { display: grid; gap: 10px; margin-top: 16px; }
+
+.monitoring-card h4 { margin: 18px 0 8px; color: var(--amsa-blue); font-size: 0.94rem; }
+.criteria-list { display: grid; gap: 10px; margin: 18px 0; }
+.criteria-list div { padding: 12px; border: 1px solid #edf2f7; border-radius: 14px; background: #fbfdff; }
+.criteria-list p { margin: 8px 0 0; font-size: 0.9rem; }
 .error-message { padding: 14px 16px; border-left: 4px solid var(--alert); border-radius: 14px; color: #8a1c1c; background: #fff0f0; }
 
 .table-wrap { overflow-x: auto; border: 1px solid var(--amsa-line); border-radius: 18px; background: #fff; }

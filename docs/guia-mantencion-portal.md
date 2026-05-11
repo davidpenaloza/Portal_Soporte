@@ -13,6 +13,11 @@
 
 Mantener `index.html` y las carpetas `assets/`, `data/`, `docs/` y `templates/` en el mismo nivel de la biblioteca de documentos. Las rutas del portal son relativas al `index.html` y no deben convertirse en rutas absolutas dependientes de localhost, raíz del dominio o una URL específica de SharePoint.
 
+
+## Relación con monitoreo en tiempo real
+
+Grafana es la fuente oficial para estados vivos, métricas actuales, últimas ejecuciones y errores recientes. El portal debe mantener solo conocimiento operativo: dónde revisar, cómo interpretar dashboards, qué revisar primero, criterios documentales, runbooks y rutas de escalamiento.
+
 ## Reglas de contenido
 
 - No incluir secretos, tokens, credenciales, cadenas de conexión ni suscripciones completas.

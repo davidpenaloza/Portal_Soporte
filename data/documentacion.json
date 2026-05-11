@@ -7,10 +7,10 @@
     "estado": "Base"
   },
   {
-    "titulo": "Estándar de monitoreo",
-    "tipo": "Estándar técnico",
+    "titulo": "Catálogo de monitoreo y observabilidad",
+    "tipo": "Guía operativa",
     "url": "./docs/estandar-monitoreo.md",
-    "descripcion": "Describe capas mínimas de observabilidad, KPIs recomendados y criterios de alerta.",
+    "descripcion": "Explica cómo usar Grafana como fuente oficial de monitoreo en tiempo real y cómo mantener el catálogo documental de observabilidad.",
     "estado": "Base"
   },
   {

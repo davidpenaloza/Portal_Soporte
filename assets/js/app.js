@@ -5,6 +5,7 @@ const dataSources = {
   escalamientos: "./data/escalamientos.json",
   runbooks: "./data/runbooks.json",
   modelo: "./data/modelo-operativo.json",
+  monitoreo: "./data/monitoreo.json",
   capacitaciones: "./data/capacitaciones.json"
 };
 
@@ -75,7 +76,8 @@ function renderMetrics() {
     ["Productos", appState.data.productos?.length || 0, "Inventario inicial soportado"],
     ["Runbooks", appState.data.runbooks?.length || 0, "Procedimientos operativos"],
     ["Escalamientos", appState.data.escalamientos?.length || 0, "Niveles y criterios"],
-    ["Documentos", appState.data.documentacion?.length || 0, "Guías y estándares"]
+    ["Documentos", appState.data.documentacion?.length || 0, "Guías y estándares"],
+    ["Mapas de monitoreo", appState.data.monitoreo?.length || 0, "Referencias a Grafana"]
   ];
 
   $("#metricsGrid").innerHTML = metrics
@@ -150,12 +152,28 @@ function renderProductos() {
 }
 
 function renderMonitoreo() {
-  const capas = appState.data.modelo?.monitoreo || [];
-  $("#monitoreoGrid").innerHTML = capas.map((capa) => `
-    <article class="card searchable-item">
-      <h3>${escapeHtml(capa.capa)}</h3>
-      <p>${escapeHtml(capa.descripcion)}</p>
-      ${renderTags(capa.herramientas)}
+  const catalogo = appState.data.monitoreo || [];
+  $("#monitoreoGrid").innerHTML = catalogo.map((item) => `
+    <article class="card monitoring-card searchable-item">
+      <span class="tag">${escapeHtml(item.producto)}</span>
+      <h3>${escapeHtml(item.dashboardPrincipal)}</h3>
+      <p>${escapeHtml(item.objetivoDashboard)}</p>
+      <div class="meta-list">
+        <div class="meta-item"><span>Frecuencia esperada</span><strong>${escapeHtml(item.frecuenciaEsperada)}</strong></div>
+        <div class="meta-item"><span>Runbook asociado</span><strong>${escapeHtml(item.runbookAsociado)}</strong></div>
+        <div class="meta-item"><span>Responsable</span><strong>${escapeHtml(item.responsable)}</strong></div>
+      </div>
+      <h4>Componentes monitoreados</h4>
+      ${renderTags(item.componentesMonitoreados)}
+      <h4>Qué revisar primero</h4>
+      ${renderTags(item.revisarPrimero)}
+      <div class="criteria-list">
+        <div><span class="status ok">OK</span><p>${escapeHtml(item.criterios?.ok)}</p></div>
+        <div><span class="status warn">WARN</span><p>${escapeHtml(item.criterios?.warn)}</p></div>
+        <div><span class="status alert">ALERT</span><p>${escapeHtml(item.criterios?.alert)}</p></div>
+      </div>
+      <p>${escapeHtml(item.observaciones)}</p>
+      <p><a class="pill" href="${escapeHtml(item.linkGrafana)}" target="_blank" rel="noreferrer">Abrir referencia en Grafana</a></p>
     </article>
   `).join("");
 }
