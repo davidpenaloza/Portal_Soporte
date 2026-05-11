@@ -8,6 +8,11 @@
 4. Probar localmente con un servidor estático.
 5. Solicitar revisión del equipo antes de fusionar.
 
+
+## Publicación en SharePoint
+
+Mantener `index.html` y las carpetas `assets/`, `data/`, `docs/` y `templates/` en el mismo nivel de la biblioteca de documentos. Las rutas del portal son relativas al `index.html` y no deben convertirse en rutas absolutas dependientes de localhost, raíz del dominio o una URL específica de SharePoint.
+
 ## Reglas de contenido
 
 - No incluir secretos, tokens, credenciales, cadenas de conexión ni suscripciones completas.

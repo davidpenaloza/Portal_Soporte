@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Portal interno de soporte para centralizar productos, runbooks, escalamientos, documentación y capacitaciones del equipo de Soporte Data & Analítica Avanzada." />
   <title>Portal de Soporte AMSA | Data & Analítica Avanzada</title>
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="./assets/css/styles.css" />
 </head>
 <body>
   <div class="app-shell">
@@ -45,7 +45,7 @@
           <span aria-hidden="true">🔎</span>
           <input id="searchInput" type="search" placeholder="Buscar productos, runbooks, documentos o conceptos..." autocomplete="off" />
         </div>
-        <a class="topbar-link" href="docs/guia-mantencion-portal.md">Guía de mantención</a>
+        <a class="topbar-link" href="./docs/guia-mantencion-portal.md">Guía de mantención</a>
       </header>
 
       <div class="content" id="inicio">
@@ -79,7 +79,7 @@
               <h2 id="modelo-title">Modelo operativo de soporte</h2>
               <p>Principios, responsabilidades, cadencias y artefactos que ordenan la operación del equipo.</p>
             </div>
-            <a class="pill" href="docs/modelo-operativo.md">Ver documento</a>
+            <a class="pill" href="./docs/modelo-operativo.md">Ver documento</a>
           </div>
           <div class="grid cols-3" id="modeloGrid"></div>
         </section>
@@ -90,7 +90,7 @@
               <h2 id="productos-title">Productos soportados</h2>
               <p>Inventario base de productos, criticidad, responsables, horarios de soporte y referencias operativas.</p>
             </div>
-            <a class="pill" href="templates/producto.template.json">Template producto</a>
+            <a class="pill" href="./templates/producto.template.json">Template producto</a>
           </div>
           <div class="table-wrap"><table id="productosTable"></table></div>
         </section>
@@ -101,7 +101,7 @@
               <h2 id="monitoreo-title">Monitoreo estándar por capas</h2>
               <p>Vista recomendada para revisar salud técnica, procesamiento de datos y señales funcionales.</p>
             </div>
-            <a class="pill" href="docs/estandar-monitoreo.md">Estándar de monitoreo</a>
+            <a class="pill" href="./docs/estandar-monitoreo.md">Estándar de monitoreo</a>
           </div>
           <div class="grid cols-3" id="monitoreoGrid"></div>
         </section>
@@ -112,7 +112,7 @@
               <h2 id="incidentes-title">Gestión de incidentes</h2>
               <p>Flujo operativo recomendado para detectar, diagnosticar, escalar, resolver y documentar incidentes.</p>
             </div>
-            <a class="pill" href="docs/traspaso-soporte.md">Traspaso soporte</a>
+            <a class="pill" href="./docs/traspaso-soporte.md">Traspaso soporte</a>
           </div>
           <div class="flow" id="incidentesFlow"></div>
         </section>
@@ -123,7 +123,7 @@
               <h2 id="escalamientos-title">Matriz de escalamiento</h2>
               <p>Criterios de severidad, tiempos objetivo y grupos responsables para derivaciones ordenadas.</p>
             </div>
-            <a class="pill" href="templates/escalamiento.template.json">Template escalamiento</a>
+            <a class="pill" href="./templates/escalamiento.template.json">Template escalamiento</a>
           </div>
           <div class="table-wrap"><table id="escalamientosTable"></table></div>
         </section>
@@ -134,7 +134,7 @@
               <h2 id="runbooks-title">Runbooks operativos</h2>
               <p>Procedimientos reutilizables para diagnóstico, contención, recuperación y cierre de eventos recurrentes.</p>
             </div>
-            <a class="pill" href="templates/runbook.template.json">Template runbook</a>
+            <a class="pill" href="./templates/runbook.template.json">Template runbook</a>
           </div>
           <div class="grid cols-2" id="runbooksGrid"></div>
         </section>
@@ -145,7 +145,7 @@
               <h2 id="documentacion-title">Repositorio documental</h2>
               <p>Índice de documentos internos, guías, arquitecturas, minutas y material operativo.</p>
             </div>
-            <a class="pill" href="templates/documentacion.template.json">Template documentación</a>
+            <a class="pill" href="./templates/documentacion.template.json">Template documentación</a>
           </div>
           <div class="grid cols-3" id="documentacionGrid"></div>
         </section>
@@ -184,6 +184,6 @@
     </main>
   </div>
 
-  <script src="assets/js/app.js"></script>
+  <script src="./assets/js/app.js"></script>
 </body>
 </html>

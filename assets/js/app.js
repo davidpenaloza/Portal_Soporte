@@ -1,11 +1,11 @@
 const dataSources = {
-  productos: "data/productos.json",
-  documentacion: "data/documentacion.json",
-  links: "data/links-interes.json",
-  escalamientos: "data/escalamientos.json",
-  runbooks: "data/runbooks.json",
-  modelo: "data/modelo-operativo.json",
-  capacitaciones: "data/capacitaciones.json"
+  productos: "./data/productos.json",
+  documentacion: "./data/documentacion.json",
+  links: "./data/links-interes.json",
+  escalamientos: "./data/escalamientos.json",
+  runbooks: "./data/runbooks.json",
+  modelo: "./data/modelo-operativo.json",
+  capacitaciones: "./data/capacitaciones.json"
 };
 
 const appState = {

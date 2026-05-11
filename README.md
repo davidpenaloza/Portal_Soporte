@@ -66,6 +66,18 @@ http://localhost:8080
 
 También se puede usar cualquier servidor estático equivalente, por ejemplo extensiones de editor, `npx serve` o un hosting estático corporativo.
 
+
+## Consideraciones para SharePoint
+
+El portal está preparado para publicarse desde una biblioteca de documentos de SharePoint siempre que se mantenga la estructura de carpetas junto a `index.html`. Las referencias de ejecución usan rutas relativas al archivo `index.html`, por ejemplo `./assets/css/styles.css`, `./assets/js/app.js` y `./data/productos.json`.
+
+Para evitar errores de carga:
+
+- Subir `index.html`, `assets/`, `data/`, `docs/` y `templates/` al mismo nivel dentro de la biblioteca.
+- No cambiar los nombres de carpetas sin actualizar las referencias en `index.html`, `assets/js/app.js` y los JSON correspondientes.
+- Evitar rutas absolutas como `/data/productos.json` o URLs dependientes de un dominio específico.
+- Verificar que SharePoint permita descargar archivos `.json`, `.css` y `.js` desde la ubicación publicada.
+
 ## Cómo agregar productos
 
 1. Abrir `data/productos.json`.
