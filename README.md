@@ -70,6 +70,18 @@ También se puede usar cualquier servidor estático equivalente, por ejemplo ext
 
 
 
+
+## Paleta visual AMSA
+
+El portal usa la paleta corporativa indicada para AMSA, declarada como variables CSS en `assets/css/styles.css`:
+
+- Pantone 1795 C: `#C8102E` para acentos críticos y alertas.
+- Pantone 3145 C: `#008C95` como color principal de navegación, títulos y acciones.
+- Pantone 325 C: `#009CA6` como apoyo para fondos y gradientes.
+- Pantone 124 C: `#E5A823` para acentos destacados y advertencias.
+- Pantone Cool Gray 10 C: `#63666A` para textos secundarios.
+- Negro de marca: `#000000` para fondos de alto contraste.
+
 ## Relación con Grafana
 
 Grafana es la fuente oficial para monitoreo en tiempo real, estados actuales, últimas ejecuciones, errores recientes y métricas operacionales dinámicas. El portal no debe reemplazar ni duplicar esos datos.
