@@ -1,0 +1,182 @@
+[
+  {
+    "id": "runbook-transversal-alerta-grafana",
+    "tipoRunbook": "Transversal",
+    "titulo": "Atención inicial de alerta Grafana",
+    "ambiente": "PRD/UAT/STAGE/DEV según alerta",
+    "productoId": null,
+    "fuenteId": null,
+    "severidadSugerida": "Según criticidad de entidad",
+    "objetivo": "Clasificar una alerta de observabilidad, identificar entidad afectada y decidir si aplicar runbook específico o escalar.",
+    "pasos": [
+      "Identificar si la alerta corresponde a producto, fuente o relación producto-fuente.",
+      "Confirmar ambiente técnico afectado: PRD, UAT, STAGE o DEV.",
+      "Revisar catálogo de monitoreo para ubicar dashboard y validación inicial.",
+      "Aplicar runbook específico si existe o escalar con evidencia mínima."
+    ],
+    "evidenciaMinima": ["Entidad afectada", "Ambiente", "Dashboard", "Timestamp", "Mensaje de alerta"],
+    "estado": "Base",
+    "ultimaRevision": "2026-05-02",
+    "tags": ["transversal", "grafana", "clasificación"]
+  },
+  {
+    "id": "runbook-ada-ingesta",
+    "tipoRunbook": "Producto",
+    "titulo": "Validación de ingesta ADA",
+    "ambiente": "PRD",
+    "productoId": "prod-ada-operacional",
+    "fuenteId": null,
+    "severidadSugerida": "Alta",
+    "objetivo": "Confirmar recepción, procesamiento y disponibilidad operativa de datos recientes ante alerta de atraso.",
+    "pasos": [
+      "Revisar dashboard principal del producto.",
+      "Validar fuentes obligatorias asociadas en el mapa producto-fuente.",
+      "Consultar logs del pipeline consumidor para identificar errores técnicos o ausencia de entrada.",
+      "Registrar evidencia y escalar si el atraso supera la ventana operacional documentada."
+    ],
+    "evidenciaMinima": ["Dashboard revisado", "Ambiente", "Fuente asociada", "Hora de revisión", "Mensaje resumido"],
+    "estado": "Base",
+    "ultimaRevision": "2026-05-01",
+    "tags": ["producto", "ada", "ingesta"]
+  },
+  {
+    "id": "runbook-siro-latencia",
+    "tipoRunbook": "Producto",
+    "titulo": "Diagnóstico de latencia SIRO Potencia",
+    "ambiente": "PRD",
+    "productoId": "prod-siro-potencia",
+    "fuenteId": null,
+    "severidadSugerida": "Media / Alta",
+    "objetivo": "Determinar si la latencia proviene de producto, fuente API, storage o proceso consumidor.",
+    "pasos": [
+      "Comparar ventana esperada contra actualización visible en Grafana.",
+      "Revisar relaciones producto-fuente críticas.",
+      "Validar errores recientes del job consumidor sin copiar secretos al portal.",
+      "Escalar a integración si la fuente origen no responde."
+    ],
+    "evidenciaMinima": ["Timestamp", "Ambiente", "Fuente relacionada", "Resultado de validación", "Impacto estimado"],
+    "estado": "En construcción",
+    "ultimaRevision": "2026-04-24",
+    "tags": ["producto", "siro", "latencia"]
+  },
+  {
+    "id": "runbook-mineral-tracking-continuidad",
+    "tipoRunbook": "Producto",
+    "titulo": "Revisión de continuidad Mineral Tracking",
+    "ambiente": "UAT",
+    "productoId": "prod-mineral-tracking",
+    "fuenteId": null,
+    "severidadSugerida": "Media",
+    "objetivo": "Validar continuidad operativa entre fuentes y producto durante toma de control.",
+    "pasos": [
+      "Identificar fuente relacionada con la alerta o ticket.",
+      "Revisar mapa producto-fuente para determinar obligatoriedad e impacto.",
+      "Validar ejecución del proceso consumidor en UAT.",
+      "Registrar pendientes documentales si falta runbook, dashboard o escalamiento formal."
+    ],
+    "evidenciaMinima": ["Producto", "Fuente", "Ambiente", "Proceso consumidor", "Pendiente detectado"],
+    "estado": "Pendiente de validar",
+    "ultimaRevision": "2026-04-18",
+    "tags": ["producto", "toma de control", "uat"]
+  },
+  {
+    "id": "runbook-fuente-api-disponibilidad",
+    "tipoRunbook": "Fuente",
+    "titulo": "Validación de disponibilidad de API fuente",
+    "ambiente": "PRD",
+    "productoId": null,
+    "fuenteId": "fte-api-potencia",
+    "severidadSugerida": "Alta",
+    "objetivo": "Confirmar si una API origen está disponible para productos consumidores.",
+    "pasos": [
+      "Revisar dashboard de fuente asociado.",
+      "Confirmar último consumo exitoso y código de respuesta registrado.",
+      "Identificar productos consumidores desde data/fuentes.json.",
+      "Escalar al equipo de integración si la indisponibilidad persiste."
+    ],
+    "evidenciaMinima": ["Fuente", "Ambiente", "Código de respuesta", "Producto consumidor", "Ventana afectada"],
+    "estado": "Base",
+    "ultimaRevision": "2026-04-24",
+    "tags": ["fuente", "api", "disponibilidad"]
+  },
+  {
+    "id": "runbook-fuente-pi-disponibilidad",
+    "tipoRunbook": "Fuente",
+    "titulo": "Validación de fuente PI operacional",
+    "ambiente": "PRD",
+    "productoId": null,
+    "fuenteId": "fte-pi-operacional",
+    "severidadSugerida": "Crítica",
+    "objetivo": "Revisar disponibilidad operativa de la fuente PI antes de escalar a plataforma origen.",
+    "pasos": [
+      "Abrir dashboard de fuente PI.",
+      "Confirmar ventana esperada y última señal observada en Grafana.",
+      "Revisar errores del conector consumidor.",
+      "Escalar si la fuente no responde después de validación inicial."
+    ],
+    "evidenciaMinima": ["Fuente", "Ambiente", "Señal o grupo lógico", "Timestamp", "Producto consumidor"],
+    "estado": "Base",
+    "ultimaRevision": "2026-05-01",
+    "tags": ["fuente", "pi", "prd"]
+  },
+  {
+    "id": "runbook-fuente-sharepoint-archivo",
+    "tipoRunbook": "Fuente",
+    "titulo": "Validación de archivo en SharePoint fuente",
+    "ambiente": "PRD",
+    "productoId": null,
+    "fuenteId": "fte-sharepoint-planificacion",
+    "severidadSugerida": "Media",
+    "objetivo": "Confirmar existencia y disponibilidad de archivo esperado para consumo operativo.",
+    "pasos": [
+      "Confirmar ventana esperada de publicación.",
+      "Validar existencia del archivo lógico esperado sin registrar rutas sensibles.",
+      "Revisar si el proceso consumidor intentó la lectura.",
+      "Escalar a contraparte funcional si el archivo no fue publicado."
+    ],
+    "evidenciaMinima": ["Archivo lógico", "Fecha esperada", "Ambiente", "Proceso consumidor"],
+    "estado": "Base",
+    "ultimaRevision": "2026-04-29",
+    "tags": ["fuente", "sharepoint", "archivo"]
+  },
+  {
+    "id": "runbook-fuente-storage-archivo",
+    "tipoRunbook": "Fuente",
+    "titulo": "Validación de lote en storage fuente",
+    "ambiente": "PRD",
+    "productoId": null,
+    "fuenteId": "fte-storage-telemetria",
+    "severidadSugerida": "Media",
+    "objetivo": "Confirmar disponibilidad de lote de archivos para reproceso operativo.",
+    "pasos": [
+      "Revisar dashboard de fuente storage.",
+      "Confirmar lote lógico esperado y permisos del proceso consumidor.",
+      "Verificar si hay error de lectura o ausencia de publicación.",
+      "Escalar a equipo cloud si corresponde."
+    ],
+    "evidenciaMinima": ["Lote", "Ambiente", "Resultado de lectura", "Producto consumidor"],
+    "estado": "Base",
+    "ultimaRevision": "2026-04-22",
+    "tags": ["fuente", "storage", "archivo"]
+  },
+  {
+    "id": "runbook-fuente-bd-disponibilidad",
+    "tipoRunbook": "Fuente",
+    "titulo": "Validación de disponibilidad de base operacional",
+    "ambiente": "UAT",
+    "productoId": null,
+    "fuenteId": "fte-bd-despacho",
+    "severidadSugerida": "Alta",
+    "objetivo": "Confirmar conectividad y disponibilidad de consulta para producto consumidor en ambiente soportado.",
+    "pasos": [
+      "Revisar dashboard de fuente BD.",
+      "Confirmar ambiente afectado y job consumidor.",
+      "Validar si existe error de conectividad o timeout.",
+      "Escalar a equipo base operacional con evidencia mínima."
+    ],
+    "evidenciaMinima": ["Fuente", "Ambiente", "Job consumidor", "Mensaje de error", "Producto consumidor"],
+    "estado": "En construcción",
+    "ultimaRevision": "2026-04-18",
+    "tags": ["fuente", "bd", "uat"]
+  }
+]

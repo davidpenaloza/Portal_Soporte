@@ -1,0 +1,23 @@
+[
+  {
+    "modulo": "Módulo 1 · Alcance de soporte DAA",
+    "audiencia": "Nuevos integrantes del equipo",
+    "duracion": "2 horas",
+    "objetivo": "Comprender productos, fuentes, ambientes, fases de soporte y límites de responsabilidad del equipo.",
+    "actividades": ["Revisión del portal", "Mapa producto-fuente", "Caso de incidente tipo"]
+  },
+  {
+    "modulo": "Módulo 2 · Observabilidad y diagnóstico operativo",
+    "audiencia": "Soporte N1 / N2",
+    "duracion": "3 horas",
+    "objetivo": "Interpretar dashboards, logs, relaciones producto-fuente y señales operativas sin duplicar estados de Grafana.",
+    "actividades": ["Lectura de alerta", "Consulta de mapa producto-fuente", "Validación inicial"]
+  },
+  {
+    "modulo": "Módulo 3 · Runbooks y escalamientos",
+    "audiencia": "Soporte DAA y especialistas",
+    "duracion": "2 horas",
+    "objetivo": "Aplicar runbooks transversales, por producto o por fuente, preparar evidencia mínima y escalar correctamente.",
+    "actividades": ["Simulación de escalamiento", "Registro de evidencia", "Cierre con aprendizaje"]
+  }
+]
