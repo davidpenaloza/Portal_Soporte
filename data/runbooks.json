@@ -1,0 +1,47 @@
+[
+  {
+    "id": "runbook-ada-ingesta",
+    "titulo": "Validación de ingesta ADA",
+    "producto": "ADA Operacional",
+    "severidadSugerida": "Alta",
+    "objetivo": "Confirmar recepción, procesamiento y disponibilidad de datos recientes ante alerta de atraso.",
+    "pasos": [
+      "Revisar hora de última ingesta exitosa en dashboard.",
+      "Validar existencia de archivos o eventos esperados en la fuente acordada.",
+      "Consultar logs de pipeline para identificar errores técnicos o ausencia de datos.",
+      "Registrar evidencia y escalar si el atraso supera la ventana operacional definida."
+    ],
+    "evidenciaMinima": ["Captura del dashboard", "Hora UTC/local de revisión", "Mensaje de error resumido"],
+    "estado": "Base"
+  },
+  {
+    "id": "runbook-siro-latencia",
+    "titulo": "Diagnóstico de latencia SIRO Potencia",
+    "producto": "SIRO Potencia",
+    "severidadSugerida": "Media / Alta",
+    "objetivo": "Determinar si la latencia proviene de fuente, ingesta, procesamiento o visualización.",
+    "pasos": [
+      "Comparar última actualización visible con frecuencia esperada.",
+      "Revisar ejecuciones recientes de procesamiento y duración promedio.",
+      "Validar si existen errores repetidos en logs técnicos.",
+      "Informar hallazgo inicial y activar escalamiento N2 si hay falla persistente."
+    ],
+    "evidenciaMinima": ["Timestamp de última actualización", "Resultado de consulta de logs", "Impacto funcional estimado"],
+    "estado": "En construcción"
+  },
+  {
+    "id": "runbook-mineral-tracking-calidad-datos",
+    "titulo": "Revisión de calidad de datos Mineral Tracking",
+    "producto": "Mineral Tracking",
+    "severidadSugerida": "Media",
+    "objetivo": "Validar completitud, frescura y consistencia de datos frente a diferencias reportadas.",
+    "pasos": [
+      "Identificar periodo, variable y fuente reportada por usuario.",
+      "Ejecutar validaciones de completitud y frescura definidas para el producto.",
+      "Comparar resultados contra dashboard y fuente funcional de referencia.",
+      "Documentar diferencia y coordinar validación con contraparte funcional."
+    ],
+    "evidenciaMinima": ["Periodo afectado", "Consulta o validación ejecutada", "Resultado comparativo"],
+    "estado": "Pendiente de validar"
+  }
+]
