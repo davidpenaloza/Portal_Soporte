@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portal interno de soporte para centralizar productos, fuentes, relaciones producto-fuente, runbooks, escalamientos, documentación y capacitaciones del equipo de Soporte Data & Analítica Avanzada." />
+  <title>Portal de Soporte AMSA | Data & Analítica Avanzada</title>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#inicio">Saltar al contenido principal</a>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Navegación principal">
+      <a class="brand" href="#inicio" aria-label="Ir al inicio">
+        <span class="brand-mark">AA</span>
+        <span>
+          <strong>Soporte DAA</strong>
+          <small>Portal AMSA</small>
+        </span>
+      </a>
+
+      <p class="side-label">Contenido</p>
+      <nav class="nav-links">
+        <a href="#resumen" class="active">Resumen</a>
+        <a href="#modelo">Modelo operativo</a>
+        <a href="#productos">Productos soportados</a>
+        <a href="#fuentes">Fuentes soportadas</a>
+        <a href="#relaciones">Mapa producto-fuente</a>
+        <a href="#ambientes">Ambientes</a>
+        <a href="#monitoreo">Catálogo de monitoreo</a>
+        <a href="#incidentes">Incidentes</a>
+        <a href="#escalamientos">Escalamientos</a>
+        <a href="#runbooks">Runbooks</a>
+        <a href="#documentacion">Documentación</a>
+        <a href="#links">Links de interés</a>
+        <a href="#capacitaciones">Capacitación</a>
+        <a href="#control">Control operativo</a>
+      </nav>
+
+      <div class="sidebar-note">
+        <strong>Contenido versionado</strong>
+        <span>Los cambios operativos se mantienen en archivos JSON y Markdown dentro del repositorio.</span>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button class="menu-button" id="menuButton" type="button" aria-label="Abrir navegación" aria-controls="sidebar" aria-expanded="false">☰</button>
+        <div class="search-wrap">
+          <span aria-hidden="true">🔎</span>
+          <input id="searchInput" type="search" placeholder="Buscar productos, fuentes, relaciones, runbooks o documentos..." autocomplete="off" />
+        </div>
+        <a class="topbar-link" href="./documento.html?doc=docs/guia-mantencion-portal.md">Guía de mantención</a>
+      </header>
+
+      <div class="content" id="inicio">
+        <section class="hero searchable" id="resumen">
+          <div class="hero-content">
+            <p class="eyebrow">Portal interno · Soporte Data & Analítica Avanzada</p>
+            <h1>Información operativa centralizada para continuidad de soporte.</h1>
+            <p>Consulta productos, fuentes, relaciones producto-fuente, ambientes, runbooks, escalamientos, documentación y control operativo desde una estructura estática mantenible.</p>
+            <div class="hero-actions">
+              <a class="btn" href="#productos">Ver productos</a>
+              <a class="btn secondary" href="#relaciones">Ver mapa producto-fuente</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="searchable" aria-labelledby="estado-title">
+          <div class="section-header">
+            <div>
+              <h2 id="estado-title">Contenido disponible</h2>
+              <p>Resumen documental calculado desde los archivos de contenido disponibles en <code>./data</code>. No representa estados operacionales en vivo.</p>
+            </div>
+            <span class="pill">Versión inicial mantenible</span>
+          </div>
+          <div class="metrics-grid" id="metricsGrid" aria-live="polite"></div>
+          <div class="status-panel" id="statusPanel" aria-live="polite">Cargando contenido del portal...</div>
+        </section>
+
+        <section class="searchable" id="modelo" aria-labelledby="modelo-title">
+          <div class="section-header">
+            <div>
+              <h2 id="modelo-title">Modelo operativo de soporte</h2>
+              <p>Principios, responsabilidades, cadencias y artefactos que ordenan la operación del equipo.</p>
+            </div>
+            <a class="pill" href="./documento.html?doc=docs/modelo-operativo.md">Ver documento</a>
+          </div>
+          <div class="grid cols-3" id="modeloGrid"></div>
+          <div class="subsection-heading">
+            <h3>Nuevo modelo de monitoreo por capas</h3>
+            <p>Integra la documentación base del modelo de monitoreo en seis capas: infraestructura, ingestas, procesamiento, aplicación, dominio y gestión.</p>
+          </div>
+          <div class="grid cols-3" id="modeloMonitoreoGrid"></div>
+        </section>
+
+        <section class="searchable" id="productos" aria-labelledby="productos-title">
+          <div class="section-header">
+            <div>
+              <h2 id="productos-title">Productos soportados</h2>
+              <p>Inventario de productos digitales soportados, ambientes, fase de soporte, fuentes asociadas y referencias operativas.</p>
+            </div>
+            <a class="pill" href="./templates/producto.template.json">Template producto</a>
+          </div>
+          <div class="table-wrap"><table id="productosTable"></table></div>
+        </section>
+
+        <section class="searchable" id="fuentes" aria-labelledby="fuentes-title">
+          <div class="section-header">
+            <div>
+              <h2 id="fuentes-title">Fuentes soportadas</h2>
+              <p>Inventario de fuentes tratadas como entidades operativas de soporte, con productos consumidores, ambientes, responsables y runbooks.</p>
+            </div>
+            <a class="pill" href="./templates/fuente.template.json">Template fuente</a>
+          </div>
+          <div class="table-wrap"><table id="fuentesTable"></table></div>
+        </section>
+
+        <section class="searchable" id="relaciones" aria-labelledby="relaciones-title">
+          <div class="section-header">
+            <div>
+              <h2 id="relaciones-title">Mapa producto-fuente</h2>
+              <p>Relación muchos-a-muchos para entender qué fuentes usa cada producto, qué productos dependen de una fuente, impacto, síntoma visible y escalamiento.</p>
+            </div>
+            <a class="pill" href="./templates/producto-fuente.template.json">Template relación</a>
+          </div>
+          <div class="table-wrap"><table id="relacionesTable"></table></div>
+        </section>
+
+        <section class="searchable" id="ambientes" aria-labelledby="ambientes-title">
+          <div class="section-header">
+            <div>
+              <h2 id="ambientes-title">Ambientes</h2>
+              <p>Vista documental de ambientes técnicos. PRD, UAT, STAGE y DEV son ambientes; Follow es una fase de soporte.</p>
+            </div>
+            <span class="pill">PRD · UAT · STAGE · DEV</span>
+          </div>
+          <div class="grid cols-4" id="ambientesGrid"></div>
+        </section>
+
+        <section class="searchable" id="monitoreo" aria-labelledby="monitoreo-title">
+          <div class="section-header">
+            <div>
+              <h2 id="monitoreo-title">Catálogo de monitoreo y observabilidad</h2>
+              <p>Mapa documental para saber dónde revisar en Grafana, qué significa cada dashboard y qué hacer ante alertas.</p>
+            </div>
+            <a class="pill" href="./documento.html?doc=docs/estandar-monitoreo.md">Guía de observabilidad</a>
+          </div>
+          <div class="subsection-heading">
+            <h3>Documentos del modelo de monitoreo</h3>
+            <p>Guías Markdown renderizadas dentro del visor del portal para mantener una experiencia visual consistente.</p>
+          </div>
+          <div class="grid cols-3" id="modelosMonitoreoGrid"></div>
+          <div class="subsection-heading">
+            <h3>Dashboards y mapas de observabilidad</h3>
+            <p>Referencias operativas para revisar productos, componentes, criterios y runbooks asociados.</p>
+          </div>
+          <div class="grid cols-2" id="monitoreoGrid"></div>
+        </section>
+
+        <section class="searchable" id="incidentes" aria-labelledby="incidentes-title">
+          <div class="section-header">
+            <div>
+              <h2 id="incidentes-title">Gestión de incidentes</h2>
+              <p>Flujo operativo recomendado para detectar, diagnosticar, escalar, resolver y documentar incidentes.</p>
+            </div>
+            <a class="pill" href="./documento.html?doc=docs/traspaso-soporte.md">Traspaso soporte</a>
+          </div>
+          <div class="flow" id="incidentesFlow"></div>
+        </section>
+
+        <section class="searchable" id="escalamientos" aria-labelledby="escalamientos-title">
+          <div class="section-header">
+            <div>
+              <h2 id="escalamientos-title">Matriz de escalamiento</h2>
+              <p>Criterios de severidad, tiempos objetivo y grupos responsables para derivaciones ordenadas.</p>
+            </div>
+            <a class="pill" href="./templates/escalamiento.template.json">Template escalamiento</a>
+          </div>
+          <div class="table-wrap"><table id="escalamientosTable"></table></div>
+        </section>
+
+        <section class="searchable" id="runbooks" aria-labelledby="runbooks-title">
+          <div class="section-header">
+            <div>
+              <h2 id="runbooks-title">Runbooks operativos</h2>
+              <p>Procedimientos reutilizables para diagnóstico transversal, por producto o por fuente.</p>
+            </div>
+            <a class="pill" href="./templates/runbook.template.json">Template runbook</a>
+          </div>
+          <div class="grid cols-2" id="runbooksGrid"></div>
+        </section>
+
+        <section class="searchable" id="documentacion" aria-labelledby="documentacion-title">
+          <div class="section-header">
+            <div>
+              <h2 id="documentacion-title">Repositorio documental</h2>
+              <p>Índice de documentos internos, guías, arquitecturas, minutas y material operativo.</p>
+            </div>
+            <a class="pill" href="./templates/documentacion.template.json">Template documentación</a>
+          </div>
+          <div class="grid cols-3" id="documentacionGrid"></div>
+        </section>
+
+        <section class="searchable" id="links" aria-labelledby="links-title">
+          <div class="section-header">
+            <div>
+              <h2 id="links-title">Links de interés</h2>
+              <p>Accesos de referencia a herramientas de operación, observabilidad, gestión y colaboración.</p>
+            </div>
+            <span class="pill">Sin credenciales ni rutas sensibles</span>
+          </div>
+          <div class="grid cols-3" id="linksGrid"></div>
+        </section>
+
+        <section class="searchable" id="capacitaciones" aria-labelledby="capacitaciones-title">
+          <div class="section-header">
+            <div>
+              <h2 id="capacitaciones-title">Capacitaciones y onboarding</h2>
+              <p>Ruta sugerida para incorporar integrantes y reforzar prácticas de soporte sobre productos, fuentes, relaciones y escalamientos.</p>
+            </div>
+            <span class="pill">Formación continua</span>
+          </div>
+          <div class="grid cols-3" id="capacitacionesGrid"></div>
+        </section>
+
+        <section class="searchable" id="control" aria-labelledby="control-title">
+          <div class="section-header">
+            <div>
+              <h2 id="control-title">Control operativo del soporte</h2>
+              <p>Seguimiento documental de fases de soporte, pendientes mínimos de traspaso, runbooks, dashboards, responsables y cambios al portal.</p>
+            </div>
+            <a class="pill" href="./documento.html?doc=docs/guia-mantencion-portal.md">Guía de mantención</a>
+          </div>
+          <div class="metrics-grid" id="controlGrid"></div>
+          <div class="grid cols-2" id="controlChecklist"></div>
+        </section>
+
+        <section class="empty-state" id="noResults" hidden>
+          <h2>Sin resultados</h2>
+          <p>No encontramos coincidencias para la búsqueda ingresada. Prueba con otro producto, herramienta o concepto.</p>
+        </section>
+
+        <footer class="footer">
+          <p>Portal estático mantenible para uso interno del equipo de Soporte Data & Analítica Avanzada. No incluir secretos, credenciales ni información productiva sensible.</p>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script src="./assets/js/app.js"></script>
+</body>
+</html>

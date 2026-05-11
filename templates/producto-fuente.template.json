@@ -1,0 +1,18 @@
+{
+  "productoId": "prod-identificador",
+  "fuenteId": "fte-identificador",
+  "faena": "Faena",
+  "ambiente": "PRD | UAT | STAGE | DEV",
+  "tipoDependencia": "Ingesta principal | Referencia | Complementaria | Reproceso | Otro",
+  "criticidadRelacion": "Crítica | Alta | Media | Baja",
+  "fuenteObligatoria": true,
+  "componenteAfectado": "Componente del producto afectado",
+  "impactoSiFalla": "Impacto operativo esperado si falla la fuente",
+  "sintomaVisible": "Síntoma observable por soporte o usuario",
+  "dashboardDondeSeDetecta": "Grafana · Dashboard donde se detecta",
+  "validacionInicial": "Primera validación que debe realizar soporte",
+  "runbookAsociado": "id-runbook",
+  "escalamiento": "Equipo o ruta de escalamiento",
+  "evidenciaMinima": ["Producto", "Fuente", "Ambiente", "Timestamp"],
+  "observaciones": "Notas operativas sin secretos"
+}

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Documento · Portal de Soporte AMSA</title>
+  <meta name="description" content="Visor interno de documentación Markdown del Portal de Soporte AMSA." />
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <link rel="stylesheet" href="./assets/css/markdown.css" />
+</head>
+<body class="document-viewer-page">
+  <header class="viewer-hero">
+    <div>
+      <p class="eyebrow">Portal de Soporte AMSA · Documentación</p>
+      <h1 id="documentTitle">Cargando documento...</h1>
+      <p id="documentPath" class="document-path">Resolviendo ruta del documento Markdown.</p>
+    </div>
+    <nav class="viewer-actions" aria-label="Acciones del documento">
+      <a class="btn secondary" href="./index.html">Volver al portal</a>
+      <a class="btn" id="openMarkdown" href="#" target="_blank" rel="noreferrer" hidden>Abrir Markdown original</a>
+    </nav>
+  </header>
+
+  <main class="viewer-layout">
+    <aside class="toc-card" aria-labelledby="tocTitle">
+      <h2 id="tocTitle">Contenido del documento</h2>
+      <nav id="documentToc" class="toc-list">
+        <p>La tabla de contenidos se generará al cargar el documento.</p>
+      </nav>
+    </aside>
+
+    <article class="markdown-card" aria-live="polite">
+      <div id="documentStatus" class="viewer-status">Cargando contenido Markdown...</div>
+      <div id="markdownContent" class="markdown-body"></div>
+    </article>
+  </main>
+
+  <script src="./assets/vendor/marked.min.js"></script>
+  <script src="./assets/vendor/purify.min.js"></script>
+  <script src="./assets/js/markdown-viewer.js"></script>
+</body>
+</html>

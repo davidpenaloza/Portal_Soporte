@@ -1,0 +1,26 @@
+[
+  {
+    "titulo": "Modelo de monitoreo",
+    "archivo": "README.md",
+    "descripcion": "Resumen del modelo de monitoreo por capas, principios operativos y uso recomendado para soporte.",
+    "tipo": "Guía operativa",
+    "markdownUrl": "./docs/modelo-monitoreo/README.md",
+    "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/README.md"
+  },
+  {
+    "titulo": "Catálogo de funciones",
+    "archivo": "catalogo-funciones.md",
+    "descripcion": "Lista y explica funciones KQL, helpers, fuentes, dominios y wrappers.",
+    "tipo": "Catálogo técnico",
+    "markdownUrl": "./docs/modelo-monitoreo/catalogo-funciones.md",
+    "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/catalogo-funciones.md"
+  },
+  {
+    "titulo": "Troubleshooting",
+    "archivo": "troubleshooting.md",
+    "descripcion": "Flujo rápido para diagnosticar síntomas comunes, decidir acciones y escalar con evidencia mínima.",
+    "tipo": "Runbook de diagnóstico",
+    "markdownUrl": "./docs/modelo-monitoreo/troubleshooting.md",
+    "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/troubleshooting.md"
+  }
+]
