@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Describir cómo el equipo de soporte debe usar los dashboards de Grafana y otras fuentes de observabilidad como mapa de diagnóstico. Este documento no reemplaza Grafana ni debe duplicar estados dinámicos de productos.
+Describir cómo el equipo de soporte debe usar los dashboards de Grafana y otras fuentes de observabilidad como mapa de diagnóstico. Este documento no reemplaza Grafana ni debe duplicar estados dinámicos de productos o fuentes.
 
 ## Principio operativo
 
@@ -14,12 +14,12 @@ Describir cómo el equipo de soporte debe usar los dashboards de Grafana y otras
 
 Cada entrada del catálogo de monitoreo debe mantener:
 
-- Producto asociado.
+- Producto o fuente asociada.
 - Dashboard principal o panel de referencia.
 - Objetivo del dashboard.
-- Componentes monitoreados.
+- Componente cubierto.
 - Qué revisar primero ante una alerta o ticket.
-- Frecuencia esperada de revisión.
+- Frecuencia esperada de revisión documental.
 - Criterios interpretativos OK / WARN / ALERT.
 - Runbook asociado.
 - Responsable del seguimiento.
@@ -34,5 +34,5 @@ Los criterios OK / WARN / ALERT son guías documentales para orientar el diagnó
 
 - Mantener links a dashboards sin tokens, credenciales ni parámetros sensibles.
 - Documentar el significado de paneles y alertas, no copiar métricas en vivo.
-- Revisar el catálogo cuando cambien dashboards, alertas, productos o runbooks.
+- Revisar el catálogo cuando cambien dashboards, alertas, productos, fuentes o runbooks.
 - Asociar cada alerta recurrente a un runbook o ruta de escalamiento.

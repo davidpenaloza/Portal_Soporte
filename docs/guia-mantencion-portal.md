@@ -10,9 +10,9 @@
 6. Solicitar revisión del equipo antes de fusionar.
 
 
-## Publicación en SharePoint
+## Publicación estática
 
-Mantener `index.html` y las carpetas `assets/`, `data/`, `docs/` y `templates/` en el mismo nivel de la biblioteca de documentos. Las rutas del portal son relativas al `index.html` y no deben convertirse en rutas absolutas dependientes de localhost, raíz del dominio o una URL específica de SharePoint.
+Mantener `index.html` y las carpetas `assets/`, `data/`, `docs/`, `templates/` y `scripts/` en el mismo nivel del sitio publicado. Las rutas del portal son relativas al `index.html` y no deben convertirse en rutas absolutas dependientes de localhost, raíz del dominio o una plataforma específica.
 
 
 ## Relación con monitoreo en tiempo real

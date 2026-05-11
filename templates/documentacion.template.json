@@ -1,7 +1,17 @@
 {
   "titulo": "Nombre del documento",
   "tipo": "Guía | Estándar | Checklist | Arquitectura | Minuta",
-  "url": "docs/nombre-documento.md",
+  "url": "./docs/nombre-documento.md",
   "descripcion": "Resumen del contenido y uso del documento",
-  "estado": "Base | En construcción | Validado"
+  "estado": "Base | En construcción | Validado",
+  "ambiente": "PRD | UAT | STAGE | DEV | Transversal",
+  "ambientesDisponibles": ["PRD", "UAT", "STAGE", "DEV"],
+  "ambienteSoportado": "PRD",
+  "estadoSoporte": "Follow | En toma de control | Soporte activo | Soporte parcial | Pendiente de traspaso | Sin soporte formal | Retirado",
+  "faseSoporte": "Follow | En toma de control | Soporte activo | Soporte parcial | Pendiente de traspaso | Sin soporte formal | Retirado",
+  "nivelSoporte": "Documental | N1 | N1/N2 | Sin soporte formal",
+  "fuentesAsociadas": ["fte-identificador"],
+  "productosConsumidores": ["prod-identificador"],
+  "ultimaRevision": "YYYY-MM-DD",
+  "tags": ["tag1", "tag2"]
 }

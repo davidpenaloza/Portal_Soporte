@@ -3,7 +3,7 @@
     "titulo": "Modelo operativo de soporte",
     "tipo": "Guía operativa",
     "url": "./docs/modelo-operativo.md",
-    "descripcion": "Define principios, roles, cadencias, responsabilidades y artefactos mínimos del modelo de soporte.",
+    "descripcion": "Define productos, fuentes, relaciones producto-fuente, ambientes, fases de soporte y límites operativos del equipo.",
     "estado": "Base"
   },
   {
@@ -17,7 +17,7 @@
     "titulo": "Traspaso a soporte",
     "tipo": "Checklist",
     "url": "./docs/traspaso-soporte.md",
-    "descripcion": "Lista de antecedentes requeridos para recibir un producto en operación de soporte.",
+    "descripcion": "Lista antecedentes requeridos para recibir productos, fuentes o relaciones en operación de soporte.",
     "estado": "Base"
   },
   {

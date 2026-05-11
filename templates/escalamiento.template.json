@@ -1,7 +1,18 @@
 {
-  "nivel": "N1 | N2 | N3 | Gestión funcional",
-  "criterio": "Condición que activa el escalamiento",
-  "tiempoObjetivo": "Tiempo esperado para respuesta o diagnóstico inicial",
-  "responsable": "Equipo o rol responsable",
-  "salidaEsperada": "Resultado mínimo esperado del escalamiento"
+  "tipoEntidad": "Producto | Fuente | Relación producto-fuente",
+  "productoId": "prod-identificador-o-null",
+  "fuenteId": "fte-identificador-o-null",
+  "ambiente": "PRD | UAT | STAGE | DEV",
+  "faena": "Faena",
+  "tipoProblema": "Tipo de problema o síntoma agrupador",
+  "sintomaVisible": "Qué observa soporte o usuario",
+  "diagnosticoInicial": "Validación mínima antes de escalar",
+  "evidenciaMinima": ["Producto", "Fuente", "Ambiente", "Timestamp"],
+  "equipoEscalamiento": "Equipo responsable del siguiente nivel",
+  "canal": "Canal o sistema de gestión",
+  "cuandoEscalar": "Criterio para escalar",
+  "cuandoNoEscalarTodavia": "Condiciones que deben revisarse antes de escalar",
+  "urgencia": "Crítica | Alta | Media | Baja",
+  "horarioAplicable": "Horario hábil | Guardia | Según acuerdo",
+  "observaciones": "Notas operativas"
 }

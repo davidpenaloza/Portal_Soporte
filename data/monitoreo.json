@@ -2,52 +2,52 @@
   {
     "producto": "ADA Operacional",
     "dashboardPrincipal": "Grafana · ADA · Salud operacional",
-    "objetivoDashboard": "Orientar la revisión de ingestas, procesamiento y disponibilidad de datos del producto antes de aplicar un runbook o escalar.",
-    "componentesMonitoreados": ["Ingesta de datos", "Pipelines de procesamiento", "Servicios de consulta", "Validaciones de frescura"],
-    "revisarPrimero": ["Panel de frescura de datos", "Ventana esperada de actualización", "Errores agrupados por componente", "Alertas activas asociadas al producto"],
+    "objetivoDashboard": "Orientar la revisión de ingestas, fuentes obligatorias y procesamiento del producto antes de aplicar un runbook o escalar.",
+    "componentesMonitoreados": ["Producto ADA", "PI System Operacional", "SharePoint Planificación", "Pipelines consumidores"],
+    "revisarPrimero": ["Mapa producto-fuente", "Dashboard de fuente obligatoria", "Ventana esperada de actualización", "Alertas activas asociadas al producto"],
     "frecuenciaEsperada": "Revisión diaria en operación normal y revisión inmediata ante alerta o ticket asociado.",
     "criterios": {
-      "ok": "Datos dentro de la ventana esperada, sin alertas activas relevantes y ejecuciones recientes completas.",
-      "warn": "Latencia cercana al umbral, reprocesos recientes o alertas intermitentes sin impacto confirmado.",
-      "alert": "Datos fuera de ventana crítica, fallas persistentes o impacto funcional reportado por usuarios."
+      "ok": "Producto y fuentes obligatorias dentro de ventana esperada, sin alertas relevantes activas.",
+      "warn": "Atraso cercano al umbral, fuente opcional pendiente o alerta intermitente sin impacto confirmado.",
+      "alert": "Fuente obligatoria fuera de ventana, falla sostenida o impacto operacional reportado."
     },
     "runbookAsociado": "runbook-ada-ingesta",
-    "responsable": "Soporte DAA + Desarrollo",
+    "responsable": "Soporte DAA + plataforma analítica",
     "linkGrafana": "https://grafana.example.com/d/ada-operacional",
-    "observaciones": "El portal documenta cómo interpretar el dashboard; el estado en tiempo real debe validarse directamente en Grafana."
+    "observaciones": "El portal documenta dónde mirar y cómo actuar; el estado en tiempo real se valida en Grafana."
   },
   {
     "producto": "SIRO Potencia",
     "dashboardPrincipal": "Grafana · SIRO Potencia · Disponibilidad y latencia",
-    "objetivoDashboard": "Guiar el análisis de latencia, disponibilidad de señales y continuidad de procesamiento para eventos reportados.",
-    "componentesMonitoreados": ["Señales de potencia", "Jobs de procesamiento", "Disponibilidad de APIs", "Frescura por origen"],
-    "revisarPrimero": ["Panel de latencia por fuente", "Ejecuciones fallidas recientes", "Tendencia de errores técnicos", "Comparación con frecuencia esperada"],
-    "frecuenciaEsperada": "Revisión en horario hábil y ante alertas de atraso, indisponibilidad o inconsistencia funcional.",
+    "objetivoDashboard": "Guiar el análisis de latencia, disponibilidad de fuentes y continuidad de procesamiento para eventos reportados.",
+    "componentesMonitoreados": ["Producto SIRO Potencia", "API Potencia", "Storage Telemetría", "Jobs consumidores"],
+    "revisarPrimero": ["Fuente API Potencia", "Relación producto-fuente crítica", "Tendencia de errores técnicos", "Comparación con frecuencia esperada"],
+    "frecuenciaEsperada": "Revisión en horario hábil y ante alertas de atraso, indisponibilidad o inconsistencia operacional.",
     "criterios": {
-      "ok": "Señales disponibles dentro del rango esperado y sin errores persistentes en procesamiento.",
-      "warn": "Atrasos acotados, errores recuperados automáticamente o diferencias que requieren seguimiento.",
-      "alert": "Indisponibilidad, atraso fuera de tolerancia o falla repetida que afecta consulta funcional."
+      "ok": "Fuente principal disponible y producto actualizado dentro del rango esperado.",
+      "warn": "Atrasos acotados, errores recuperados automáticamente o fuente complementaria pendiente.",
+      "alert": "Indisponibilidad, atraso fuera de tolerancia o falla repetida que afecta consulta operacional."
     },
     "runbookAsociado": "runbook-siro-latencia",
     "responsable": "Soporte DAA",
     "linkGrafana": "https://grafana.example.com/d/siro-potencia",
-    "observaciones": "Usar el dashboard para orientar el diagnóstico, no para registrar estados manuales en el portal."
+    "observaciones": "Follow corresponde a fase de soporte, no a ambiente técnico."
   },
   {
     "producto": "Mineral Tracking",
-    "dashboardPrincipal": "Grafana · Mineral Tracking · Trazabilidad y calidad de datos",
-    "objetivoDashboard": "Facilitar la revisión de frescura, completitud y consistencia de datos asociados a trazabilidad operacional.",
-    "componentesMonitoreados": ["Tablas de trazabilidad", "Procesos de consolidación", "Validaciones de calidad", "Indicadores de completitud"],
-    "revisarPrimero": ["Frescura por dominio", "Brechas de completitud", "Errores de consolidación", "Diferencias reportadas por usuarios"],
-    "frecuenciaEsperada": "Revisión semanal preventiva y revisión prioritaria ante reportes de diferencias o alertas de calidad.",
+    "dashboardPrincipal": "Grafana · Mineral Tracking · Continuidad operacional",
+    "objetivoDashboard": "Facilitar la revisión de continuidad entre fuentes y producto durante toma de control.",
+    "componentesMonitoreados": ["Producto Mineral Tracking", "BD Despacho", "Archivos Planta", "Proceso consumidor UAT"],
+    "revisarPrimero": ["Ambiente soportado UAT", "Fuente obligatoria", "Job consumidor", "Pendientes documentales"],
+    "frecuenciaEsperada": "Revisión semanal preventiva y revisión prioritaria ante alertas o tickets de continuidad.",
     "criterios": {
-      "ok": "Datos completos y frescos según ventana acordada, sin diferencias relevantes reportadas.",
-      "warn": "Brechas menores de completitud, diferencias aisladas o validaciones pendientes de confirmación funcional.",
-      "alert": "Inconsistencia relevante, falta de datos críticos o impacto confirmado en análisis operacional."
+      "ok": "Dependencias documentadas y proceso consumidor ejecutado dentro de la ventana acordada.",
+      "warn": "Dependencia en toma de control, dashboard pendiente o escalamiento aún no formalizado.",
+      "alert": "Fuente obligatoria no disponible o proceso consumidor fallido con impacto en soporte."
     },
-    "runbookAsociado": "runbook-mineral-tracking-calidad-datos",
-    "responsable": "Soporte DAA + Arquitectura de datos",
+    "runbookAsociado": "runbook-mineral-tracking-continuidad",
+    "responsable": "Soporte DAA + arquitectura analítica",
     "linkGrafana": "https://grafana.example.com/d/mineral-tracking",
-    "observaciones": "Validar diferencias con la contraparte funcional antes de cerrar incidentes de calidad de datos."
+    "observaciones": "Registrar brechas de traspaso sin asumir responsabilidades de definición funcional del dato."
   }
 ]

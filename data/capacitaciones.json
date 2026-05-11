@@ -1,23 +1,23 @@
 [
   {
-    "modulo": "Módulo 1 · Contexto de soporte",
+    "modulo": "Módulo 1 · Alcance de soporte DAA",
     "audiencia": "Nuevos integrantes del equipo",
     "duracion": "2 horas",
-    "objetivo": "Comprender productos soportados, roles, límites del servicio y dinámica operacional.",
-    "actividades": ["Revisión del portal", "Mapa de productos", "Caso de incidente tipo"]
+    "objetivo": "Comprender productos, fuentes, ambientes, fases de soporte y límites de responsabilidad del equipo.",
+    "actividades": ["Revisión del portal", "Mapa producto-fuente", "Caso de incidente tipo"]
   },
   {
-    "modulo": "Módulo 2 · Observabilidad y diagnóstico",
+    "modulo": "Módulo 2 · Observabilidad y diagnóstico operativo",
     "audiencia": "Soporte N1 / N2",
     "duracion": "3 horas",
-    "objetivo": "Interpretar dashboards, logs, métricas, ejecuciones y señales de calidad de datos.",
-    "actividades": ["Lectura de logs", "Consulta KQL de ejemplo", "Validación de frescura"]
+    "objetivo": "Interpretar dashboards, logs, relaciones producto-fuente y señales operativas sin duplicar estados de Grafana.",
+    "actividades": ["Lectura de alerta", "Consulta de mapa producto-fuente", "Validación inicial"]
   },
   {
     "modulo": "Módulo 3 · Runbooks y escalamientos",
     "audiencia": "Soporte DAA y especialistas",
     "duracion": "2 horas",
-    "objetivo": "Aplicar runbooks, preparar evidencia mínima y escalar con criterio de severidad.",
+    "objetivo": "Aplicar runbooks transversales, por producto o por fuente, preparar evidencia mínima y escalar correctamente.",
     "actividades": ["Simulación de escalamiento", "Registro de evidencia", "Cierre con aprendizaje"]
   }
 ]

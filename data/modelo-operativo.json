@@ -1,51 +1,46 @@
 {
   "principios": [
     {
-      "nombre": "Soporte preventivo",
-      "descripcion": "Monitoreo proactivo de señales técnicas y funcionales antes de que se materialice un incidente.",
-      "artefactos": ["Dashboards", "Alertas", "Checklist diario"]
+      "nombre": "Producto digital",
+      "descripcion": "Solución, aplicación, dashboard, backend, frontend o producto analítico que el equipo soporta con alcance operativo documentado.",
+      "artefactos": ["Inventario de producto", "Runbook principal", "Dashboard principal"]
     },
     {
-      "nombre": "Soporte reactivo",
-      "descripcion": "Atención estructurada de incidentes reportados por usuarios, alertas o equipos relacionados.",
-      "artefactos": ["Ticket", "Evidencia", "Diagnóstico inicial"]
+      "nombre": "Fuente soportada",
+      "descripcion": "Origen de datos, sistema, API, archivo, PI System, SharePoint, storage, base de datos, proveedor o componente que alimenta productos y puede requerir soporte propio.",
+      "artefactos": ["Inventario de fuente", "Dashboard de fuente", "Runbook de fuente"]
     },
     {
-      "nombre": "Mejora continua",
-      "descripcion": "Cierre con aprendizaje, actualización documental y reducción de recurrencia operacional.",
-      "artefactos": ["Post mortem liviano", "Runbook actualizado", "Acción preventiva"]
+      "nombre": "Relación producto-fuente",
+      "descripcion": "Dependencia muchos-a-muchos que permite entender qué productos usan una fuente, dónde se detecta una falla y cómo escalar.",
+      "artefactos": ["Mapa producto-fuente", "Impacto si falla", "Evidencia mínima"]
+    },
+    {
+      "nombre": "Ambiente y fase de soporte",
+      "descripcion": "PRD, UAT, STAGE y DEV son ambientes técnicos; Follow y toma de control son fases o estados de soporte, no ambientes.",
+      "artefactos": ["Ambiente soportado", "Fase de soporte", "Nivel de soporte"]
     }
   ],
   "monitoreo": [
     {
-      "capa": "Infraestructura",
-      "descripcion": "Disponibilidad de recursos cloud, límites, errores de plataforma, permisos y capacidad.",
-      "herramientas": ["Azure Monitor", "Log Analytics", "Portal Cloud"]
+      "capa": "Producto",
+      "descripcion": "Dashboard o señal que permite revisar comportamiento operativo del producto soportado.",
+      "herramientas": ["Grafana", "Logs del producto", "Runbook por producto"]
     },
     {
-      "capa": "Ingestas",
-      "descripcion": "Recepción de archivos, latencia, frecuencia esperada, reprocesos y fallas de entrada.",
-      "herramientas": ["ADF", "Storage", "Logs de ingesta"]
+      "capa": "Fuente",
+      "descripcion": "Dashboard o señal para revisar disponibilidad de la fuente consumida por productos.",
+      "herramientas": ["Grafana", "Logs de integración", "Runbook por fuente"]
     },
     {
-      "capa": "Procesamiento",
-      "descripcion": "Ejecuciones de jobs, pipelines, notebooks, contenedores y servicios de transformación.",
-      "herramientas": ["Databricks", "ADF", "Container Apps Jobs"]
+      "capa": "Relación producto-fuente",
+      "descripcion": "Vista documental para entender impacto, síntoma visible, validación inicial y escalamiento.",
+      "herramientas": ["Mapa producto-fuente", "Matriz de escalamiento", "Evidencia mínima"]
     },
     {
-      "capa": "Aplicación",
-      "descripcion": "APIs, frontend, backend, trazas, disponibilidad y tiempos de respuesta.",
-      "herramientas": ["Application Insights", "Grafana", "Logs técnicos"]
-    },
-    {
-      "capa": "Dominio",
-      "descripcion": "Frescura, completitud, consistencia y reglas de negocio relevantes para operación.",
-      "herramientas": ["Consultas KQL", "Validaciones SQL", "Dashboards"]
-    },
-    {
-      "capa": "Gestión",
-      "descripcion": "Indicadores de soporte, tiempos de atención, brechas documentales y recurrencia.",
-      "herramientas": ["ITSM", "Tablero de gestión", "Repositorio documental"]
+      "capa": "Ambiente técnico",
+      "descripcion": "Identificación de PRD, UAT, STAGE o DEV antes de diagnosticar o escalar.",
+      "herramientas": ["Inventario", "Ticket", "Dashboard asociado"]
     }
   ],
   "incidentes": [
@@ -55,24 +50,24 @@
     },
     {
       "paso": "Clasificar",
-      "descripcion": "Determinar severidad, impacto, producto afectado y responsable inicial."
+      "descripcion": "Determinar si afecta producto, fuente o relación producto-fuente; confirmar ambiente y fase de soporte."
     },
     {
       "paso": "Diagnosticar",
-      "descripcion": "Revisar evidencia, logs, ejecuciones recientes, datos esperados y cambios conocidos."
+      "descripcion": "Revisar dashboard, mapa producto-fuente, runbook aplicable, evidencia mínima y errores técnicos disponibles."
     },
     {
       "paso": "Escalar o resolver",
       "descripcion": "Aplicar runbook disponible o derivar con contexto, evidencia y criterio de urgencia."
     },
     {
-      "paso": "Cerrar y aprender",
-      "descripcion": "Registrar causa, resolución, brechas detectadas y acciones preventivas."
+      "paso": "Cerrar y actualizar",
+      "descripcion": "Registrar causa operativa, resolución, brechas documentales y acciones de mantención del portal."
     }
   ],
   "cadencias": [
-    "Revisión diaria de salud de productos críticos.",
-    "Revisión semanal de incidentes repetidos y brechas documentales.",
-    "Actualización mensual de inventario, responsables y enlaces operativos."
+    "Revisión periódica de productos y fuentes con soporte activo.",
+    "Revisión semanal de productos en Follow o toma de control.",
+    "Actualización mensual de responsables, runbooks, dashboards documentados y relaciones producto-fuente."
   ]
 }

@@ -2,29 +2,35 @@
 
 ## Propósito
 
-Definir una forma común de operar el soporte de productos de Data & Analítica Avanzada, manteniendo continuidad operacional, trazabilidad y aprendizaje continuo.
+Definir una forma común de operar el soporte de productos digitales, fuentes y relaciones producto-fuente de Data & Analítica Avanzada, manteniendo continuidad operacional, trazabilidad y aprendizaje continuo.
+
+## Conceptos principales
+
+- **Producto digital:** solución, aplicación, dashboard, backend, frontend o producto analítico soportado.
+- **Fuente:** origen de datos, sistema, API, archivo, PI System, SharePoint, storage, base de datos, proveedor o componente que alimenta productos.
+- **Relación producto-fuente:** vínculo muchos-a-muchos que indica qué productos consumen una fuente, qué impacto tiene una falla y cómo actuar.
+- **Ambiente técnico:** PRD, UAT, STAGE o DEV.
+- **Fase o estado de soporte:** Follow, En toma de control, Soporte activo, Soporte parcial, Pendiente de traspaso, Sin soporte formal o Retirado.
+
+> Follow no es un ambiente técnico; es una fase de soporte.
 
 ## Alcance
 
-Aplica a productos analíticos, pipelines, dashboards, APIs, componentes de datos y servicios relacionados que sean traspasados formalmente al equipo de soporte.
+El equipo mantiene conocimiento operativo, rutas de diagnóstico, runbooks, matriz de escalamiento, referencias a dashboards y control documental del soporte.
 
-## Principios
+## Fuera de alcance
 
-- **Prevención:** revisar señales antes de que generen impacto funcional.
-- **Trazabilidad:** cada incidente debe contar con evidencia, diagnóstico y cierre.
-- **Responsabilidad clara:** cada producto debe tener dueño funcional, responsable técnico y ruta de escalamiento.
-- **Documentación viva:** runbooks, enlaces y decisiones deben actualizarse cuando cambie la operación.
-- **Mejora continua:** los incidentes recurrentes deben transformarse en acciones preventivas.
+El portal no asigna al equipo responsabilidades de definición funcional del dato, validación oficial de información, propiedad de origen ni administración de políticas corporativas de información. Las definiciones funcionales corresponden a las contrapartes designadas.
 
 ## Roles mínimos
 
 - **Soporte N1:** clasificación inicial, revisión de dashboards, aplicación de runbooks y registro de evidencia.
-- **Soporte N2 / especialista:** diagnóstico técnico profundo, validación de componentes y definición de workaround.
-- **Desarrollo / plataforma:** corrección de defectos, cambios de infraestructura y despliegues.
-- **Dueño funcional:** priorización, validación de impacto y aceptación de cierre.
+- **Soporte N2 / especialista:** diagnóstico técnico profundo, validación de componentes y definición de workaround operativo.
+- **Desarrollo / plataforma / integración:** corrección de defectos, cambios de infraestructura, integraciones o despliegues.
+- **Contraparte funcional:** priorización, validación de impacto de negocio y aceptación de cierre.
 
 ## Cadencias sugeridas
 
-- Revisión diaria de productos críticos.
-- Revisión semanal de incidentes repetidos.
-- Revisión mensual de documentación, responsables y enlaces.
+- Revisión periódica de productos y fuentes con soporte activo.
+- Revisión semanal de productos en Follow o toma de control.
+- Revisión mensual de relaciones producto-fuente, responsables, runbooks y dashboards documentados.

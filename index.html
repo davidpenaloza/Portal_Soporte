@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portal interno de soporte para centralizar productos, runbooks, escalamientos, documentación y capacitaciones del equipo de Soporte Data & Analítica Avanzada." />
+  <meta name="description" content="Portal interno de soporte para centralizar productos, fuentes, relaciones producto-fuente, runbooks, escalamientos, documentación y capacitaciones del equipo de Soporte Data & Analítica Avanzada." />
   <title>Portal de Soporte AMSA | Data & Analítica Avanzada</title>
   <link rel="stylesheet" href="./assets/css/styles.css" />
 </head>
@@ -23,14 +23,18 @@
       <nav class="nav-links">
         <a href="#resumen" class="active">Resumen</a>
         <a href="#modelo">Modelo operativo</a>
-        <a href="#productos">Productos</a>
-        <a href="#monitoreo">Monitoreo</a>
+        <a href="#productos">Productos soportados</a>
+        <a href="#fuentes">Fuentes soportadas</a>
+        <a href="#relaciones">Mapa producto-fuente</a>
+        <a href="#ambientes">Ambientes</a>
+        <a href="#monitoreo">Catálogo de monitoreo</a>
         <a href="#incidentes">Incidentes</a>
         <a href="#escalamientos">Escalamientos</a>
         <a href="#runbooks">Runbooks</a>
         <a href="#documentacion">Documentación</a>
         <a href="#links">Links de interés</a>
-        <a href="#capacitaciones">Capacitaciones</a>
+        <a href="#capacitaciones">Capacitación</a>
+        <a href="#control">Control operativo</a>
       </nav>
 
       <div class="sidebar-note">
@@ -44,7 +48,7 @@
         <button class="menu-button" id="menuButton" type="button" aria-label="Abrir navegación" aria-controls="sidebar" aria-expanded="false">☰</button>
         <div class="search-wrap">
           <span aria-hidden="true">🔎</span>
-          <input id="searchInput" type="search" placeholder="Buscar productos, runbooks, documentos o conceptos..." autocomplete="off" />
+          <input id="searchInput" type="search" placeholder="Buscar productos, fuentes, relaciones, runbooks o documentos..." autocomplete="off" />
         </div>
         <a class="topbar-link" href="./docs/guia-mantencion-portal.md">Guía de mantención</a>
       </header>
@@ -54,10 +58,10 @@
           <div class="hero-content">
             <p class="eyebrow">Portal interno · Soporte Data & Analítica Avanzada</p>
             <h1>Información operativa centralizada para continuidad de soporte.</h1>
-            <p>Consulta productos soportados, modelo operativo, runbooks, escalamientos, documentación, links de interés y capacitaciones desde una estructura estática mantenible.</p>
+            <p>Consulta productos, fuentes, relaciones producto-fuente, ambientes, runbooks, escalamientos, documentación y control operativo desde una estructura estática mantenible.</p>
             <div class="hero-actions">
               <a class="btn" href="#productos">Ver productos</a>
-              <a class="btn secondary" href="#runbooks">Consultar runbooks</a>
+              <a class="btn secondary" href="#relaciones">Ver mapa producto-fuente</a>
             </div>
           </div>
         </section>
@@ -89,11 +93,44 @@
           <div class="section-header">
             <div>
               <h2 id="productos-title">Productos soportados</h2>
-              <p>Inventario base de productos, criticidad, responsables, horarios de soporte y referencias operativas.</p>
+              <p>Inventario de productos digitales soportados, ambientes, fase de soporte, fuentes asociadas y referencias operativas.</p>
             </div>
             <a class="pill" href="./templates/producto.template.json">Template producto</a>
           </div>
           <div class="table-wrap"><table id="productosTable"></table></div>
+        </section>
+
+        <section class="searchable" id="fuentes" aria-labelledby="fuentes-title">
+          <div class="section-header">
+            <div>
+              <h2 id="fuentes-title">Fuentes soportadas</h2>
+              <p>Inventario de fuentes tratadas como entidades operativas de soporte, con productos consumidores, ambientes, responsables y runbooks.</p>
+            </div>
+            <a class="pill" href="./templates/fuente.template.json">Template fuente</a>
+          </div>
+          <div class="table-wrap"><table id="fuentesTable"></table></div>
+        </section>
+
+        <section class="searchable" id="relaciones" aria-labelledby="relaciones-title">
+          <div class="section-header">
+            <div>
+              <h2 id="relaciones-title">Mapa producto-fuente</h2>
+              <p>Relación muchos-a-muchos para entender qué fuentes usa cada producto, qué productos dependen de una fuente, impacto, síntoma visible y escalamiento.</p>
+            </div>
+            <a class="pill" href="./templates/producto-fuente.template.json">Template relación</a>
+          </div>
+          <div class="table-wrap"><table id="relacionesTable"></table></div>
+        </section>
+
+        <section class="searchable" id="ambientes" aria-labelledby="ambientes-title">
+          <div class="section-header">
+            <div>
+              <h2 id="ambientes-title">Ambientes</h2>
+              <p>Vista documental de ambientes técnicos. PRD, UAT, STAGE y DEV son ambientes; Follow es una fase de soporte.</p>
+            </div>
+            <span class="pill">PRD · UAT · STAGE · DEV</span>
+          </div>
+          <div class="grid cols-4" id="ambientesGrid"></div>
         </section>
 
         <section class="searchable" id="monitoreo" aria-labelledby="monitoreo-title">
@@ -133,7 +170,7 @@
           <div class="section-header">
             <div>
               <h2 id="runbooks-title">Runbooks operativos</h2>
-              <p>Procedimientos reutilizables para diagnóstico, contención, recuperación y cierre de eventos recurrentes.</p>
+              <p>Procedimientos reutilizables para diagnóstico transversal, por producto o por fuente.</p>
             </div>
             <a class="pill" href="./templates/runbook.template.json">Template runbook</a>
           </div>
@@ -166,11 +203,23 @@
           <div class="section-header">
             <div>
               <h2 id="capacitaciones-title">Capacitaciones y onboarding</h2>
-              <p>Ruta sugerida para incorporar integrantes y reforzar prácticas de soporte.</p>
+              <p>Ruta sugerida para incorporar integrantes y reforzar prácticas de soporte sobre productos, fuentes, relaciones y escalamientos.</p>
             </div>
             <span class="pill">Formación continua</span>
           </div>
           <div class="grid cols-3" id="capacitacionesGrid"></div>
+        </section>
+
+        <section class="searchable" id="control" aria-labelledby="control-title">
+          <div class="section-header">
+            <div>
+              <h2 id="control-title">Control operativo del soporte</h2>
+              <p>Seguimiento documental de fases de soporte, pendientes mínimos de traspaso, runbooks, dashboards, responsables y cambios al portal.</p>
+            </div>
+            <a class="pill" href="./docs/guia-mantencion-portal.md">Guía de mantención</a>
+          </div>
+          <div class="metrics-grid" id="controlGrid"></div>
+          <div class="grid cols-2" id="controlChecklist"></div>
         </section>
 
         <section class="empty-state" id="noResults" hidden>

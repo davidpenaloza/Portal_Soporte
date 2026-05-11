@@ -1,5 +1,7 @@
 const dataSources = {
   productos: "./data/productos.json",
+  fuentes: "./data/fuentes.json",
+  relaciones: "./data/producto-fuente.json",
   documentacion: "./data/documentacion.json",
   links: "./data/links-interes.json",
   escalamientos: "./data/escalamientos.json",
@@ -11,6 +13,8 @@ const dataSources = {
 
 const dataDefaults = {
   productos: [],
+  fuentes: [],
+  relaciones: [],
   documentacion: [],
   links: [],
   escalamientos: [],
@@ -30,7 +34,7 @@ const isArraySource = (name) => Array.isArray(dataDefaults[name]);
 const asList = (name) => Array.isArray(appState.data[name]) ? appState.data[name] : [];
 
 function escapeHtml(value = "") {
-  return String(value)
+  return String(value ?? "")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
@@ -54,11 +58,15 @@ function safeUrl(value = "", fallback = "#") {
 }
 
 function statusClass(value = "") {
-  const normalized = value.toLowerCase();
-  if (normalized.includes("crítica") || normalized.includes("alert") || normalized.includes("pendiente")) return "alert";
-  if (normalized.includes("alta") || normalized.includes("construcción") || normalized.includes("warn")) return "warn";
-  if (normalized.includes("base") || normalized.includes("ok")) return "ok";
+  const normalized = String(value).toLowerCase();
+  if (normalized.includes("crítica") || normalized.includes("alert") || normalized.includes("pendiente") || normalized.includes("sin soporte")) return "alert";
+  if (normalized.includes("alta") || normalized.includes("construcción") || normalized.includes("follow") || normalized.includes("toma de control") || normalized.includes("warn")) return "warn";
+  if (normalized.includes("activo") || normalized.includes("base") || normalized.includes("ok")) return "ok";
   return "info";
+}
+
+function joinList(items = []) {
+  return Array.isArray(items) ? items.join(", ") : String(items || "");
 }
 
 function renderTags(items = []) {
@@ -77,6 +85,23 @@ function renderEmptyCard(message) {
 
 function renderEmptyTableRow(columns, message) {
   return `<tr class="searchable-item"><td colspan="${columns}">${escapeHtml(message)}</td></tr>`;
+}
+
+function maps() {
+  return {
+    productos: new Map(asList("productos").map((item) => [item.id, item])),
+    fuentes: new Map(asList("fuentes").map((item) => [item.id, item]))
+  };
+}
+
+function displayProducto(id) {
+  const producto = maps().productos.get(id);
+  return producto ? `${producto.nombre} (${producto.sigla || producto.id})` : (id || "No aplica");
+}
+
+function displayFuente(id) {
+  const fuente = maps().fuentes.get(id);
+  return fuente ? fuente.nombre : (id || "No aplica");
 }
 
 async function loadJson(name, url) {
@@ -108,6 +133,9 @@ function renderPortal() {
   renderStatusPanel();
   renderModelo();
   renderProductos();
+  renderFuentes();
+  renderRelaciones();
+  renderAmbientes();
   renderMonitoreo();
   renderIncidentes();
   renderEscalamientos();
@@ -115,15 +143,20 @@ function renderPortal() {
   renderDocumentacion();
   renderLinks();
   renderCapacitaciones();
+  renderControlOperativo();
 }
 
 function renderMetrics() {
+  const ambientes = new Set([
+    ...asList("productos").flatMap((item) => item.ambientesDisponibles || []),
+    ...asList("fuentes").flatMap((item) => item.ambientesDisponibles || [])
+  ]);
   const metrics = [
-    ["Productos", asList("productos").length, "Inventario inicial soportado"],
-    ["Runbooks", asList("runbooks").length, "Procedimientos operativos"],
-    ["Escalamientos", asList("escalamientos").length, "Niveles y criterios"],
-    ["Documentos", asList("documentacion").length, "Guías y estándares"],
-    ["Mapas de monitoreo", asList("monitoreo").length, "Referencias a Grafana"]
+    ["Productos", asList("productos").length, "Productos digitales soportados"],
+    ["Fuentes", asList("fuentes").length, "Fuentes modeladas como entidades"],
+    ["Relaciones", asList("relaciones").length, "Dependencias producto-fuente"],
+    ["Ambientes", ambientes.size, "PRD · UAT · STAGE · DEV"],
+    ["Runbooks", asList("runbooks").length, "Transversales, por producto y por fuente"]
   ];
 
   $("#metricsGrid").innerHTML = metrics
@@ -172,31 +205,108 @@ function renderProductos() {
   $("#productosTable").innerHTML = `
     <thead>
       <tr>
-        <th>Producto</th>
-        <th>Criticidad</th>
-        <th>Dueño funcional</th>
-        <th>Responsable técnico</th>
-        <th>Horario</th>
-        <th>Dashboard</th>
-        <th>Runbook</th>
-        <th>Estado doc.</th>
+        <th>Producto</th><th>Faena</th><th>Ambientes</th><th>Ambiente soportado</th><th>Estado / fase</th><th>Criticidad</th><th>Soporte</th><th>Dashboard</th><th>Runbook</th><th>Fuentes</th><th>Última revisión</th>
       </tr>
     </thead>
     <tbody>
       ${productos.length ? productos.map((producto) => `
         <tr class="searchable-item">
-          <td><strong>${escapeHtml(producto.nombre)}</strong><br /><small>${escapeHtml(producto.descripcion)}</small></td>
+          <td><strong>${escapeHtml(producto.nombre)}</strong><br /><small>${escapeHtml(producto.id)} · ${escapeHtml(producto.descripcion)}</small>${renderTags(producto.tags)}</td>
+          <td>${escapeHtml(producto.faena)}</td>
+          <td>${escapeHtml(joinList(producto.ambientesDisponibles))}</td>
+          <td><span class="tag">${escapeHtml(producto.ambienteSoportado)}</span></td>
+          <td><span class="status ${statusClass(producto.estadoSoporte)}">${escapeHtml(producto.estadoSoporte)}</span><br /><small>${escapeHtml(producto.faseSoporte)} · ${escapeHtml(producto.nivelSoporte)}</small></td>
           <td><span class="status ${statusClass(producto.criticidad)}">${escapeHtml(producto.criticidad)}</span></td>
-          <td>${escapeHtml(producto.duenoFuncional)}</td>
-          <td>${escapeHtml(producto.responsableTecnico)}</td>
-          <td>${escapeHtml(producto.horario)}</td>
-          <td>${escapeHtml(producto.dashboard)}</td>
-          <td>${escapeHtml(producto.runbook)}</td>
-          <td><span class="status ${statusClass(producto.estadoDocumentacion)}">${escapeHtml(producto.estadoDocumentacion)}</span></td>
+          <td>${escapeHtml(producto.responsableSoporte)}<br /><small>${escapeHtml(producto.responsableTecnico)}</small></td>
+          <td>${escapeHtml(producto.dashboardPrincipal)}</td>
+          <td>${escapeHtml(producto.runbookPrincipal)}</td>
+          <td>${escapeHtml((producto.fuentesAsociadas || []).map(displayFuente).join(", "))}</td>
+          <td>${escapeHtml(producto.ultimaRevision)}</td>
         </tr>
-      `).join("") : renderEmptyTableRow(8, "Agrega productos en data/productos.json.")}
+      `).join("") : renderEmptyTableRow(11, "Agrega productos en data/productos.json.")}
     </tbody>
   `;
+}
+
+function renderFuentes() {
+  const fuentes = asList("fuentes");
+  $("#fuentesTable").innerHTML = `
+    <thead>
+      <tr>
+        <th>Fuente</th><th>Tipo</th><th>Faena</th><th>Ambientes</th><th>Ambiente soportado</th><th>Estado / fase</th><th>Criticidad</th><th>Responsables</th><th>Productos consumidores</th><th>Dashboard</th><th>Runbook</th><th>Última revisión</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${fuentes.length ? fuentes.map((fuente) => `
+        <tr class="searchable-item">
+          <td><strong>${escapeHtml(fuente.nombre)}</strong><br /><small>${escapeHtml(fuente.id)} · ${escapeHtml(fuente.descripcion)}</small>${renderTags(fuente.tags)}</td>
+          <td>${escapeHtml(fuente.tipo)}</td>
+          <td>${escapeHtml(fuente.faena)}</td>
+          <td>${escapeHtml(joinList(fuente.ambientesDisponibles))}</td>
+          <td><span class="tag">${escapeHtml(fuente.ambienteSoportado)}</span></td>
+          <td><span class="status ${statusClass(fuente.estadoSoporte)}">${escapeHtml(fuente.estadoSoporte)}</span><br /><small>${escapeHtml(fuente.faseSoporte)}</small></td>
+          <td><span class="status ${statusClass(fuente.criticidad)}">${escapeHtml(fuente.criticidad)}</span></td>
+          <td>${escapeHtml(fuente.responsableSoporte)}<br /><small>${escapeHtml(fuente.responsableTecnico)}</small></td>
+          <td>${escapeHtml((fuente.productosConsumidores || []).map(displayProducto).join(", "))}</td>
+          <td>${escapeHtml(fuente.dashboardAsociado)}</td>
+          <td>${escapeHtml(fuente.runbookAsociado)}</td>
+          <td>${escapeHtml(fuente.ultimaRevision)}</td>
+        </tr>
+      `).join("") : renderEmptyTableRow(12, "Agrega fuentes en data/fuentes.json.")}
+    </tbody>
+  `;
+}
+
+function renderRelaciones() {
+  const relaciones = asList("relaciones");
+  $("#relacionesTable").innerHTML = `
+    <thead>
+      <tr>
+        <th>Producto</th><th>Fuente</th><th>Faena</th><th>Ambiente</th><th>Dependencia</th><th>Criticidad</th><th>Componente afectado</th><th>Impacto si falla</th><th>Síntoma visible</th><th>Validación inicial</th><th>Runbook</th><th>Escalamiento</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${relaciones.length ? relaciones.map((relacion) => `
+        <tr class="searchable-item">
+          <td>${escapeHtml(displayProducto(relacion.productoId))}</td>
+          <td>${escapeHtml(displayFuente(relacion.fuenteId))}</td>
+          <td>${escapeHtml(relacion.faena)}</td>
+          <td><span class="tag">${escapeHtml(relacion.ambiente)}</span></td>
+          <td>${escapeHtml(relacion.tipoDependencia)}<br /><small>${relacion.fuenteObligatoria ? "Fuente obligatoria" : "Fuente complementaria"}</small></td>
+          <td><span class="status ${statusClass(relacion.criticidadRelacion)}">${escapeHtml(relacion.criticidadRelacion)}</span></td>
+          <td>${escapeHtml(relacion.componenteAfectado)}</td>
+          <td>${escapeHtml(relacion.impactoSiFalla)}</td>
+          <td>${escapeHtml(relacion.sintomaVisible)}</td>
+          <td>${escapeHtml(relacion.validacionInicial)}</td>
+          <td>${escapeHtml(relacion.runbookAsociado)}</td>
+          <td>${escapeHtml(relacion.escalamiento)}</td>
+        </tr>
+      `).join("") : renderEmptyTableRow(12, "Agrega relaciones en data/producto-fuente.json.")}
+    </tbody>
+  `;
+}
+
+function renderAmbientes() {
+  const entidades = [
+    ...asList("productos").map((item) => ({ ...item, entidad: "Producto" })),
+    ...asList("fuentes").map((item) => ({ ...item, entidad: "Fuente" }))
+  ];
+  const ambientes = ["PRD", "UAT", "STAGE", "DEV"];
+  $("#ambientesGrid").innerHTML = ambientes.map((ambiente) => {
+    const disponibles = entidades.filter((item) => (item.ambientesDisponibles || []).includes(ambiente));
+    const soportadas = entidades.filter((item) => item.ambienteSoportado === ambiente);
+    return `
+      <article class="card searchable-item">
+        <h3>${ambiente}</h3>
+        <p>Ambiente técnico. Follow no corresponde a ambiente; se documenta como fase de soporte.</p>
+        <div class="meta-list">
+          <div class="meta-item"><span>Entidades disponibles</span><strong>${disponibles.length}</strong></div>
+          <div class="meta-item"><span>Entidades soportadas</span><strong>${soportadas.length}</strong></div>
+        </div>
+        ${renderTags(soportadas.map((item) => `${item.entidad}: ${item.nombre}`))}
+      </article>
+    `;
+  }).join("");
 }
 
 function renderMonitoreo() {
@@ -242,23 +352,26 @@ function renderEscalamientos() {
   $("#escalamientosTable").innerHTML = `
     <thead>
       <tr>
-        <th>Nivel</th>
-        <th>Criterio</th>
-        <th>Tiempo objetivo</th>
-        <th>Responsable</th>
-        <th>Salida esperada</th>
+        <th>Entidad</th><th>Producto</th><th>Fuente</th><th>Ambiente</th><th>Faena</th><th>Tipo problema</th><th>Síntoma</th><th>Diagnóstico inicial</th><th>Evidencia mínima</th><th>Equipo</th><th>Cuándo escalar</th><th>Urgencia</th>
       </tr>
     </thead>
     <tbody>
       ${escalamientos.length ? escalamientos.map((item) => `
         <tr class="searchable-item">
-          <td><strong>${escapeHtml(item.nivel)}</strong></td>
-          <td>${escapeHtml(item.criterio)}</td>
-          <td>${escapeHtml(item.tiempoObjetivo)}</td>
-          <td>${escapeHtml(item.responsable)}</td>
-          <td>${escapeHtml(item.salidaEsperada)}</td>
+          <td>${escapeHtml(item.tipoEntidad)}</td>
+          <td>${escapeHtml(displayProducto(item.productoId))}</td>
+          <td>${escapeHtml(displayFuente(item.fuenteId))}</td>
+          <td><span class="tag">${escapeHtml(item.ambiente)}</span></td>
+          <td>${escapeHtml(item.faena)}</td>
+          <td>${escapeHtml(item.tipoProblema)}</td>
+          <td>${escapeHtml(item.sintomaVisible)}</td>
+          <td>${escapeHtml(item.diagnosticoInicial)}</td>
+          <td>${escapeHtml(joinList(item.evidenciaMinima))}</td>
+          <td>${escapeHtml(item.equipoEscalamiento)}<br /><small>${escapeHtml(item.canal)}</small></td>
+          <td>${escapeHtml(item.cuandoEscalar)}<br /><small>No escalar todavía: ${escapeHtml(item.cuandoNoEscalarTodavia)}</small></td>
+          <td><span class="status ${statusClass(item.urgencia)}">${escapeHtml(item.urgencia)}</span></td>
         </tr>
-      `).join("") : renderEmptyTableRow(5, "Agrega escalamientos en data/escalamientos.json.")}
+      `).join("") : renderEmptyTableRow(12, "Agrega escalamientos en data/escalamientos.json.")}
     </tbody>
   `;
 }
@@ -268,10 +381,13 @@ function renderRunbooks() {
   $("#runbooksGrid").innerHTML = runbooks.length ? runbooks.map((runbook) => `
     <article class="card searchable-item">
       <span class="status ${statusClass(runbook.estado)}">${escapeHtml(runbook.estado)}</span>
+      <span class="tag">${escapeHtml(runbook.tipoRunbook)}</span>
       <h3>${escapeHtml(runbook.titulo)}</h3>
       <p>${escapeHtml(runbook.objetivo)}</p>
       <div class="meta-list">
-        <div class="meta-item"><span>Producto</span><strong>${escapeHtml(runbook.producto)}</strong></div>
+        <div class="meta-item"><span>Ambiente</span><strong>${escapeHtml(runbook.ambiente)}</strong></div>
+        <div class="meta-item"><span>Producto</span><strong>${escapeHtml(displayProducto(runbook.productoId))}</strong></div>
+        <div class="meta-item"><span>Fuente</span><strong>${escapeHtml(displayFuente(runbook.fuenteId))}</strong></div>
         <div class="meta-item"><span>Severidad sugerida</span><strong>${escapeHtml(runbook.severidadSugerida)}</strong></div>
         <div class="meta-item"><span>ID</span><strong>${escapeHtml(runbook.id)}</strong></div>
       </div>
@@ -287,9 +403,7 @@ function renderDocumentacion() {
       <span class="status ${statusClass(doc.estado)}">${escapeHtml(doc.estado)}</span>
       <h3>${escapeHtml(doc.titulo)}</h3>
       <p>${escapeHtml(doc.descripcion)}</p>
-      <div class="meta-list">
-        <div class="meta-item"><span>Tipo</span><strong>${escapeHtml(doc.tipo)}</strong></div>
-      </div>
+      <div class="meta-list"><div class="meta-item"><span>Tipo</span><strong>${escapeHtml(doc.tipo)}</strong></div></div>
       <p><a class="pill" href="${safeUrl(doc.url)}">Abrir documento</a></p>
     </article>
   `).join("") : renderEmptyCard("Agrega documentos en data/documentacion.json.");
@@ -320,6 +434,47 @@ function renderCapacitaciones() {
       ${renderTags(item.actividades)}
     </article>
   `).join("") : renderEmptyCard("Agrega capacitaciones en data/capacitaciones.json.");
+}
+
+function renderControlOperativo() {
+  const productos = asList("productos");
+  const fuentes = asList("fuentes");
+  const escalamientos = asList("escalamientos");
+  const productosFollow = productos.filter((item) => item.faseSoporte === "Follow");
+  const productosTomaControl = productos.filter((item) => item.faseSoporte === "En toma de control");
+  const productosActivos = productos.filter((item) => item.faseSoporte === "Soporte activo");
+  const productosSinRunbook = productos.filter((item) => !item.runbookPrincipal || item.runbookPrincipal === "Pendiente");
+  const productosSinDashboard = productos.filter((item) => !item.dashboardPrincipal || item.dashboardPrincipal === "Pendiente de documentar");
+  const fuentesSinRunbook = fuentes.filter((item) => !item.runbookAsociado || item.runbookAsociado === "Pendiente");
+  const fuentesSinResponsable = fuentes.filter((item) => !item.responsableSoporte || item.responsableSoporte === "Por definir");
+  const productosSinEscalamiento = productos.filter((producto) => !escalamientos.some((esc) => esc.productoId === producto.id));
+
+  const cards = [
+    ["Productos en Follow", productosFollow.length, productosFollow.map((item) => item.nombre)],
+    ["Productos en toma de control", productosTomaControl.length, productosTomaControl.map((item) => item.nombre)],
+    ["Productos con soporte activo", productosActivos.length, productosActivos.map((item) => item.nombre)],
+    ["Productos sin runbook", productosSinRunbook.length, productosSinRunbook.map((item) => item.nombre)],
+    ["Productos sin matriz de escalamiento", productosSinEscalamiento.length, productosSinEscalamiento.map((item) => item.nombre)],
+    ["Productos sin dashboard documentado", productosSinDashboard.length, productosSinDashboard.map((item) => item.nombre)],
+    ["Fuentes sin runbook", fuentesSinRunbook.length, fuentesSinRunbook.map((item) => item.nombre)],
+    ["Fuentes sin responsable definido", fuentesSinResponsable.length, fuentesSinResponsable.map((item) => item.nombre)]
+  ];
+
+  $("#controlGrid").innerHTML = cards.map(([title, value, items]) => `
+    <article class="metric-card searchable-item">
+      <strong>${value}</strong>
+      <h3>${escapeHtml(title)}</h3>
+      <p>${items.length ? escapeHtml(items.join(", ")) : "Sin pendientes identificados"}</p>
+    </article>
+  `).join("");
+
+  $("#controlChecklist").innerHTML = `
+    <article class="card searchable-item">
+      <h3>Checklist mínimo de traspaso a soporte</h3>
+      ${renderTags(["Entidad con ID", "Ambiente soportado", "Fase de soporte", "Dashboard documentado", "Runbook", "Matriz de escalamiento", "Responsables", "Relaciones producto-fuente"])}
+      <p>Para solicitar cambios al portal, crear una rama, actualizar JSON/Markdown, ejecutar el validador y pedir revisión por pull request.</p>
+    </article>
+  `;
 }
 
 function setupSearch() {

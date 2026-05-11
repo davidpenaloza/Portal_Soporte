@@ -1,30 +1,56 @@
 [
   {
-    "nivel": "N1 - Soporte DAA",
-    "criterio": "Incidentes conocidos, consultas de uso, validación inicial de alertas o revisión de dashboard.",
-    "tiempoObjetivo": "30 minutos para clasificación inicial",
-    "responsable": "Analista de soporte asignado",
-    "salidaEsperada": "Ticket clasificado con evidencia mínima y acción aplicada o derivación justificada."
+    "tipoEntidad": "Producto",
+    "productoId": "prod-ada-operacional",
+    "fuenteId": null,
+    "ambiente": "PRD",
+    "faena": "Centinela",
+    "tipoProblema": "Producto sin actualización operacional esperada",
+    "sintomaVisible": "Dashboard principal sin refresco dentro de ventana documentada.",
+    "diagnosticoInicial": "Validar dashboard, runbook principal, jobs del producto y fuentes obligatorias asociadas.",
+    "evidenciaMinima": ["Producto", "Ambiente", "Ventana afectada", "Dashboard", "Runbook aplicado"],
+    "equipoEscalamiento": "Equipo plataforma analítica / desarrollo ADA",
+    "canal": "Canal operativo de soporte y ticket ITSM",
+    "cuandoEscalar": "Cuando el runbook no recupera la operación o hay falla técnica persistente.",
+    "cuandoNoEscalarTodavia": "Cuando aún no se revisó fuente obligatoria, ambiente o ventana esperada.",
+    "urgencia": "Alta",
+    "horarioAplicable": "Horario hábil con coordinación de guardia pasiva",
+    "observaciones": "Escalar con evidencia, sin copiar secretos ni rutas internas sensibles."
   },
   {
-    "nivel": "N2 - Especialista técnico",
-    "criterio": "Falla persistente en pipelines, APIs, jobs, consultas o reglas de negocio que requiere análisis especializado.",
-    "tiempoObjetivo": "2 horas para diagnóstico técnico inicial",
-    "responsable": "Especialista de datos, backend, frontend o plataforma según componente",
-    "salidaEsperada": "Causa probable, plan de contención y estimación de resolución."
+    "tipoEntidad": "Fuente",
+    "productoId": null,
+    "fuenteId": "fte-api-potencia",
+    "ambiente": "PRD",
+    "faena": "Antucoya",
+    "tipoProblema": "API origen no disponible o con latencia sostenida",
+    "sintomaVisible": "Timeouts o respuestas fallidas en dashboard de fuente y producto consumidor.",
+    "diagnosticoInicial": "Revisar disponibilidad del endpoint, último consumo exitoso y errores del job consumidor.",
+    "evidenciaMinima": ["Fuente", "Ambiente", "Código de error", "Timestamp", "Producto consumidor"],
+    "equipoEscalamiento": "Proveedor API operacional / integración",
+    "canal": "Ticket a integración y aviso en canal de soporte",
+    "cuandoEscalar": "Cuando hay indisponibilidad de origen confirmada o errores repetidos después de validación inicial.",
+    "cuandoNoEscalarTodavia": "Cuando solo existe atraso dentro de tolerancia documentada o falta revisar job consumidor.",
+    "urgencia": "Alta",
+    "horarioAplicable": "Horario hábil",
+    "observaciones": "La fuente es entidad de soporte y puede afectar más de un producto."
   },
   {
-    "nivel": "N3 - Desarrollo / Plataforma",
-    "criterio": "Defecto de producto, indisponibilidad de servicio, cambio de infraestructura o corrección de código.",
-    "tiempoObjetivo": "Según severidad y ventana de operación acordada",
-    "responsable": "Equipo de desarrollo, arquitectura o plataforma cloud",
-    "salidaEsperada": "Corrección, despliegue, workaround formal o plan de remediación."
-  },
-  {
-    "nivel": "Gestión funcional",
-    "criterio": "Impacto de negocio, priorización, definición funcional, validación de datos o comunicación ejecutiva.",
-    "tiempoObjetivo": "Según criticidad del producto y calendario operativo",
-    "responsable": "Product owner o contraparte funcional",
-    "salidaEsperada": "Decisión funcional, aceptación de workaround o validación de cierre."
+    "tipoEntidad": "Relación producto-fuente",
+    "productoId": "prod-mineral-tracking",
+    "fuenteId": "fte-bd-despacho",
+    "ambiente": "UAT",
+    "faena": "Los Pelambres",
+    "tipoProblema": "Dependencia producto-fuente no refresca en ambiente soportado",
+    "sintomaVisible": "El producto no incorpora eventos recientes de la fuente en UAT.",
+    "diagnosticoInicial": "Validar fuente, job consumidor, permisos de lectura y ventana de actualización documentada.",
+    "evidenciaMinima": ["Producto", "Fuente", "Ambiente", "Job consumidor", "Mensaje de error"],
+    "equipoEscalamiento": "Equipo base operacional + arquitectura analítica",
+    "canal": "Ticket de traspaso / canal de toma de control",
+    "cuandoEscalar": "Cuando la dependencia falla después de validar fuente y consumidor.",
+    "cuandoNoEscalarTodavia": "Cuando el producto continúa en toma de control y falta completar matriz formal.",
+    "urgencia": "Media / Alta",
+    "horarioAplicable": "Horario hábil",
+    "observaciones": "Registrar pendiente documental si no existe ruta formal de escalamiento."
   }
 ]
