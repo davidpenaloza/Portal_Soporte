@@ -26,5 +26,12 @@
     "url": "./docs/guia-mantencion-portal.md",
     "descripcion": "Explica cómo actualizar JSON, Markdown y templates sin introducir información sensible.",
     "estado": "Base"
+  },
+  {
+    "titulo": "Necesidades y dolores operativos que aborda el Portal de Soporte",
+    "tipo": "Levantamiento de necesidades",
+    "url": "./docs/necesidades-dolores-portal-soporte.md",
+    "descripcion": "Hipótesis iniciales sobre necesidades, dolores operativos, perfiles a entrevistar, preguntas y criterios de éxito del portal.",
+    "estado": "Borrador / Por validar"
   }
 ]

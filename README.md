@@ -67,6 +67,7 @@ Valores esperados: `Follow`, `En toma de control`, `Soporte activo`, `Soporte pa
 │   ├── estandar-monitoreo.md
 │   ├── guia-mantencion-portal.md
 │   ├── modelo-operativo.md
+│   ├── necesidades-dolores-portal-soporte.md
 │   └── traspaso-soporte.md
 ├── templates/
 │   ├── documentacion.template.json
@@ -115,6 +116,11 @@ El portal usa la paleta corporativa indicada para AMSA, declarada como variables
 - Pantone 124 C: `#E5A823`.
 - Pantone Cool Gray 10 C: `#63666A`.
 - Negro de marca: `#000000`.
+
+
+## Documento de necesidades y dolores
+
+El documento `docs/necesidades-dolores-portal-soporte.md` ordena las hipótesis iniciales sobre necesidades, dolores operativos, perfiles a entrevistar, preguntas sugeridas y criterios de éxito del portal. Este documento es un insumo para entrevistas futuras y debe actualizarse con hallazgos reales del levantamiento.
 
 ## Cómo agregar un producto
 
