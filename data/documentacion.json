@@ -1,0 +1,30 @@
+[
+  {
+    "titulo": "Modelo operativo de soporte",
+    "tipo": "Guía operativa",
+    "url": "./docs/modelo-operativo.md",
+    "descripcion": "Define principios, roles, cadencias, responsabilidades y artefactos mínimos del modelo de soporte.",
+    "estado": "Base"
+  },
+  {
+    "titulo": "Estándar de monitoreo",
+    "tipo": "Estándar técnico",
+    "url": "./docs/estandar-monitoreo.md",
+    "descripcion": "Describe capas mínimas de observabilidad, KPIs recomendados y criterios de alerta.",
+    "estado": "Base"
+  },
+  {
+    "titulo": "Traspaso a soporte",
+    "tipo": "Checklist",
+    "url": "./docs/traspaso-soporte.md",
+    "descripcion": "Lista de antecedentes requeridos para recibir un producto en operación de soporte.",
+    "estado": "Base"
+  },
+  {
+    "titulo": "Guía de mantención del portal",
+    "tipo": "Manual repositorio",
+    "url": "./docs/guia-mantencion-portal.md",
+    "descripcion": "Explica cómo actualizar JSON, Markdown y templates sin introducir información sensible.",
+    "estado": "Base"
+  }
+]

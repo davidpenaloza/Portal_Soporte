@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portal interno de soporte para centralizar productos, runbooks, escalamientos, documentación y capacitaciones del equipo de Soporte Data & Analítica Avanzada." />
+  <title>Portal de Soporte AMSA | Data & Analítica Avanzada</title>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Navegación principal">
+      <a class="brand" href="#inicio" aria-label="Ir al inicio">
+        <span class="brand-mark">AA</span>
+        <span>
+          <strong>Soporte DAA</strong>
+          <small>Portal AMSA</small>
+        </span>
+      </a>
+
+      <p class="side-label">Contenido</p>
+      <nav class="nav-links">
+        <a href="#resumen" class="active">Resumen</a>
+        <a href="#modelo">Modelo operativo</a>
+        <a href="#productos">Productos</a>
+        <a href="#monitoreo">Monitoreo</a>
+        <a href="#incidentes">Incidentes</a>
+        <a href="#escalamientos">Escalamientos</a>
+        <a href="#runbooks">Runbooks</a>
+        <a href="#documentacion">Documentación</a>
+        <a href="#links">Links de interés</a>
+        <a href="#capacitaciones">Capacitaciones</a>
+      </nav>
+
+      <div class="sidebar-note">
+        <strong>Contenido versionado</strong>
+        <span>Los cambios operativos se mantienen en archivos JSON y Markdown dentro del repositorio.</span>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button class="menu-button" type="button" aria-label="Abrir navegación" aria-controls="sidebar" onclick="toggleSidebar()">☰</button>
+        <div class="search-wrap">
+          <span aria-hidden="true">🔎</span>
+          <input id="searchInput" type="search" placeholder="Buscar productos, runbooks, documentos o conceptos..." autocomplete="off" />
+        </div>
+        <a class="topbar-link" href="./docs/guia-mantencion-portal.md">Guía de mantención</a>
+      </header>
+
+      <div class="content" id="inicio">
+        <section class="hero searchable" id="resumen">
+          <div class="hero-content">
+            <p class="eyebrow">Portal interno · Soporte Data & Analítica Avanzada</p>
+            <h1>Información operativa centralizada para continuidad de soporte.</h1>
+            <p>Consulta productos soportados, modelo operativo, runbooks, escalamientos, documentación, links de interés y capacitaciones desde una estructura estática mantenible.</p>
+            <div class="hero-actions">
+              <a class="btn" href="#productos">Ver productos</a>
+              <a class="btn secondary" href="#runbooks">Consultar runbooks</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="searchable" aria-labelledby="estado-title">
+          <div class="section-header">
+            <div>
+              <h2 id="estado-title">Estado del portal</h2>
+              <p>Resumen ejecutivo calculado desde los archivos de contenido disponibles en <code>/data</code>.</p>
+            </div>
+            <span class="pill">Versión inicial mantenible</span>
+          </div>
+          <div class="metrics-grid" id="metricsGrid" aria-live="polite"></div>
+          <div class="status-panel" id="statusPanel" aria-live="polite"></div>
+        </section>
+
+        <section class="searchable" id="modelo" aria-labelledby="modelo-title">
+          <div class="section-header">
+            <div>
+              <h2 id="modelo-title">Modelo operativo de soporte</h2>
+              <p>Principios, responsabilidades, cadencias y artefactos que ordenan la operación del equipo.</p>
+            </div>
+            <a class="pill" href="./docs/modelo-operativo.md">Ver documento</a>
+          </div>
+          <div class="grid cols-3" id="modeloGrid"></div>
+        </section>
+
+        <section class="searchable" id="productos" aria-labelledby="productos-title">
+          <div class="section-header">
+            <div>
+              <h2 id="productos-title">Productos soportados</h2>
+              <p>Inventario base de productos, criticidad, responsables, horarios de soporte y referencias operativas.</p>
+            </div>
+            <a class="pill" href="./templates/producto.template.json">Template producto</a>
+          </div>
+          <div class="table-wrap"><table id="productosTable"></table></div>
+        </section>
+
+        <section class="searchable" id="monitoreo" aria-labelledby="monitoreo-title">
+          <div class="section-header">
+            <div>
+              <h2 id="monitoreo-title">Monitoreo estándar por capas</h2>
+              <p>Vista recomendada para revisar salud técnica, procesamiento de datos y señales funcionales.</p>
+            </div>
+            <a class="pill" href="./docs/estandar-monitoreo.md">Estándar de monitoreo</a>
+          </div>
+          <div class="grid cols-3" id="monitoreoGrid"></div>
+        </section>
+
+        <section class="searchable" id="incidentes" aria-labelledby="incidentes-title">
+          <div class="section-header">
+            <div>
+              <h2 id="incidentes-title">Gestión de incidentes</h2>
+              <p>Flujo operativo recomendado para detectar, diagnosticar, escalar, resolver y documentar incidentes.</p>
+            </div>
+            <a class="pill" href="./docs/traspaso-soporte.md">Traspaso soporte</a>
+          </div>
+          <div class="flow" id="incidentesFlow"></div>
+        </section>
+
+        <section class="searchable" id="escalamientos" aria-labelledby="escalamientos-title">
+          <div class="section-header">
+            <div>
+              <h2 id="escalamientos-title">Matriz de escalamiento</h2>
+              <p>Criterios de severidad, tiempos objetivo y grupos responsables para derivaciones ordenadas.</p>
+            </div>
+            <a class="pill" href="./templates/escalamiento.template.json">Template escalamiento</a>
+          </div>
+          <div class="table-wrap"><table id="escalamientosTable"></table></div>
+        </section>
+
+        <section class="searchable" id="runbooks" aria-labelledby="runbooks-title">
+          <div class="section-header">
+            <div>
+              <h2 id="runbooks-title">Runbooks operativos</h2>
+              <p>Procedimientos reutilizables para diagnóstico, contención, recuperación y cierre de eventos recurrentes.</p>
+            </div>
+            <a class="pill" href="./templates/runbook.template.json">Template runbook</a>
+          </div>
+          <div class="grid cols-2" id="runbooksGrid"></div>
+        </section>
+
+        <section class="searchable" id="documentacion" aria-labelledby="documentacion-title">
+          <div class="section-header">
+            <div>
+              <h2 id="documentacion-title">Repositorio documental</h2>
+              <p>Índice de documentos internos, guías, arquitecturas, minutas y material operativo.</p>
+            </div>
+            <a class="pill" href="./templates/documentacion.template.json">Template documentación</a>
+          </div>
+          <div class="grid cols-3" id="documentacionGrid"></div>
+        </section>
+
+        <section class="searchable" id="links" aria-labelledby="links-title">
+          <div class="section-header">
+            <div>
+              <h2 id="links-title">Links de interés</h2>
+              <p>Accesos de referencia a herramientas de operación, observabilidad, gestión y colaboración.</p>
+            </div>
+            <span class="pill">Sin credenciales ni rutas sensibles</span>
+          </div>
+          <div class="grid cols-3" id="linksGrid"></div>
+        </section>
+
+        <section class="searchable" id="capacitaciones" aria-labelledby="capacitaciones-title">
+          <div class="section-header">
+            <div>
+              <h2 id="capacitaciones-title">Capacitaciones y onboarding</h2>
+              <p>Ruta sugerida para incorporar integrantes y reforzar prácticas de soporte.</p>
+            </div>
+            <span class="pill">Formación continua</span>
+          </div>
+          <div class="grid cols-3" id="capacitacionesGrid"></div>
+        </section>
+
+        <section class="empty-state" id="noResults" hidden>
+          <h2>Sin resultados</h2>
+          <p>No encontramos coincidencias para la búsqueda ingresada. Prueba con otro producto, herramienta o concepto.</p>
+        </section>
+
+        <footer class="footer">
+          <p>Portal estático mantenible para uso interno del equipo de Soporte Data & Analítica Avanzada. No incluir secretos, credenciales ni información productiva sensible.</p>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script src="./assets/js/app.js"></script>
+</body>
+</html>

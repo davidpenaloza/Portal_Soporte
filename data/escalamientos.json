@@ -1,0 +1,30 @@
+[
+  {
+    "nivel": "N1 - Soporte DAA",
+    "criterio": "Incidentes conocidos, consultas de uso, validación inicial de alertas o revisión de dashboard.",
+    "tiempoObjetivo": "30 minutos para clasificación inicial",
+    "responsable": "Analista de soporte asignado",
+    "salidaEsperada": "Ticket clasificado con evidencia mínima y acción aplicada o derivación justificada."
+  },
+  {
+    "nivel": "N2 - Especialista técnico",
+    "criterio": "Falla persistente en pipelines, APIs, jobs, consultas o reglas de negocio que requiere análisis especializado.",
+    "tiempoObjetivo": "2 horas para diagnóstico técnico inicial",
+    "responsable": "Especialista de datos, backend, frontend o plataforma según componente",
+    "salidaEsperada": "Causa probable, plan de contención y estimación de resolución."
+  },
+  {
+    "nivel": "N3 - Desarrollo / Plataforma",
+    "criterio": "Defecto de producto, indisponibilidad de servicio, cambio de infraestructura o corrección de código.",
+    "tiempoObjetivo": "Según severidad y ventana de operación acordada",
+    "responsable": "Equipo de desarrollo, arquitectura o plataforma cloud",
+    "salidaEsperada": "Corrección, despliegue, workaround formal o plan de remediación."
+  },
+  {
+    "nivel": "Gestión funcional",
+    "criterio": "Impacto de negocio, priorización, definición funcional, validación de datos o comunicación ejecutiva.",
+    "tiempoObjetivo": "Según criticidad del producto y calendario operativo",
+    "responsable": "Product owner o contraparte funcional",
+    "salidaEsperada": "Decisión funcional, aceptación de workaround o validación de cierre."
+  }
+]
