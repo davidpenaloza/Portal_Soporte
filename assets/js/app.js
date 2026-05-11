@@ -9,12 +9,25 @@ const dataSources = {
   capacitaciones: "./data/capacitaciones.json"
 };
 
+const dataDefaults = {
+  productos: [],
+  documentacion: [],
+  links: [],
+  escalamientos: [],
+  runbooks: [],
+  modelo: { principios: [], monitoreo: [], incidentes: [], cadencias: [] },
+  monitoreo: [],
+  capacitaciones: []
+};
+
 const appState = {
-  data: {},
+  data: { ...dataDefaults },
   errors: []
 };
 
 const $ = (selector) => document.querySelector(selector);
+const isArraySource = (name) => Array.isArray(dataDefaults[name]);
+const asList = (name) => Array.isArray(appState.data[name]) ? appState.data[name] : [];
 
 function escapeHtml(value = "") {
   return String(value)
@@ -23,6 +36,21 @@ function escapeHtml(value = "") {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function safeUrl(value = "", fallback = "#") {
+  const url = String(value || "").trim();
+  if (!url) return fallback;
+  if (url.startsWith("./") || url.startsWith("../") || url.startsWith("#")) return escapeHtml(url);
+
+  try {
+    const parsed = new URL(url, window.location.href);
+    if (["http:", "https:"].includes(parsed.protocol)) return escapeHtml(parsed.href);
+  } catch (error) {
+    console.warn("URL inválida omitida", value, error);
+  }
+
+  return fallback;
 }
 
 function statusClass(value = "") {
@@ -34,18 +62,36 @@ function statusClass(value = "") {
 }
 
 function renderTags(items = []) {
-  if (!items.length) return "";
+  if (!Array.isArray(items) || !items.length) return "";
   return `<div class="tag-row">${items.map((item) => `<span class="tag">${escapeHtml(item)}</span>`).join("")}</div>`;
+}
+
+function renderEmptyCard(message) {
+  return `
+    <article class="card is-empty searchable-item">
+      <h3>Sin contenido registrado</h3>
+      <p>${escapeHtml(message)}</p>
+    </article>
+  `;
+}
+
+function renderEmptyTableRow(columns, message) {
+  return `<tr class="searchable-item"><td colspan="${columns}">${escapeHtml(message)}</td></tr>`;
 }
 
 async function loadJson(name, url) {
   try {
     const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    return await response.json();
+
+    const data = await response.json();
+    if (isArraySource(name) && !Array.isArray(data)) throw new Error("Se esperaba un arreglo JSON");
+    if (!isArraySource(name) && (Array.isArray(data) || typeof data !== "object" || data === null)) throw new Error("Se esperaba un objeto JSON");
+
+    return data;
   } catch (error) {
     appState.errors.push({ name, url, message: error.message });
-    return Array.isArray(appState.data[name]) ? [] : null;
+    return dataDefaults[name];
   }
 }
 
@@ -53,7 +99,7 @@ async function loadAllData() {
   const entries = await Promise.all(
     Object.entries(dataSources).map(async ([name, url]) => [name, await loadJson(name, url)])
   );
-  appState.data = Object.fromEntries(entries);
+  appState.data = { ...dataDefaults, ...Object.fromEntries(entries) };
   renderPortal();
 }
 
@@ -73,11 +119,11 @@ function renderPortal() {
 
 function renderMetrics() {
   const metrics = [
-    ["Productos", appState.data.productos?.length || 0, "Inventario inicial soportado"],
-    ["Runbooks", appState.data.runbooks?.length || 0, "Procedimientos operativos"],
-    ["Escalamientos", appState.data.escalamientos?.length || 0, "Niveles y criterios"],
-    ["Documentos", appState.data.documentacion?.length || 0, "Guías y estándares"],
-    ["Mapas de monitoreo", appState.data.monitoreo?.length || 0, "Referencias a Grafana"]
+    ["Productos", asList("productos").length, "Inventario inicial soportado"],
+    ["Runbooks", asList("runbooks").length, "Procedimientos operativos"],
+    ["Escalamientos", asList("escalamientos").length, "Niveles y criterios"],
+    ["Documentos", asList("documentacion").length, "Guías y estándares"],
+    ["Mapas de monitoreo", asList("monitoreo").length, "Referencias a Grafana"]
   ];
 
   $("#metricsGrid").innerHTML = metrics
@@ -110,17 +156,19 @@ function renderStatusPanel() {
 
 function renderModelo() {
   const principios = appState.data.modelo?.principios || [];
-  $("#modeloGrid").innerHTML = principios.map((item) => `
-    <article class="card searchable-item">
-      <h3>${escapeHtml(item.nombre)}</h3>
-      <p>${escapeHtml(item.descripcion)}</p>
-      ${renderTags(item.artefactos)}
-    </article>
-  `).join("");
+  $("#modeloGrid").innerHTML = principios.length
+    ? principios.map((item) => `
+      <article class="card searchable-item">
+        <h3>${escapeHtml(item.nombre)}</h3>
+        <p>${escapeHtml(item.descripcion)}</p>
+        ${renderTags(item.artefactos)}
+      </article>
+    `).join("")
+    : renderEmptyCard("Agrega principios del modelo operativo en data/modelo-operativo.json.");
 }
 
 function renderProductos() {
-  const productos = appState.data.productos || [];
+  const productos = asList("productos");
   $("#productosTable").innerHTML = `
     <thead>
       <tr>
@@ -135,7 +183,7 @@ function renderProductos() {
       </tr>
     </thead>
     <tbody>
-      ${productos.map((producto) => `
+      ${productos.length ? productos.map((producto) => `
         <tr class="searchable-item">
           <td><strong>${escapeHtml(producto.nombre)}</strong><br /><small>${escapeHtml(producto.descripcion)}</small></td>
           <td><span class="status ${statusClass(producto.criticidad)}">${escapeHtml(producto.criticidad)}</span></td>
@@ -146,14 +194,14 @@ function renderProductos() {
           <td>${escapeHtml(producto.runbook)}</td>
           <td><span class="status ${statusClass(producto.estadoDocumentacion)}">${escapeHtml(producto.estadoDocumentacion)}</span></td>
         </tr>
-      `).join("")}
+      `).join("") : renderEmptyTableRow(8, "Agrega productos en data/productos.json.")}
     </tbody>
   `;
 }
 
 function renderMonitoreo() {
-  const catalogo = appState.data.monitoreo || [];
-  $("#monitoreoGrid").innerHTML = catalogo.map((item) => `
+  const catalogo = asList("monitoreo");
+  $("#monitoreoGrid").innerHTML = catalogo.length ? catalogo.map((item) => `
     <article class="card monitoring-card searchable-item">
       <span class="tag">${escapeHtml(item.producto)}</span>
       <h3>${escapeHtml(item.dashboardPrincipal)}</h3>
@@ -173,24 +221,24 @@ function renderMonitoreo() {
         <div><span class="status alert">ALERT</span><p>${escapeHtml(item.criterios?.alert)}</p></div>
       </div>
       <p>${escapeHtml(item.observaciones)}</p>
-      <p><a class="pill" href="${escapeHtml(item.linkGrafana)}" target="_blank" rel="noreferrer">Abrir referencia en Grafana</a></p>
+      <p><a class="pill" href="${safeUrl(item.linkGrafana)}" target="_blank" rel="noreferrer">Abrir referencia en Grafana</a></p>
     </article>
-  `).join("");
+  `).join("") : renderEmptyCard("Agrega mapas de monitoreo en data/monitoreo.json.");
 }
 
 function renderIncidentes() {
   const pasos = appState.data.modelo?.incidentes || [];
-  $("#incidentesFlow").innerHTML = pasos.map((paso, index) => `
+  $("#incidentesFlow").innerHTML = pasos.length ? pasos.map((paso, index) => `
     <article class="flow-step searchable-item">
       <strong>${index + 1}</strong>
       <h3>${escapeHtml(paso.paso)}</h3>
       <p>${escapeHtml(paso.descripcion)}</p>
     </article>
-  `).join("");
+  `).join("") : renderEmptyCard("Agrega el flujo de incidentes en data/modelo-operativo.json.");
 }
 
 function renderEscalamientos() {
-  const escalamientos = appState.data.escalamientos || [];
+  const escalamientos = asList("escalamientos");
   $("#escalamientosTable").innerHTML = `
     <thead>
       <tr>
@@ -202,7 +250,7 @@ function renderEscalamientos() {
       </tr>
     </thead>
     <tbody>
-      ${escalamientos.map((item) => `
+      ${escalamientos.length ? escalamientos.map((item) => `
         <tr class="searchable-item">
           <td><strong>${escapeHtml(item.nivel)}</strong></td>
           <td>${escapeHtml(item.criterio)}</td>
@@ -210,14 +258,14 @@ function renderEscalamientos() {
           <td>${escapeHtml(item.responsable)}</td>
           <td>${escapeHtml(item.salidaEsperada)}</td>
         </tr>
-      `).join("")}
+      `).join("") : renderEmptyTableRow(5, "Agrega escalamientos en data/escalamientos.json.")}
     </tbody>
   `;
 }
 
 function renderRunbooks() {
-  const runbooks = appState.data.runbooks || [];
-  $("#runbooksGrid").innerHTML = runbooks.map((runbook) => `
+  const runbooks = asList("runbooks");
+  $("#runbooksGrid").innerHTML = runbooks.length ? runbooks.map((runbook) => `
     <article class="card searchable-item">
       <span class="status ${statusClass(runbook.estado)}">${escapeHtml(runbook.estado)}</span>
       <h3>${escapeHtml(runbook.titulo)}</h3>
@@ -229,12 +277,12 @@ function renderRunbooks() {
       </div>
       ${renderTags(runbook.evidenciaMinima)}
     </article>
-  `).join("");
+  `).join("") : renderEmptyCard("Agrega runbooks en data/runbooks.json.");
 }
 
 function renderDocumentacion() {
-  const documentos = appState.data.documentacion || [];
-  $("#documentacionGrid").innerHTML = documentos.map((doc) => `
+  const documentos = asList("documentacion");
+  $("#documentacionGrid").innerHTML = documentos.length ? documentos.map((doc) => `
     <article class="card searchable-item">
       <span class="status ${statusClass(doc.estado)}">${escapeHtml(doc.estado)}</span>
       <h3>${escapeHtml(doc.titulo)}</h3>
@@ -242,26 +290,26 @@ function renderDocumentacion() {
       <div class="meta-list">
         <div class="meta-item"><span>Tipo</span><strong>${escapeHtml(doc.tipo)}</strong></div>
       </div>
-      <p><a class="pill" href="${escapeHtml(doc.url)}">Abrir documento</a></p>
+      <p><a class="pill" href="${safeUrl(doc.url)}">Abrir documento</a></p>
     </article>
-  `).join("");
+  `).join("") : renderEmptyCard("Agrega documentos en data/documentacion.json.");
 }
 
 function renderLinks() {
-  const links = appState.data.links || [];
-  $("#linksGrid").innerHTML = links.map((link) => `
+  const links = asList("links");
+  $("#linksGrid").innerHTML = links.length ? links.map((link) => `
     <article class="card searchable-item">
       <span class="tag">${escapeHtml(link.categoria)}</span>
       <h3>${escapeHtml(link.nombre)}</h3>
       <p>${escapeHtml(link.descripcion)}</p>
-      <p><a class="pill" href="${escapeHtml(link.url)}" target="_blank" rel="noreferrer">Abrir referencia</a></p>
+      <p><a class="pill" href="${safeUrl(link.url)}" target="_blank" rel="noreferrer">Abrir referencia</a></p>
     </article>
-  `).join("");
+  `).join("") : renderEmptyCard("Agrega links de interés en data/links-interes.json.");
 }
 
 function renderCapacitaciones() {
-  const capacitaciones = appState.data.capacitaciones || [];
-  $("#capacitacionesGrid").innerHTML = capacitaciones.map((item) => `
+  const capacitaciones = asList("capacitaciones");
+  $("#capacitacionesGrid").innerHTML = capacitaciones.length ? capacitaciones.map((item) => `
     <article class="card searchable-item">
       <h3>${escapeHtml(item.modulo)}</h3>
       <p>${escapeHtml(item.objetivo)}</p>
@@ -271,7 +319,7 @@ function renderCapacitaciones() {
       </div>
       ${renderTags(item.actividades)}
     </article>
-  `).join("");
+  `).join("") : renderEmptyCard("Agrega capacitaciones en data/capacitaciones.json.");
 }
 
 function setupSearch() {
@@ -302,11 +350,27 @@ function setupActiveNavigation() {
   });
 }
 
-function toggleSidebar() {
-  $("#sidebar").classList.toggle("open");
+function setupSidebar() {
+  const sidebar = $("#sidebar");
+  const button = $("#menuButton");
+  if (!sidebar || !button) return;
+
+  button.addEventListener("click", () => {
+    const isOpen = sidebar.classList.toggle("open");
+    button.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  document.querySelectorAll(".nav-links a").forEach((link) => {
+    link.addEventListener("click", () => {
+      sidebar.classList.remove("open");
+      button.setAttribute("aria-expanded", "false");
+    });
+  });
 }
 
-window.toggleSidebar = toggleSidebar;
-setupSearch();
-setupActiveNavigation();
-loadAllData();
+document.addEventListener("DOMContentLoaded", () => {
+  setupSidebar();
+  setupSearch();
+  setupActiveNavigation();
+  loadAllData();
+});

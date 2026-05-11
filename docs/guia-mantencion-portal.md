@@ -5,8 +5,9 @@
 1. Crear una rama de trabajo para el cambio.
 2. Actualizar archivos JSON en `data/` o documentos Markdown en `docs/`.
 3. Validar sintaxis JSON antes de publicar.
-4. Probar localmente con un servidor estático.
-5. Solicitar revisión del equipo antes de fusionar.
+4. Ejecutar `python3 scripts/validate-static-portal.py` desde la raíz del repositorio.
+5. Probar localmente con un servidor estático.
+6. Solicitar revisión del equipo antes de fusionar.
 
 
 ## Publicación en SharePoint
@@ -25,6 +26,7 @@ Grafana es la fuente oficial para estados vivos, métricas actuales, últimas ej
 - Usar nombres descriptivos y genéricos cuando el detalle real sea confidencial.
 - Mantener responsables, criticidades y enlaces actualizados.
 - Preferir evidencias resumidas y referencias a sistemas oficiales de gestión.
+- Usar `templates/monitoreo.template.json` para nuevas entradas del catálogo de observabilidad.
 
 ## Validación local
 

@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./assets/css/styles.css" />
 </head>
 <body>
+  <a class="skip-link" href="#inicio">Saltar al contenido principal</a>
   <div class="app-shell">
     <aside class="sidebar" id="sidebar" aria-label="Navegación principal">
       <a class="brand" href="#inicio" aria-label="Ir al inicio">
@@ -40,7 +41,7 @@
 
     <main>
       <header class="topbar">
-        <button class="menu-button" type="button" aria-label="Abrir navegación" aria-controls="sidebar" onclick="toggleSidebar()">☰</button>
+        <button class="menu-button" id="menuButton" type="button" aria-label="Abrir navegación" aria-controls="sidebar" aria-expanded="false">☰</button>
         <div class="search-wrap">
           <span aria-hidden="true">🔎</span>
           <input id="searchInput" type="search" placeholder="Buscar productos, runbooks, documentos o conceptos..." autocomplete="off" />
@@ -70,7 +71,7 @@
             <span class="pill">Versión inicial mantenible</span>
           </div>
           <div class="metrics-grid" id="metricsGrid" aria-live="polite"></div>
-          <div class="status-panel" id="statusPanel" aria-live="polite"></div>
+          <div class="status-panel" id="statusPanel" aria-live="polite">Cargando contenido del portal...</div>
         </section>
 
         <section class="searchable" id="modelo" aria-labelledby="modelo-title">

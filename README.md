@@ -45,8 +45,11 @@ Versión inicial refactorizada como proyecto web estático. El portal ya separa 
 ├── templates/
 │   ├── documentacion.template.json
 │   ├── escalamiento.template.json
+│   ├── monitoreo.template.json
 │   ├── producto.template.json
 │   └── runbook.template.json
+├── scripts/
+│   └── validate-static-portal.py
 └── README.md
 ```
 
@@ -67,6 +70,12 @@ http://localhost:8080
 ```
 
 También se puede usar cualquier servidor estático equivalente, por ejemplo extensiones de editor, `npx serve` o un hosting estático corporativo.
+
+Para ejecutar una validación básica de estructura, rutas relativas, JSON, paleta AMSA y campos mínimos del catálogo de monitoreo:
+
+```bash
+python3 scripts/validate-static-portal.py
+```
 
 
 
@@ -131,10 +140,11 @@ Ejemplo de campos obligatorios:
 ## Cómo actualizar el catálogo de monitoreo
 
 1. Abrir `data/monitoreo.json`.
-2. Agregar una entrada por producto o dashboard relevante.
-3. Completar dashboard principal, objetivo, componentes monitoreados, qué revisar primero, frecuencia esperada, criterios OK / WARN / ALERT, runbook asociado, responsable, link a Grafana y observaciones.
-4. Usar links a Grafana sin tokens, credenciales, parámetros sensibles ni rutas internas innecesarias.
-5. Recordar que los criterios son guías interpretativas; el estado real se valida en Grafana.
+2. Usar `templates/monitoreo.template.json` como referencia.
+3. Agregar una entrada por producto o dashboard relevante.
+4. Completar dashboard principal, objetivo, componentes monitoreados, qué revisar primero, frecuencia esperada, criterios OK / WARN / ALERT, runbook asociado, responsable, link a Grafana y observaciones.
+5. Usar links a Grafana sin tokens, credenciales, parámetros sensibles ni rutas internas innecesarias.
+6. Recordar que los criterios son guías interpretativas; el estado real se valida en Grafana.
 
 ## Cómo agregar runbooks
 
@@ -173,6 +183,17 @@ Ejemplo de campos obligatorios:
 1. Abrir `data/capacitaciones.json`.
 2. Agregar módulo, audiencia, duración, objetivo y actividades.
 3. Mantener una orientación práctica: contexto, herramientas, diagnóstico, runbooks, escalamientos y cierre de incidentes.
+
+
+## Mejoras de robustez del portal
+
+La aplicación cliente incluye validaciones defensivas para mantener el portal utilizable ante errores de contenido:
+
+- Valida si cada archivo JSON cargado tiene la estructura base esperada.
+- Muestra mensajes claros si un JSON no carga o no es válido.
+- Usa estados vacíos por sección cuando no hay contenido registrado.
+- Sanitiza textos antes de renderizarlos y restringe URLs dinámicas a rutas relativas o enlaces `http`/`https`.
+- Mantiene navegación accesible con botón lateral sin JavaScript inline y link para saltar al contenido principal.
 
 ## Buenas prácticas de mantención
 

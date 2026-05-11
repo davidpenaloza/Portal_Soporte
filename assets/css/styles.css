@@ -40,7 +40,10 @@ body {
 }
 
 a { color: inherit; }
+:focus-visible { outline: 3px solid var(--amsa-yellow); outline-offset: 3px; }
 code { color: var(--amsa-blue); font-weight: 700; }
+.skip-link { position: fixed; left: 16px; top: 16px; z-index: 100; transform: translateY(-140%); padding: 10px 14px; border-radius: 999px; color: #fff; background: var(--amsa-black); font-weight: 800; text-decoration: none; transition: transform 0.2s ease; }
+.skip-link:focus { transform: translateY(0); }
 
 .app-shell { display: grid; grid-template-columns: 300px minmax(0, 1fr); min-height: 100vh; }
 .sidebar {
@@ -82,6 +85,7 @@ code { color: var(--amsa-blue); font-weight: 700; }
 }
 .nav-links a:hover,
 .nav-links a.active { color: #fff; background: rgba(255, 255, 255, 0.12); }
+.nav-links a:focus-visible { outline-offset: 2px; }
 .sidebar-note {
   display: grid;
   gap: 6px;
@@ -183,7 +187,7 @@ section.hidden-by-search { display: none; }
 .grid { display: grid; gap: 18px; }
 .grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.metrics-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 18px; }
 .card,
 .metric-card {
   position: relative;
@@ -197,6 +201,7 @@ section.hidden-by-search { display: none; }
 .card h3,
 .metric-card h3 { margin: 0 0 8px; color: var(--amsa-blue); font-size: 1.02rem; }
 .card p { margin: 0 0 12px; color: var(--amsa-muted); }
+.card.is-empty { border-style: dashed; background: #FBFCFC; }
 .metric-card strong { display: block; margin-bottom: 5px; color: var(--amsa-blue); font-size: 2.1rem; letter-spacing: -0.05em; }
 .meta-list { display: grid; gap: 8px; margin-top: 14px; }
 .meta-item { display: flex; justify-content: space-between; gap: 12px; padding-top: 8px; border-top: 1px solid #EEF1F1; font-size: 0.88rem; }
@@ -209,7 +214,7 @@ section.hidden-by-search { display: none; }
 .status.info,
 .tag { color: var(--amsa-blue); background: var(--amsa-blue-3); }
 .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-.status-panel { display: grid; gap: 10px; margin-top: 16px; }
+.status-panel { display: grid; gap: 10px; margin-top: 16px; color: var(--amsa-muted); }
 
 .monitoring-card h4 { margin: 18px 0 8px; color: var(--amsa-blue); font-size: 0.94rem; }
 .criteria-list { display: grid; gap: 10px; margin: 18px 0; }
