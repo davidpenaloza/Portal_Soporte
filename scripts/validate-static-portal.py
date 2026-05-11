@@ -57,7 +57,8 @@ REQUIRED_RELATION_FIELDS = [
     "productoId", "fuenteId", "faena", "ambiente", "tipoDependencia", "criticidadRelacion", "fuenteObligatoria", "componenteAfectado", "impactoSiFalla", "sintomaVisible", "dashboardDondeSeDetecta", "validacionInicial", "runbookAsociado", "escalamiento", "evidenciaMinima", "observaciones",
 ]
 REQUIRED_MONITORING_FIELDS = ["producto", "dashboardPrincipal", "objetivoDashboard", "componentesMonitoreados", "revisarPrimero", "frecuenciaEsperada", "criterios", "runbookAsociado", "responsable", "linkGrafana", "observaciones"]
-REQUIRED_MONITORING_MODEL_FIELDS = ["titulo", "archivo", "descripcion", "tipo", "markdownUrl", "viewerUrl"]
+REQUIRED_MONITORING_MODEL_FIELDS = ["id", "nombre", "descripcion", "fuenteOficial", "estado", "responsable", "ultimaRevision", "documentos", "tags"]
+REQUIRED_MONITORING_MODEL_DOC_FIELDS = ["titulo", "archivo", "tipo", "descripcion", "markdownUrl", "viewerUrl", "tags"]
 REQUIRED_ESCALATION_FIELDS = ["tipoEntidad", "productoId", "fuenteId", "ambiente", "faena", "tipoProblema", "sintomaVisible", "diagnosticoInicial", "evidenciaMinima", "equipoEscalamiento", "canal", "cuandoEscalar", "cuandoNoEscalarTodavia", "urgencia", "horarioAplicable", "observaciones"]
 
 PROHIBITED_TERMS = ["local" + "Storage", "content" + "editable", "modo " + "edición", "data " + "governance"]
@@ -150,9 +151,14 @@ def main() -> None:
         assert_true(all(key in criteria for key in ["ok", "warn", "alert"]), "Cada criterio debe incluir ok, warn y alert")
 
     for entry in monitoring_models:
-        assert_true(entry["markdownUrl"].startswith("./docs/") and entry["markdownUrl"].endswith(".md"), f"markdownUrl inválida en modelo de monitoreo: {entry['markdownUrl']}")
-        assert_true(entry["viewerUrl"].startswith("./documento.html?doc=docs/") and entry["viewerUrl"].endswith(".md"), f"viewerUrl inválida en modelo de monitoreo: {entry['viewerUrl']}")
-        assert_true("../" not in entry["viewerUrl"], f"viewerUrl insegura en modelo de monitoreo: {entry['viewerUrl']}")
+        assert_true(isinstance(entry["documentos"], list) and entry["documentos"], f"Modelo de monitoreo sin documentos: {entry['id']}")
+        assert_true(entry["fuenteOficial"].startswith("docs/modelo-monitoreo/"), f"fuenteOficial inválida: {entry['fuenteOficial']}")
+        validate_fields(entry["documentos"], REQUIRED_MONITORING_MODEL_DOC_FIELDS, f"documentos de {entry['id']}")
+        for document in entry["documentos"]:
+            assert_true(document["markdownUrl"].startswith("./docs/modelo-monitoreo/") and document["markdownUrl"].endswith(".md"), f"markdownUrl inválida en modelo de monitoreo: {document['markdownUrl']}")
+            assert_true(document["viewerUrl"].startswith("./documento.html?doc=docs/modelo-monitoreo/") and document["viewerUrl"].endswith(".md"), f"viewerUrl inválida en modelo de monitoreo: {document['viewerUrl']}")
+            assert_true("../" not in document["viewerUrl"], f"viewerUrl insegura en modelo de monitoreo: {document['viewerUrl']}")
+            assert_true((ROOT / document["markdownUrl"].removeprefix("./")).exists(), f"Documento Markdown inexistente: {document['markdownUrl']}")
 
     Parser().feed(read("documento.html"))
     read("assets/js/markdown-viewer.js")

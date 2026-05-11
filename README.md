@@ -76,7 +76,14 @@ Valores esperados: `Follow`, `En toma de control`, `Soporte activo`, `Soporte pa
 │   ├── nuevo-modelo-monitoreo.md
 │   ├── modelo-monitoreo/
 │   │   ├── README.md
+│   │   ├── arquitectura-modelo.md
 │   │   ├── catalogo-funciones.md
+│   │   ├── convenciones-nombrado.md
+│   │   ├── estandar-funciones-kql.md
+│   │   ├── guia-implementacion-grafana.md
+│   │   ├── guia-implementacion-law.md
+│   │   ├── guia-nuevo-producto.md
+│   │   ├── traspaso-soporte.md
 │   │   └── troubleshooting.md
 │   ├── modelo-operativo.md
 │   ├── necesidades-dolores-portal-soporte.md
@@ -114,6 +121,12 @@ Para ejecutar una validación básica de estructura, rutas relativas, JSON, pale
 python3 scripts/validate-static-portal.py
 ```
 
+## Nuevo Modelo de Monitoreo
+
+El portal tiene un ítem propio llamado **Nuevo modelo de monitoreo** en la navegación lateral (`#modelo-monitoreo`). Esta vista centraliza la explicación ejecutiva y operativa del modelo técnico-operativo para KQL, LAW, Grafana, helpers, wrappers, troubleshooting y traspaso a soporte.
+
+La documentación fuente vive en `docs/modelo-monitoreo/` y se registra en `data/modelos-monitoreo.json`. Cada documento debe publicar su enlace principal mediante `viewerUrl` para abrirse dentro del portal con formato AMSA.
+
 ## Visor interno de documentación Markdown
 
 El portal incluye `documento.html`, una página estática para mostrar archivos Markdown con estilos consistentes con la identidad visual AMSA. En vez de enlazar directamente a un archivo `.md`, usar el visor con el parámetro `doc`:
@@ -140,9 +153,10 @@ Las utilidades locales en `assets/vendor/` implementan la funcionalidad necesari
 
 1. Crear el archivo dentro de `docs/`, preferentemente en una subcarpeta temática como `docs/modelo-monitoreo/`.
 2. Registrar el documento en `data/documentacion.json` usando `markdownUrl` y `viewerUrl`.
-3. Si pertenece al modelo de monitoreo, registrarlo también en `data/modelos-monitoreo.json` con `titulo`, `archivo`, `descripcion`, `tipo`, `markdownUrl` y `viewerUrl`.
+3. Si pertenece al modelo de monitoreo, registrarlo dentro del arreglo `documentos` de `data/modelos-monitoreo.json` con `titulo`, `archivo`, `tipo`, `descripcion`, `markdownUrl`, `viewerUrl` y `tags`.
 4. Enlazar siempre la experiencia principal con `viewerUrl`, por ejemplo `./documento.html?doc=docs/modelo-monitoreo/nuevo-documento.md`.
-5. Reservar `markdownUrl` solo como respaldo para abrir el archivo crudo.
+5. Registrar también el documento en `data/documentacion.json` cuando deba aparecer en el repositorio documental global.
+6. Reservar `markdownUrl` solo como respaldo para trazabilidad del archivo fuente.
 
 No se recomienda enlazar directamente a `.md` cuando se busca una experiencia visual profesional, porque el navegador muestra el archivo crudo fuera del diseño, navegación y estilos del portal.
 
@@ -209,8 +223,8 @@ Cuando falla una fuente:
 
 ## Cómo actualizar monitoreo operativo
 
-1. Revisar `./documento.html?doc=docs/modelo-monitoreo/README.md` o `./documento.html?doc=docs/nuevo-modelo-monitoreo.md` para clasificar el síntoma en las capas de infraestructura, ingestas, procesamiento, aplicación, dominio o gestión.
-2. Abrir `data/monitoreo.json` y, si corresponde, `data/modelos-monitoreo.json`.
+1. Revisar el ítem **Nuevo modelo de monitoreo** en el portal o abrir `./documento.html?doc=docs/modelo-monitoreo/README.md` para clasificar el síntoma en las capas de infraestructura, ingestas, procesamiento, aplicación, dominio o gestión.
+2. Abrir `data/monitoreo.json` para dashboards/mapas operativos y `data/modelos-monitoreo.json` para documentación técnica del modelo.
 3. Usar `templates/monitoreo.template.json` como referencia.
 4. Documentar dónde mirar en Grafana, qué componente cubre, qué revisar primero, criterios OK/WARN/ALERT, runbook y responsable.
 5. No copiar estados en tiempo real, últimas ejecuciones, errores vivos ni métricas dinámicas al portal.

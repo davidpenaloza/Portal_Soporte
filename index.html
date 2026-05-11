@@ -27,6 +27,7 @@
         <a href="#fuentes">Fuentes soportadas</a>
         <a href="#relaciones">Mapa producto-fuente</a>
         <a href="#ambientes">Ambientes</a>
+        <a href="#modelo-monitoreo">Nuevo modelo de monitoreo</a>
         <a href="#monitoreo">Catálogo de monitoreo</a>
         <a href="#incidentes">Incidentes</a>
         <a href="#escalamientos">Escalamientos</a>
@@ -94,6 +95,23 @@
           <div class="grid cols-3" id="modeloMonitoreoGrid"></div>
         </section>
 
+        <section class="searchable" id="modelo-monitoreo" aria-labelledby="modelo-monitoreo-title">
+          <div class="section-header">
+            <div>
+              <h2 id="modelo-monitoreo-title">Nuevo modelo de monitoreo</h2>
+              <p>Modelo técnico-operativo para estandarizar monitoreo, funciones KQL, LAW, Grafana, helpers, wrappers, troubleshooting y traspaso a soporte.</p>
+            </div>
+            <a class="pill" href="./documento.html?doc=docs/modelo-monitoreo/README.md">Ver índice del modelo</a>
+          </div>
+          <div class="callout">Grafana sigue siendo la fuente oficial del monitoreo vivo. Esta sección documenta el modelo técnico-operativo, sus funciones, estándares, guías y criterios de uso para soporte.</div>
+          <div id="modeloMonitoreoResumen" class="model-summary"></div>
+          <div class="subsection-heading">
+            <h3>Documentación del modelo</h3>
+            <p>Documentos Markdown renderizados dentro del portal con formato AMSA. Usa “Ver documento” para abrir el visor interno, no el archivo crudo.</p>
+          </div>
+          <div class="grid cols-3" id="modeloMonitoreoDocsGrid"></div>
+        </section>
+
         <section class="searchable" id="productos" aria-labelledby="productos-title">
           <div class="section-header">
             <div>
@@ -146,15 +164,7 @@
             </div>
             <a class="pill" href="./documento.html?doc=docs/estandar-monitoreo.md">Guía de observabilidad</a>
           </div>
-          <div class="subsection-heading">
-            <h3>Documentos del modelo de monitoreo</h3>
-            <p>Guías Markdown renderizadas dentro del visor del portal para mantener una experiencia visual consistente.</p>
-          </div>
-          <div class="grid cols-3" id="modelosMonitoreoGrid"></div>
-          <div class="subsection-heading">
-            <h3>Dashboards y mapas de observabilidad</h3>
-            <p>Referencias operativas para revisar productos, componentes, criterios y runbooks asociados.</p>
-          </div>
+          <div class="callout">El detalle documental del nuevo estándar vive en la sección <a href="#modelo-monitoreo">Nuevo modelo de monitoreo</a>.</div>
           <div class="grid cols-2" id="monitoreoGrid"></div>
         </section>
 

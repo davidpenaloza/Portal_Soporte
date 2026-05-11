@@ -2,7 +2,7 @@
   {
     "titulo": "Modelo operativo de soporte",
     "tipo": "Guía operativa",
-    "url": "./docs/modelo-operativo.md",
+    "url": "./documento.html?doc=docs/modelo-operativo.md",
     "descripcion": "Define productos, fuentes, relaciones producto-fuente, ambientes, fases de soporte y límites operativos del equipo.",
     "estado": "Base",
     "markdownUrl": "./docs/modelo-operativo.md",
@@ -11,7 +11,7 @@
   {
     "titulo": "Catálogo de monitoreo y observabilidad",
     "tipo": "Guía operativa",
-    "url": "./docs/estandar-monitoreo.md",
+    "url": "./documento.html?doc=docs/estandar-monitoreo.md",
     "descripcion": "Explica cómo usar Grafana como fuente oficial de monitoreo en tiempo real y cómo mantener el catálogo documental de observabilidad.",
     "estado": "Base",
     "markdownUrl": "./docs/estandar-monitoreo.md",
@@ -20,7 +20,7 @@
   {
     "titulo": "Nuevo modelo de monitoreo por capas",
     "tipo": "Guía operativa",
-    "url": "./docs/nuevo-modelo-monitoreo.md",
+    "url": "./documento.html?doc=docs/nuevo-modelo-monitoreo.md",
     "descripcion": "Documenta las seis capas del modelo de monitoreo, el checklist mínimo para dashboards estándar y el criterio de uso operativo antes de resolver o escalar.",
     "estado": "Base",
     "markdownUrl": "./docs/nuevo-modelo-monitoreo.md",
@@ -29,7 +29,7 @@
   {
     "titulo": "Traspaso a soporte",
     "tipo": "Checklist",
-    "url": "./docs/traspaso-soporte.md",
+    "url": "./documento.html?doc=docs/traspaso-soporte.md",
     "descripcion": "Lista antecedentes requeridos para recibir productos, fuentes o relaciones en operación de soporte.",
     "estado": "Base",
     "markdownUrl": "./docs/traspaso-soporte.md",
@@ -38,7 +38,7 @@
   {
     "titulo": "Guía de mantención del portal",
     "tipo": "Manual repositorio",
-    "url": "./docs/guia-mantencion-portal.md",
+    "url": "./documento.html?doc=docs/guia-mantencion-portal.md",
     "descripcion": "Explica cómo actualizar JSON, Markdown y templates sin introducir información sensible.",
     "estado": "Base",
     "markdownUrl": "./docs/guia-mantencion-portal.md",
@@ -47,37 +47,150 @@
   {
     "titulo": "Necesidades y dolores operativos que aborda el Portal de Soporte",
     "tipo": "Levantamiento de necesidades",
-    "url": "./docs/necesidades-dolores-portal-soporte.md",
+    "url": "./documento.html?doc=docs/necesidades-dolores-portal-soporte.md",
     "descripcion": "Hipótesis iniciales sobre necesidades, dolores operativos, perfiles a entrevistar, preguntas y criterios de éxito del portal.",
     "estado": "Borrador / Por validar",
     "markdownUrl": "./docs/necesidades-dolores-portal-soporte.md",
     "viewerUrl": "./documento.html?doc=docs/necesidades-dolores-portal-soporte.md"
   },
   {
-    "titulo": "Modelo de monitoreo",
-    "tipo": "Guía operativa",
-    "url": "./docs/modelo-monitoreo/README.md",
+    "titulo": "README del modelo",
+    "tipo": "Índice",
+    "url": "./documento.html?doc=docs/modelo-monitoreo/README.md",
     "markdownUrl": "./docs/modelo-monitoreo/README.md",
     "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/README.md",
-    "descripcion": "Resumen del modelo de monitoreo por capas, principios operativos y uso recomendado para soporte.",
-    "estado": "Base"
+    "descripcion": "Entrada principal a la documentación del nuevo modelo de monitoreo.",
+    "estado": "En construcción",
+    "tags": [
+      "modelo",
+      "monitoreo",
+      "índice"
+    ]
+  },
+  {
+    "titulo": "Arquitectura del modelo",
+    "tipo": "Arquitectura",
+    "url": "./documento.html?doc=docs/modelo-monitoreo/arquitectura-modelo.md",
+    "markdownUrl": "./docs/modelo-monitoreo/arquitectura-modelo.md",
+    "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/arquitectura-modelo.md",
+    "descripcion": "Explica la estructura general del modelo, capas, funciones, helpers, dominios y wrappers.",
+    "estado": "En construcción",
+    "tags": [
+      "arquitectura",
+      "modelo",
+      "monitoreo"
+    ]
   },
   {
     "titulo": "Catálogo de funciones",
     "tipo": "Catálogo técnico",
-    "url": "./docs/modelo-monitoreo/catalogo-funciones.md",
+    "url": "./documento.html?doc=docs/modelo-monitoreo/catalogo-funciones.md",
     "markdownUrl": "./docs/modelo-monitoreo/catalogo-funciones.md",
     "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/catalogo-funciones.md",
-    "descripcion": "Lista y explica funciones KQL, helpers, fuentes, dominios y wrappers.",
-    "estado": "Base"
+    "descripcion": "Lista y explica funciones KQL, helpers, fuentes, dominios y wrappers disponibles.",
+    "estado": "En construcción",
+    "tags": [
+      "funciones",
+      "KQL",
+      "catálogo"
+    ]
+  },
+  {
+    "titulo": "Convenciones de nombrado",
+    "tipo": "Estándar",
+    "url": "./documento.html?doc=docs/modelo-monitoreo/convenciones-nombrado.md",
+    "markdownUrl": "./docs/modelo-monitoreo/convenciones-nombrado.md",
+    "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/convenciones-nombrado.md",
+    "descripcion": "Define estándares de nombres para funciones, wrappers, productos, fuentes y dominios.",
+    "estado": "En construcción",
+    "tags": [
+      "naming",
+      "convenciones",
+      "estándar"
+    ]
+  },
+  {
+    "titulo": "Estándar de funciones KQL",
+    "tipo": "KQL",
+    "url": "./documento.html?doc=docs/modelo-monitoreo/estandar-funciones-kql.md",
+    "markdownUrl": "./docs/modelo-monitoreo/estandar-funciones-kql.md",
+    "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/estandar-funciones-kql.md",
+    "descripcion": "Define buenas prácticas y estructura esperada para funciones KQL.",
+    "estado": "En construcción",
+    "tags": [
+      "KQL",
+      "funciones",
+      "estándar"
+    ]
+  },
+  {
+    "titulo": "Guía de implementación en Grafana",
+    "tipo": "Grafana",
+    "url": "./documento.html?doc=docs/modelo-monitoreo/guia-implementacion-grafana.md",
+    "markdownUrl": "./docs/modelo-monitoreo/guia-implementacion-grafana.md",
+    "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/guia-implementacion-grafana.md",
+    "descripcion": "Explica cómo consumir el modelo desde dashboards y paneles en Grafana.",
+    "estado": "En construcción",
+    "tags": [
+      "Grafana",
+      "dashboard",
+      "implementación"
+    ]
+  },
+  {
+    "titulo": "Guía de implementación en LAW",
+    "tipo": "LAW",
+    "url": "./documento.html?doc=docs/modelo-monitoreo/guia-implementacion-law.md",
+    "markdownUrl": "./docs/modelo-monitoreo/guia-implementacion-law.md",
+    "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/guia-implementacion-law.md",
+    "descripcion": "Explica cómo implementar y validar funciones en Log Analytics Workspace.",
+    "estado": "En construcción",
+    "tags": [
+      "LAW",
+      "Log Analytics",
+      "implementación"
+    ]
+  },
+  {
+    "titulo": "Guía para nuevo producto",
+    "tipo": "Implementación",
+    "url": "./documento.html?doc=docs/modelo-monitoreo/guia-nuevo-producto.md",
+    "markdownUrl": "./docs/modelo-monitoreo/guia-nuevo-producto.md",
+    "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/guia-nuevo-producto.md",
+    "descripcion": "Explica cómo incorporar un nuevo producto al modelo de monitoreo.",
+    "estado": "En construcción",
+    "tags": [
+      "nuevo producto",
+      "implementación",
+      "monitoreo"
+    ]
+  },
+  {
+    "titulo": "Traspaso a soporte",
+    "tipo": "Soporte",
+    "url": "./documento.html?doc=docs/modelo-monitoreo/traspaso-soporte.md",
+    "markdownUrl": "./docs/modelo-monitoreo/traspaso-soporte.md",
+    "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/traspaso-soporte.md",
+    "descripcion": "Explica lo que soporte necesita saber para operar y diagnosticar usando el modelo.",
+    "estado": "En construcción",
+    "tags": [
+      "soporte",
+      "traspaso",
+      "operación"
+    ]
   },
   {
     "titulo": "Troubleshooting",
-    "tipo": "Runbook de diagnóstico",
-    "url": "./docs/modelo-monitoreo/troubleshooting.md",
+    "tipo": "Troubleshooting",
+    "url": "./documento.html?doc=docs/modelo-monitoreo/troubleshooting.md",
     "markdownUrl": "./docs/modelo-monitoreo/troubleshooting.md",
     "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/troubleshooting.md",
-    "descripcion": "Flujo rápido para diagnosticar síntomas comunes, decidir acciones y escalar con evidencia mínima.",
-    "estado": "Base"
+    "descripcion": "Errores frecuentes, causas probables y pasos de diagnóstico.",
+    "estado": "En construcción",
+    "tags": [
+      "errores",
+      "troubleshooting",
+      "diagnóstico"
+    ]
   }
 ]

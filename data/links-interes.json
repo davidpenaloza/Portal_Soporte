@@ -34,5 +34,11 @@
     "categoria": "Gestión",
     "descripcion": "Referencia conceptual para clasificación, seguimiento y cierre de tickets.",
     "url": "https://www.atlassian.com/itsm"
+  },
+  {
+    "nombre": "Nuevo modelo de monitoreo",
+    "categoria": "Documentación técnica",
+    "descripcion": "Ítem principal del portal para revisar el modelo técnico-operativo de monitoreo, funciones KQL, LAW, Grafana, helpers, wrappers y troubleshooting.",
+    "url": "./documento.html?doc=docs/modelo-monitoreo/README.md"
   }
 ]

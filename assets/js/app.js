@@ -34,6 +34,8 @@ const appState = {
 const $ = (selector) => document.querySelector(selector);
 const isArraySource = (name) => Array.isArray(dataDefaults[name]);
 const asList = (name) => Array.isArray(appState.data[name]) ? appState.data[name] : [];
+const modeloMonitoreoItems = () => asList("modelosMonitoreo");
+const modeloMonitoreoDocumentos = () => modeloMonitoreoItems().flatMap((modelo) => (modelo.documentos || []).map((doc) => ({ ...doc, modeloNombre: modelo.nombre })));
 
 function escapeHtml(value = "") {
   return String(value ?? "")
@@ -57,6 +59,11 @@ function safeUrl(value = "", fallback = "#") {
   }
 
   return fallback;
+}
+
+function linkAttrs(url = "") {
+  const normalized = String(url || "").trim();
+  return normalized.startsWith("http://") || normalized.startsWith("https://") ? ' target="_blank" rel="noreferrer"' : "";
 }
 
 function documentViewerUrl(item = {}) {
@@ -146,6 +153,7 @@ function renderPortal() {
   renderMetrics();
   renderStatusPanel();
   renderModelo();
+  renderModeloMonitoreo();
   renderProductos();
   renderFuentes();
   renderRelaciones();
@@ -224,6 +232,40 @@ function renderModelo() {
       </article>
     `).join("")
     : renderEmptyCard("Agrega capas del modelo de monitoreo en data/modelo-operativo.json.");
+}
+
+function renderModeloMonitoreo() {
+  const modelos = modeloMonitoreoItems();
+  const documentos = modeloMonitoreoDocumentos();
+  const modelo = modelos[0];
+
+  if (modelo) {
+    $("#modeloMonitoreoResumen").innerHTML = `
+      <div class="grid cols-4">
+        <article class="metric-card searchable-item"><strong>${documentos.length}</strong><h3>Documentos disponibles</h3><p>${escapeHtml(modelo.fuenteOficial)}</p></article>
+        <article class="metric-card searchable-item"><strong>${escapeHtml(modelo.estado)}</strong><h3>Estado</h3><p>Última revisión: ${escapeHtml(modelo.ultimaRevision)}</p></article>
+        <article class="metric-card searchable-item"><strong>AMSA</strong><h3>Responsable</h3><p>${escapeHtml(modelo.responsable)}</p></article>
+        <article class="metric-card searchable-item"><strong>KQL</strong><h3>Foco técnico</h3><p>LAW · Grafana · helpers · wrappers</p></article>
+      </div>
+      ${renderTags(modelo.tags)}
+    `;
+  } else {
+    $("#modeloMonitoreoResumen").innerHTML = renderEmptyCard("Agrega el modelo en data/modelos-monitoreo.json.");
+  }
+
+  $("#modeloMonitoreoDocsGrid").innerHTML = documentos.length ? documentos.map((doc) => `
+    <article class="card doc-card searchable-item">
+      <span class="tag">${escapeHtml(doc.tipo)}</span>
+      <h3>${escapeHtml(doc.titulo)}</h3>
+      <p>${escapeHtml(doc.descripcion)}</p>
+      <div class="meta-list">
+        <div class="meta-item"><span>Archivo</span><strong>${escapeHtml(doc.archivo)}</strong></div>
+        <div class="meta-item"><span>Modelo</span><strong>${escapeHtml(doc.modeloNombre)}</strong></div>
+      </div>
+      ${renderTags(doc.tags)}
+      <p><a class="pill" href="${safeUrl(documentViewerUrl(doc))}">Ver documento</a></p>
+    </article>
+  `).join("") : renderEmptyCard("Agrega documentos del modelo de monitoreo en data/modelos-monitoreo.json.");
 }
 
 function renderProductos() {
@@ -337,22 +379,6 @@ function renderAmbientes() {
 
 function renderMonitoreo() {
   const catalogo = asList("monitoreo");
-  const documentosModelo = asList("modelosMonitoreo");
-
-  $("#modelosMonitoreoGrid").innerHTML = documentosModelo.length ? documentosModelo.map((doc) => `
-    <article class="card searchable-item">
-      <span class="tag">${escapeHtml(doc.tipo)}</span>
-      <h3>${escapeHtml(doc.titulo)}</h3>
-      <p>${escapeHtml(doc.descripcion)}</p>
-      <div class="meta-list">
-        <div class="meta-item"><span>Archivo</span><strong>${escapeHtml(doc.archivo)}</strong></div>
-      </div>
-      <p>
-        <a class="pill" href="${safeUrl(documentViewerUrl(doc))}">Ver documento</a>
-        <a class="pill" href="${safeUrl(doc.markdownUrl)}" target="_blank" rel="noreferrer">Markdown original</a>
-      </p>
-    </article>
-  `).join("") : renderEmptyCard("Agrega documentos del modelo de monitoreo en data/modelos-monitoreo.json.");
 
   $("#monitoreoGrid").innerHTML = catalogo.length ? catalogo.map((item) => `
     <article class="card monitoring-card searchable-item">
@@ -459,7 +485,7 @@ function renderLinks() {
       <span class="tag">${escapeHtml(link.categoria)}</span>
       <h3>${escapeHtml(link.nombre)}</h3>
       <p>${escapeHtml(link.descripcion)}</p>
-      <p><a class="pill" href="${safeUrl(link.url)}" target="_blank" rel="noreferrer">Abrir referencia</a></p>
+      <p><a class="pill" href="${safeUrl(link.url)}"${linkAttrs(link.url)}>Abrir referencia</a></p>
     </article>
   `).join("") : renderEmptyCard("Agrega links de interés en data/links-interes.json.");
 }
