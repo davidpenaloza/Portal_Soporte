@@ -1,0 +1,7 @@
+{
+  "nivel": "N1 | N2 | N3 | Gestión funcional",
+  "criterio": "Condición que activa el escalamiento",
+  "tiempoObjetivo": "Tiempo esperado para respuesta o diagnóstico inicial",
+  "responsable": "Equipo o rol responsable",
+  "salidaEsperada": "Resultado mínimo esperado del escalamiento"
+}

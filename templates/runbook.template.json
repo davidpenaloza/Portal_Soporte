@@ -1,0 +1,18 @@
+{
+  "id": "runbook-identificador-unico",
+  "titulo": "Título del runbook",
+  "producto": "Producto relacionado",
+  "severidadSugerida": "Crítica | Alta | Media | Baja",
+  "objetivo": "Qué problema ayuda a diagnosticar o resolver",
+  "pasos": [
+    "Paso 1 con acción verificable",
+    "Paso 2 con evidencia esperada",
+    "Paso 3 con criterio de escalamiento"
+  ],
+  "evidenciaMinima": [
+    "Captura o métrica relevante",
+    "Timestamp de revisión",
+    "Mensaje de error resumido"
+  ],
+  "estado": "Base | En construcción | Validado"
+}
