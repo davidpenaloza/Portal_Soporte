@@ -1,0 +1,24 @@
+{
+  "id": "runbook-identificador-unico",
+  "tipoRunbook": "Transversal | Producto | Fuente",
+  "titulo": "Título del runbook",
+  "ambiente": "PRD | UAT | STAGE | DEV | Transversal",
+  "productoId": "prod-identificador-o-null",
+  "fuenteId": "fte-identificador-o-null",
+  "severidadSugerida": "Crítica | Alta | Media | Baja | Según criticidad de entidad",
+  "objetivo": "Qué problema ayuda a diagnosticar o resolver",
+  "pasos": [
+    "Paso 1 con acción verificable",
+    "Paso 2 con evidencia esperada",
+    "Paso 3 con criterio de escalamiento"
+  ],
+  "evidenciaMinima": [
+    "Entidad afectada",
+    "Ambiente",
+    "Timestamp",
+    "Mensaje o síntoma"
+  ],
+  "estado": "Base | En construcción | Validado | Pendiente",
+  "ultimaRevision": "YYYY-MM-DD",
+  "tags": ["tag1", "tag2"]
+}

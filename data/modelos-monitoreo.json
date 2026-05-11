@@ -1,0 +1,115 @@
+[
+  {
+    "id": "modelo-monitoreo-estandar",
+    "nombre": "Nuevo modelo de monitoreo",
+    "descripcion": "Modelo técnico-operativo para estandarizar monitoreo, funciones KQL, LAW, Grafana, helpers, wrappers, troubleshooting y traspaso a soporte.",
+    "fuenteOficial": "docs/modelo-monitoreo/",
+    "estado": "En construcción",
+    "responsable": "Soporte Data & Analítica Avanzada",
+    "ultimaRevision": "Por definir",
+    "documentos": [
+      {
+        "titulo": "README del modelo",
+        "archivo": "README.md",
+        "tipo": "Índice",
+        "descripcion": "Entrada principal a la documentación del nuevo modelo de monitoreo.",
+        "markdownUrl": "./docs/modelo-monitoreo/README.md",
+        "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/README.md",
+        "tags": ["modelo", "monitoreo", "índice"]
+      },
+      {
+        "titulo": "Arquitectura del modelo",
+        "archivo": "arquitectura-modelo.md",
+        "tipo": "Arquitectura",
+        "descripcion": "Explica la estructura general del modelo, capas, funciones, helpers, dominios y wrappers.",
+        "markdownUrl": "./docs/modelo-monitoreo/arquitectura-modelo.md",
+        "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/arquitectura-modelo.md",
+        "tags": ["arquitectura", "modelo", "monitoreo"]
+      },
+      {
+        "titulo": "Catálogo de funciones",
+        "archivo": "catalogo-funciones.md",
+        "tipo": "Catálogo técnico",
+        "descripcion": "Lista y explica funciones KQL, helpers, fuentes, dominios y wrappers disponibles.",
+        "markdownUrl": "./docs/modelo-monitoreo/catalogo-funciones.md",
+        "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/catalogo-funciones.md",
+        "tags": ["funciones", "KQL", "catálogo"]
+      },
+      {
+        "titulo": "Convenciones de nombrado",
+        "archivo": "convenciones-nombrado.md",
+        "tipo": "Estándar",
+        "descripcion": "Define estándares de nombres para funciones, wrappers, productos, fuentes y dominios.",
+        "markdownUrl": "./docs/modelo-monitoreo/convenciones-nombrado.md",
+        "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/convenciones-nombrado.md",
+        "tags": ["naming", "convenciones", "estándar"]
+      },
+      {
+        "titulo": "Estándar de funciones KQL",
+        "archivo": "estandar-funciones-kql.md",
+        "tipo": "KQL",
+        "descripcion": "Define buenas prácticas y estructura esperada para funciones KQL.",
+        "markdownUrl": "./docs/modelo-monitoreo/estandar-funciones-kql.md",
+        "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/estandar-funciones-kql.md",
+        "tags": ["KQL", "funciones", "estándar"]
+      },
+      {
+        "titulo": "Guía de implementación en Grafana",
+        "archivo": "guia-implementacion-grafana.md",
+        "tipo": "Grafana",
+        "descripcion": "Explica cómo consumir el modelo desde dashboards y paneles en Grafana.",
+        "markdownUrl": "./docs/modelo-monitoreo/guia-implementacion-grafana.md",
+        "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/guia-implementacion-grafana.md",
+        "tags": ["Grafana", "dashboard", "implementación"]
+      },
+      {
+        "titulo": "Guía de implementación en LAW",
+        "archivo": "guia-implementacion-law.md",
+        "tipo": "LAW",
+        "descripcion": "Explica cómo implementar y validar funciones en Log Analytics Workspace.",
+        "markdownUrl": "./docs/modelo-monitoreo/guia-implementacion-law.md",
+        "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/guia-implementacion-law.md",
+        "tags": ["LAW", "Log Analytics", "implementación"]
+      },
+      {
+        "titulo": "Guía para nuevo producto",
+        "archivo": "guia-nuevo-producto.md",
+        "tipo": "Implementación",
+        "descripcion": "Explica cómo incorporar un nuevo producto al modelo de monitoreo.",
+        "markdownUrl": "./docs/modelo-monitoreo/guia-nuevo-producto.md",
+        "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/guia-nuevo-producto.md",
+        "tags": ["nuevo producto", "implementación", "monitoreo"]
+      },
+      {
+        "titulo": "Traspaso a soporte",
+        "archivo": "traspaso-soporte.md",
+        "tipo": "Soporte",
+        "descripcion": "Explica lo que soporte necesita saber para operar y diagnosticar usando el modelo.",
+        "markdownUrl": "./docs/modelo-monitoreo/traspaso-soporte.md",
+        "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/traspaso-soporte.md",
+        "tags": ["soporte", "traspaso", "operación"]
+      },
+      {
+        "titulo": "Troubleshooting",
+        "archivo": "troubleshooting.md",
+        "tipo": "Troubleshooting",
+        "descripcion": "Errores frecuentes, causas probables y pasos de diagnóstico.",
+        "markdownUrl": "./docs/modelo-monitoreo/troubleshooting.md",
+        "viewerUrl": "./documento.html?doc=docs/modelo-monitoreo/troubleshooting.md",
+        "tags": ["errores", "troubleshooting", "diagnóstico"]
+      }
+    ],
+    "tags": [
+      "monitoreo",
+      "observabilidad",
+      "KQL",
+      "LAW",
+      "Grafana",
+      "funciones",
+      "wrappers",
+      "helpers",
+      "troubleshooting",
+      "soporte"
+    ]
+  }
+]

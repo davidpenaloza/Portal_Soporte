@@ -1,0 +1,44 @@
+[
+  {
+    "nombre": "Portal cloud corporativo",
+    "categoria": "Plataforma",
+    "descripcion": "Acceso referencial al portal de recursos cloud autorizado por la organización.",
+    "url": "https://portal.azure.com"
+  },
+  {
+    "nombre": "Azure Monitor",
+    "categoria": "Observabilidad",
+    "descripcion": "Referencia para revisar métricas, alertas y disponibilidad de servicios cloud.",
+    "url": "https://learn.microsoft.com/azure/azure-monitor/"
+  },
+  {
+    "nombre": "Grafana",
+    "categoria": "Dashboards",
+    "descripcion": "Referencia pública de la herramienta utilizada para tableros operativos.",
+    "url": "https://grafana.com/docs/"
+  },
+  {
+    "nombre": "Azure Data Factory",
+    "categoria": "Procesamiento",
+    "descripcion": "Documentación pública de pipelines y monitoreo de ejecuciones de datos.",
+    "url": "https://learn.microsoft.com/azure/data-factory/"
+  },
+  {
+    "nombre": "Kusto Query Language",
+    "categoria": "Consultas",
+    "descripcion": "Referencia de sintaxis KQL para consultas en Log Analytics y Application Insights.",
+    "url": "https://learn.microsoft.com/azure/data-explorer/kusto/query/"
+  },
+  {
+    "nombre": "Buenas prácticas ITSM",
+    "categoria": "Gestión",
+    "descripcion": "Referencia conceptual para clasificación, seguimiento y cierre de tickets.",
+    "url": "https://www.atlassian.com/itsm"
+  },
+  {
+    "nombre": "Nuevo modelo de monitoreo",
+    "categoria": "Documentación técnica",
+    "descripcion": "Ítem principal del portal para revisar el modelo técnico-operativo de monitoreo, funciones KQL, LAW, Grafana, helpers, wrappers y troubleshooting.",
+    "url": "./documento.html?doc=docs/modelo-monitoreo/README.md"
+  }
+]
